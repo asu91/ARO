@@ -1,0 +1,13 @@
+{
+  "name": "findAR",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react-native": "^0.21.0",
+    "react-redux": "^4.4.1",
+    "redux": "^3.3.1"
+  }
+}
