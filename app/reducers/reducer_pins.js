@@ -7,7 +7,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type) {
     case 'PIN_MAP':
-      return state;
+      return  Object.assign({}, state);
     default:
       return state;
   }

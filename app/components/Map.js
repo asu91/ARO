@@ -1,4 +1,5 @@
 import React, { Component, PropTypes, StyleSheet, Text, View  } from 'react-native';
+
 export default class Map extends Component {
   constructor(props) {
     super(props);
