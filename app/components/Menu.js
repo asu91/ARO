@@ -8,6 +8,7 @@ import React, {
   Image,
   Text,
   Component,
+  PropTypes
 } from 'react-native';
 const window = Dimensions.get('window');
 const uri = 'http://pickaface.net/includes/themes/clean/img/slide2.png';
@@ -43,9 +44,7 @@ const styles = StyleSheet.create({
 });
 
 export default class Menu extends Component {
-  static propTypes = {
-    onItemSelected: React.PropTypes.func.isRequired,
-  };
+
   render() {
     return (
       <ScrollView scrollsToTop={false} style={styles.menu}>
@@ -71,3 +70,7 @@ export default class Menu extends Component {
     );
   }
 };
+
+Menu.propTypes = {
+    onItemSelected: PropTypes.func.isRequired,
+  };
