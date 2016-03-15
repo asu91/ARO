@@ -21,6 +21,9 @@ const SideMenu = require('react-native-side-menu');
 var store = createStore(rootReducer);
 
 class findAR extends Component {
+  onMenuItemSelected () {
+    return '';
+  }
   render() {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigator={navigator}/>;
     return (
