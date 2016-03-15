@@ -1,3 +1,5 @@
+// Note: this is not finished, only shows menu for now
+//menu options not functional
 import React, {
   Dimensions,
   StyleSheet,
@@ -51,7 +53,7 @@ export default class Menu extends Component {
           <Image
             style={styles.avatar}
             source={{ uri, }}/>
-          <Text style={styles.name}>Hi, Tiffany</Text>
+          <Text style={styles.name}>Hi, InterruptedLobster!</Text>
         </View>
 
         <Text
