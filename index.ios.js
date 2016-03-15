@@ -13,19 +13,25 @@ import React, {
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './app/reducers/rootReducer.js';
-import Map from './app/components/Map.js';
+import ViewContainer from './app/components/ViewContainer.js';
+import Menu from './app/components/Menu.js';
+
+const SideMenu = require('react-native-side-menu');
+
 var store = createStore(rootReducer);
 
 class findAR extends Component {
   render() {
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} navigator={navigator}/>;
     return (
-      <Map/>
+      <Provider store= {store}>
+        <SideMenu menu={menu}>
+          <ViewContainer/>
+        </SideMenu>
+      </Provider>
     );
   }
 }
-
-
-
 
 AppRegistry.registerComponent('findAR', () => findAR);
 
