@@ -168,7 +168,17 @@ export default class AR extends Component {
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
-        
+        <View style={styles.webviewcont}>
+          <WebViewBridge 
+            ref="webviewbridge"
+            automaticallyAdjustContentInsets={true}
+            source={{ html: HTML }}
+            style={styles.webView}
+            injectedJavaScript={ BRIDGE_INJECT_SCRIPT }
+            javaScriptEnabled={true}
+            scalesPageToFit={true}
+          />
+        </View>
       </View>
     )
   }
