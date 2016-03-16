@@ -16,6 +16,8 @@ import rootReducer from './app/reducers/rootReducer.js';
 import Map from './app/components/Map.js';
 var store = createStore(rootReducer);
 
+const Firebase = require('firebase');
+
 class findAR extends Component {
   render() {
     return (
