@@ -20,6 +20,8 @@ const SideMenu = require('react-native-side-menu');
 
 var store = createStore(rootReducer);
 
+const Firebase = require('firebase');
+
 class findAR extends Component {
   onMenuItemSelected () {
     return '';
