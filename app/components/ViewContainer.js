@@ -10,15 +10,15 @@ export default class ViewContainer extends Component {
       view: 'map'
     };
   }
-  getLocation() {
-
-  }
+  //we might need this
+  // getLocation() {
+  // }
   render() {
     return (
       <View>
         <AR/>
         <Map/>
-        <DropNewPinButton />
+        <DropNewPinButton current />
       </View>
     );
   }
