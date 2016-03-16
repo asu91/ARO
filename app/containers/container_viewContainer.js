@@ -20,10 +20,6 @@ import ViewContainer from '../components/ViewContainer.js';
 
 //   };
 // }
-function getLocation() {
-
-}
-
 function mapStateToProps(state) {
   return {
     pins: state.pins,
@@ -31,10 +27,7 @@ function mapStateToProps(state) {
   };
 }
 function mapDispatchToProps(dispatch){
-  return {
-     actions: bindActionCreators({ }, dispatch)
-    }
-  }
+  //TODO: figure out which actions to dispatch
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewContainer);
