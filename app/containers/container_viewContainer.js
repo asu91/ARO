@@ -20,9 +20,14 @@ import ViewContainer from '../components/ViewContainer.js';
 
 //   };
 // }
+function getLocation() {
+
+}
+
 function mapStateToProps(state) {
   return {
-    pins: state.pins
+    pins: state.pins,
+    // currentPin: getLocation()
   };
 }
 function mapDispatchToProps(dispatch){
