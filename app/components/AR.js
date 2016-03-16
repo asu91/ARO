@@ -74,6 +74,8 @@ const THREE_RENDER_MARKER = `
       mesh = new THREE.Mesh( geometry, material );
       scene.add( mesh );
 
+      mesh.position.z = -50;
+
       /* RENDER SCENE */
 
       renderer = new THREE.WebGLRenderer();
