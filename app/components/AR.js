@@ -25,8 +25,7 @@ const THREE_RENDER_MARKER = `
 
       /* CAMERA */
 
-      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-      camera.position.z = 400;
+      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5280 );
 
       scene = new THREE.Scene();
 
@@ -41,9 +40,9 @@ const THREE_RENDER_MARKER = `
 
       var geometry = new THREE.Geometry();
 
-      var height = 100;
+      var height = 10;
       var heightsplit = .75
-      var width = 40;
+      var width = 4;
 
       geometry.vertices.push(
         new THREE.Vector3( 0, 0, 0 ),
