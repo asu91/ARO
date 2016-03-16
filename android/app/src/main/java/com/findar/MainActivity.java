@@ -3,6 +3,7 @@ package com.findar;
 import com.facebook.react.ReactActivity;
 import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.AirMaps.AirPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -38,7 +39,8 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new WebViewBridgePackage(),
-        new RCTCameraPackage()
+            new RCTCameraPackage()
+            new AirPackage()
         );
     }
 }
