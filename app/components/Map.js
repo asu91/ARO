@@ -22,15 +22,6 @@ export default class Map extends Component {
     this.currentPosition = new Firebase("https://interruptedlobster.firebaseio.com/testPosition");
   }
 
-  // listenForItems(itemsRef) {
-  //     itemsRef.on('value', (snap) => {
-  //       // get children as an array
-        
-  //       this.setState({
-  //         firebasePosition: snap
-  //       });
-  //     });
-  //   }
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(

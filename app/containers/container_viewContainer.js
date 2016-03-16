@@ -22,14 +22,12 @@ import ViewContainer from '../components/ViewContainer.js';
 // }
 function mapStateToProps(state) {
   return {
-    pins: state.pins
+    pins: state.pins,
+    // currentPin: getLocation()
   };
 }
 function mapDispatchToProps(dispatch){
-  return {
-     actions: bindActionCreators({ }, dispatch)
-    }
-  }
+  //TODO: figure out which actions to dispatch
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewContainer);
