@@ -15,7 +15,6 @@ const WEBVIEW_STYLE = `
 const THREE_RENDER_MARKER = `
   <script>
     var camera, scene, renderer;
-    var controls;
     var mesh;
     var hemiLight;
 
@@ -24,40 +23,46 @@ const THREE_RENDER_MARKER = `
 
     function init() {
 
+      /* CAMERA */
+
       camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
       camera.position.z = 400;
 
       scene = new THREE.Scene();
 
-      hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 1.0 );
-      hemiLight.color.setHSL( 0.6, 1, 0.6 );
-      hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+      /* LIGHTS */
+      hemiLight = new THREE.HemisphereLight( 0x2194ce, 0x2194ce, 1.25 );
+      hemiLight.groundColor.setHSL( 0.6, 1, 0.6 );
+      hemiLight.color.setHSL( 0.095, 1, 1.0 );
       hemiLight.position.set( 0, 500, 0 );
       scene.add( hemiLight );
 
-      var texture = new THREE.TextureLoader().load( 'http://mrdoob.github.io/three.js/examples/textures/crate.gif', function() {}, function() {}, function( xhr ) {
-        alert( 'an error happened' );
-      } );
+      /* MARKER */
 
       var geometry = new THREE.Geometry();
 
       var height = 100;
+      var heightsplit = .75
+      var width = 40;
 
       geometry.vertices.push(
         new THREE.Vector3( 0, 0, 0 ),
-        new THREE.Vector3( 25, height, 25 ),
-        new THREE.Vector3( -25, height, 25 ),
-        new THREE.Vector3( -25, height, -25 ),
-        new THREE.Vector3( 25, height, -25 )
+        new THREE.Vector3( width/2, height * heightsplit, 0 ),
+        new THREE.Vector3( 0, height * heightsplit, -1 * width/2 ),
+        new THREE.Vector3( -1 * width/2, height * heightsplit, 0 ),
+        new THREE.Vector3( 0, height * heightsplit, width/2 ),
+        new THREE.Vector3( 0, height, 0 )
       );
 
       geometry.faces.push(
-        new THREE.Face3( 0, 3, 4 ),
+        new THREE.Face3( 0, 1, 2 ),
         new THREE.Face3( 0, 2, 3 ),
-        new THREE.Face3( 0, 2, 1 ),
-        new THREE.Face3( 0, 1, 4 ),
-        new THREE.Face3( 1, 2, 3 ),
-        new THREE.Face3( 1, 3, 4 )
+        new THREE.Face3( 0, 3, 4 ),
+        new THREE.Face3( 4, 1, 0 ),
+        new THREE.Face3( 5, 2, 1 ),
+        new THREE.Face3( 5, 3, 2 ),
+        new THREE.Face3( 4, 3, 5 ),
+        new THREE.Face3( 1, 4, 5 )
       );
 
       geometry.computeFaceNormals();
@@ -65,10 +70,12 @@ const THREE_RENDER_MARKER = `
 
       geometry.computeBoundingBox();
 
-      var material = new THREE.MeshPhongMaterial( { color: 0xffffff, shininess: 100, side: THREE.DoubleSide } );
+      var material = new THREE.MeshPhongMaterial( { specular: 0x111111, color: 0xffffff, shininess: 100, shading: THREE.FlatShading, side: THREE.FrontSide } );
 
       mesh = new THREE.Mesh( geometry, material );
       scene.add( mesh );
+
+      /* RENDER SCENE */
 
       renderer = new THREE.WebGLRenderer();
       renderer.setPixelRatio( window.devicePixelRatio );
@@ -92,7 +99,13 @@ const THREE_RENDER_MARKER = `
     function animate() {
 
       requestAnimationFrame( animate );
-      
+
+      render();
+
+    }
+
+    function render() {
+
       mesh.rotation.y += 0.01;
 
       renderer.render( scene, camera );
