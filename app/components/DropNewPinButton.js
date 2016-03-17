@@ -13,10 +13,7 @@ export default class DropNewPinButton extends Component {
     };
   }
 
-  handleClick() {
-   alert(JSON.stringify(this.props));
-   // this.props.dropNewPin()
-  }
+
   render() {
     return (
       <Button
@@ -24,11 +21,7 @@ export default class DropNewPinButton extends Component {
         onPress={this.handleClick.bind(this)}>
         Press Me!
       </Button>
-
     );
   }
 }
 
-DropNewPinButton.PropTypes = {
-
-}

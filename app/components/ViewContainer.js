@@ -10,9 +10,7 @@ export default class ViewContainer extends Component {
       view: 'map'
     };
   }
-  //we might need this
-  // getLocation() {
-  // }
+
   render() {
     return (
       <View>

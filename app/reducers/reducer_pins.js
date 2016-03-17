@@ -1,5 +1,4 @@
-import {PIN_MAP} from '../constants/constants.js';
-import {DROP_NEW_PIN} from '../constants/constants.js';
+import {PIN_MAP, DROP_NEW_PIN} from '../constants/constants.js';
 
 const initialState = {
   pins: []
