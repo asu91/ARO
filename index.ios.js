@@ -15,10 +15,18 @@ import { createStore, applyMiddleware } from 'redux';
 import rootReducer from './app/reducers/rootReducer.js';
 import ViewContainer from './app/components/ViewContainer.js';
 import Menu from './app/components/Menu.js';
-
+import thunk from 'redux-thunk';
 const SideMenu = require('react-native-side-menu');
 
-var store = createStore(rootReducer);
+//applies thunk middleware for async actions
+// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+
+// creates store
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
+// var store = createStoreWithMiddleware(rootReducer);
 
 const Firebase = require('firebase');
 

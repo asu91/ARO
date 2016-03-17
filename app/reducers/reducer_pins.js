@@ -7,17 +7,15 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case 'PIN_MAP':
+    case PIN_MAP:
       return  Object.assign({}, state);
-    case 'DROP_NEW_PIN':
+    case DROP_NEW_PIN:
       return Object.assign({}, state, {
         pins: [
         ...state.pins,
           {
             id: action.id,
-            long: action.long,
-            lat: action.lat,
-            title:action.title,
+            pinInfo: action.pinInfo,
             visible: true
           }
         ]
