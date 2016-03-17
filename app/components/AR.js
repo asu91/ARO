@@ -90,28 +90,11 @@ const BRIDGE_INJECT_SCRIPT = `
 export default class AR extends Component {
   constructor(props) {
     super(props);
-    // this.props.currLoc = {longitude: ###, latitude: ###}
-    // this.props.locs = [{ longitude: #, latitude:# }, { longitude: #, latitude: # }]
   }
 
 
   calculateLocs( currentLocation, arrayOfPins ) {
-    /*
-    currentLocation {
-      latitude: Number,
-      longitude: Number
-    },
-    arrayOfPins [
-      {
-        latitude: Number,
-        longitude: Number
-      },
-      {
-        latitude: Number,
-        longitude: Number,
-      }
-    ]
-    */
+
     var locs = [];
 
     // For each pin in the array of pins,
@@ -122,8 +105,6 @@ export default class AR extends Component {
       locs.push( Location.relativeLocsInFeet( currentLocation, pin ) );
     });
 
-    console.log( locs );
-
     return locs;
   }
 
@@ -133,6 +114,8 @@ export default class AR extends Component {
       this.refs.webviewbridge.sendToBridge( locs );
     }
   }
+
+  // TODO: When we receive a new state, we should recalculate the rendered pins and send them to the webview.
 
   render() {
     return (
