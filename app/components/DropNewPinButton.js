@@ -1,6 +1,6 @@
 
 //this should be a child of ViewContainer
-import React, { Component, PropTypes} from 'react-native';
+import React, { Component, PropTypes, Text} from 'react-native';
 import Button from 'react-native-button';
 
 export default class DropNewPinButton extends Component {
@@ -13,31 +13,22 @@ export default class DropNewPinButton extends Component {
     };
   }
 
-
-
-  handleClick(event) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        alert(position.coords.latitude)
-        // this.setState({
-        //   long: position.coords.longitude,
-        //   lat: position.coords.latitude
-        // });
-      },
-      (error) => {
-        alert(error.message)
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    console.log('Pressed!');
+  handleClick() {
+   alert(JSON.stringify(this.props));
+   // this.props.dropNewPin()
   }
   render() {
     return (
       <Button
         style={{borderWidth: 1, borderColor: 'blue'}}
-        onPress={this.handleClick}>
+        onPress={this.handleClick.bind(this)}>
         Press Me!
       </Button>
+
     );
   }
+}
+
+DropNewPinButton.PropTypes = {
+
 }

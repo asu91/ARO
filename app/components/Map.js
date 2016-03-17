@@ -19,7 +19,7 @@ export default class Map extends Component {
       walker: undefined
     };
 
-    this.currentPosition = new Firebase("https://interruptedlobster.firebaseio.com/testPosition");
+    // this.currentPosition = new Firebase("https://interruptedlobster.firebaseio.com/testPosition");
   }
 
 
@@ -79,9 +79,7 @@ export default class Map extends Component {
           }
         />
 
-        <Text>
-          {JSON.stringify(this.state.lastPosition)}
-        </Text>
+
 
       </View>
     )

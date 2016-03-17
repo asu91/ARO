@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
-import DropNewPinButton from './DropNewPinButton.js'
+import DropNewPinButton from '../containers/container_dropNewPin'
 
 export default class ViewContainer extends Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class ViewContainer extends Component {
       <View>
         <AR/>
         <Map/>
-        <DropNewPinButton current />
+        <DropNewPinButton dropNewPin={this.props.dropNewPin}/>
       </View>
     );
   }
