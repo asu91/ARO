@@ -32,28 +32,27 @@ export default class Map extends Component {
   //     });
   //   }
 
-  componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var initialPosition = JSON.stringify(position);
-        this.setState({walker: initialPosition});
-      },
-      (error) => {
-        alert(error.message)
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     (position) => {
+  //       var initialPosition = JSON.stringify(position);
+  //       this.setState({walker: initialPosition});
+  //     },
+  //     (error) => {
+  //       alert(error.message)
+  //     },
+  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+  //   );
 
-    this.watchID = navigator.geolocation.watchPosition(
-      (position) => {
-        var lastPosition = JSON.stringify(position);
-        // update firebase with current position
-        // this.currentPosition.set(position);
-        this.setState({lastPosition: position});
-      }
-    );
-
-  }
+  //   this.watchID = navigator.geolocation.watchPosition(
+  //     (position) => {
+  //       var lastPosition = JSON.stringify(position);
+  //       // update firebase with current position
+  //       // this.currentPosition.set(position);
+  //       this.setState({lastPosition: position});
+  //     }
+  //   );
+  // }
 
   onRegionChange(region) {
     this.setState({ position: region });

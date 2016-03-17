@@ -19,8 +19,6 @@ class DropNewPinButton extends Component {
 
   handleClick() {
    this.props.actions.getLocationToSave();
-   console.log(this.props.pins);
-   console.log(store.getState(), 'this is the state?')
   }
   render() {
     return (
@@ -46,5 +44,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropNewPinButton);
-
-

@@ -14,7 +14,9 @@ export default function(state = initialState, action) {
         ...state.pins,
           {
             id: action.id,
-            pinInfo: action.pinInfo,
+            long: action.long,
+            lat: action.lat,
+            title:action.title,
             visible: true
           }
         ]

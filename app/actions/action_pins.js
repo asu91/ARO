@@ -9,11 +9,13 @@ function dropNewPin(pinInfo) {
   return {
     type: DROP_NEW_PIN,
     id: nextPinId++,
-    pinInfo: pinInfo
+    long: pinInfo.long,
+    lat: pinInfo.lat,
+    title: pinInfo.title
   };
 }
 
-export default function getLocationToSave(long, lat, title) {
+export default function getLocationToSave() {
   return (dispatch) => {
     navigator.geolocation.getCurrentPosition(
     (position) => {
