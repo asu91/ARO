@@ -69,9 +69,8 @@ const HTML = `
 `;
 
 const BRIDGE_INJECT_SCRIPT = `
-  alert( "BRIDGE INJECT SCRIPT INJECTED" );
   function webViewBridgeReady(cb) {
-    //checks whether WebViewBirdge exists in global scope.
+    //checks whether WebViewBridge exists in global scope.
     if (window.WebViewBridge) {
       cb(window.WebViewBridge);
       return;
@@ -91,9 +90,8 @@ const BRIDGE_INJECT_SCRIPT = `
   }
 
   webViewBridgeReady( function (webViewBridge) {
-    alert( "WEB VIEW BRIDGE READY" );
+    webViewBridge.send( "BRIDGE_READY" );
     webViewBridge.onMessage = function (message) {
-      alert( message );
       // Message is an array of all of the pins we want to display,
       // where x and z on each pin is the relative location to the
       // device in feet.
@@ -104,20 +102,11 @@ const BRIDGE_INJECT_SCRIPT = `
   });
 `;
 
-const testArray = [
-  { name: 'AWS', latitude: 37.7832379, longitude: -122.4084653 },    // AWS
-  { name: 'Punjab', latitude: 37.7840612, longitude: -122.4093445 } ];  // Punjab
-
-const testLoc = { latitude: 37.7836881, longitude: -122.4088256 }; // Test location
-
-// Expect AWS to be south east ( around 135 )
-
 export default class AR extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      locs: testArray,
-    }
+    // this.props.currLoc = {longitude: ###, latitude: ###}
+    // this.props.locs = [{ longitude: #, latitude:# }, { longitude: #, latitude: # }]
   }
 
 
@@ -153,12 +142,11 @@ export default class AR extends Component {
     return locs;
   }
 
-  componentDidMount() {
-    var locs = JSON.stringify( this.calculateLocs( testLoc, this.state.locs ) );
-    setTimeout( () => {
+  onBridgeMessage( message ) {
+    if( message === "BRIDGE_READY" ) {
+      var locs = JSON.stringify( this.calculateLocs( this.props.currLoc, this.props.locs ) );
       this.refs.webviewbridge.sendToBridge( locs );
-    }, 5000);
-    console.log( "message fired" );
+    }
   }
 
   render() {
@@ -177,6 +165,7 @@ export default class AR extends Component {
             automaticallyAdjustContentInsets={true}
             source={{ html: HTML }}
             style={styles.webView}
+            onBridgeMessage={this.onBridgeMessage.bind(this)}
             injectedJavaScript={ BRIDGE_INJECT_SCRIPT }
             javaScriptEnabled={true}
             scalesPageToFit={true}
