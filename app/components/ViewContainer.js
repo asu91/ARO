@@ -16,7 +16,7 @@ export default class ViewContainer extends Component {
       <View>
         <AR/>
         <Map/>
-        <DropNewPinButton dropNewPin={this.props.dropNewPin}/>
+        <DropNewPinButton/>
       </View>
     );
   }
