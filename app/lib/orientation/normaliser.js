@@ -143,4 +143,4 @@ function deviceOrientation(e) {
   
 }
 </script>
-`
+`;
