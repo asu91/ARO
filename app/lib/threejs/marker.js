@@ -1,6 +1,7 @@
 export default THREE_RENDER_MARKER = `
   <script>
     var camera, scene, renderer;
+    var meshes = [];
     var mesh;
     var hemiLight;
 

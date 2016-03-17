@@ -2,6 +2,7 @@ import React, { Component, StyleSheet, Dimensions, View } from 'react-native';
 import Camera from 'react-native-camera';
 import WebViewBridge from 'react-native-webview-bridge';
 import THREE_RENDER_MARKER from '../lib/threejs/marker.js';
+import HANDLE_ORIENTATION from '../lib/orientation/orientationHandler.js';
 import Location from '../lib/orientation/locationMath.js';
 
 const REF_WEBVIEW_BRIDGE = 'webviewbridge';
@@ -16,33 +17,6 @@ const WEBVIEW_STYLE = `
   }
 `;
 
-const HANDLE_ORIENTATION = `
-  <script>
-
-    var degreeToRad = function( degree ) {
-      return Math.PI / 180 * degree;
-    }
-
-    if (window.DeviceOrientationEvent) {
-      // Listen for the deviceorientation event and handle the raw data
-      window.addEventListener('deviceorientation', function( e ) {
-        var compassdir;
-
-        if( e.webkitCompassHeading) {
-          // Apple works only with this, alpha doesn't work
-          compassdir = e.webkitCompassHeading;  
-        }
-        else compassdir = e.alpha;
-
-        camera.rotation.y = -degreeToRad( compassdir );
-
-        $("#alpha").text( compassdir );
-      }, false );
-    }
-
-  </script>
-`;
-
 const WEBVIEW_SCRIPTS = `
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
@@ -54,7 +28,7 @@ const HTML = `
 <!DOCTYPE html>\n
 <html>
   <head>
-    <title>Hello Static World</title>
+    <title>findAR WebView</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=320, user-scalable=no">
     <style type="text/css">
@@ -96,11 +70,19 @@ const BRIDGE_INJECT_SCRIPT = `
       // where x and z on each pin is the relative location to the
       // device in feet.
       var locs = JSON.parse( message );
-      // Loop through all locs,
-        // Compare to holder array
-        // If index exists in holder array, move it.
-        // Otherwise, clone the parent mesh and move it.
-        // Delete any meshes in holder indices greater than or equal to locs.length;
+
+      mesh.visible = false;
+
+      locs.forEach( function( loc, i ) {
+        if( !( meshes[i] instanceof THREE.Mesh ) ) {
+          meshes[i] = mesh.clone();
+          meshes[i].visible = true;
+          scene.add( meshes[i] );
+        }
+        meshes[i].position.x = loc.x;
+        meshes[i].position.z = loc.z;
+      });
+      // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
   });
 `;
