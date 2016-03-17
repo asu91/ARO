@@ -96,8 +96,11 @@ const BRIDGE_INJECT_SCRIPT = `
       // where x and z on each pin is the relative location to the
       // device in feet.
       var locs = JSON.parse( message );
-      mesh.position.x = locs[0].x;
-      mesh.position.z = locs[0].z;
+      // Loop through all locs,
+        // Compare to holder array
+        // If index exists in holder array, move it.
+        // Otherwise, clone the parent mesh and move it.
+        // Delete any meshes in holder indices greater than or equal to locs.length;
     };
   });
 `;
