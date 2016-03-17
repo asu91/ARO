@@ -18,12 +18,11 @@ class DropNewPinButton extends Component {
   }
 
   handleClick() {
-
-   // this.props.dropNewPin()
    this.props.actions.getLocationToSave();
+   console.log(this.props.pins);
+   console.log(store.getState(), 'this is the state?')
   }
   render() {
-    // alert(JSON.stringify(this.props))
     return (
       <Button
         style={{borderWidth: 1, borderColor: 'blue'}}
@@ -41,14 +40,10 @@ function mapStateToProps(state) {
   };
 }
 function mapDispatchToProps(dispatch) {
-    // return bindActionCreators( (a,b)=>{} , dispatch);
-  let something = {
+  return {
     actions: bindActionCreators({getLocationToSave: getLocationToSave}, dispatch)
   }
-  console.log(something) 
-  return something;
 }
-// alert(store.getState())
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropNewPinButton);
 
