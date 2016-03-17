@@ -15,12 +15,12 @@ class DropNewPinButton extends Component {
      lat: null,
      title: ''
     };
+    this.ref = new Firebase("https://interruptedlobster.firebaseio.com/user1");
   }
 
   handleClick() {
    this.props.actions.getLocationToSave();
-   console.log(this.props.pins);
-   console.log(store.getState(), 'this is the state?')
+   console.log('this is the pin', this.props.pins)
   }
   render() {
     return (

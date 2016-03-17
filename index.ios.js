@@ -20,8 +20,6 @@ import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 const SideMenu = require('react-native-side-menu');
 
-//applies thunk middleware for async actions
-// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 //creates logger
 const logger = createLogger();
@@ -30,7 +28,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promise, logger)
 );
-// var store = createStoreWithMiddleware(rootReducer);
 
 const Firebase = require('firebase');
 

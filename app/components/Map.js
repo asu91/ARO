@@ -18,8 +18,6 @@ export default class Map extends Component {
       pins: [],
       walker: undefined
     };
-
-    // this.currentPosition = new Firebase("https://interruptedlobster.firebaseio.com/testPosition");
   }
 
 
@@ -38,8 +36,6 @@ export default class Map extends Component {
     this.watchID = navigator.geolocation.watchPosition(
       (position) => {
         var lastPosition = JSON.stringify(position);
-        // update firebase with current position
-        // this.currentPosition.set(position);
         this.setState({lastPosition: position});
       }
     );
@@ -62,8 +58,6 @@ export default class Map extends Component {
           showsCompass={true}
           onLongPress={
             () =>
-            // this.currentPosition.push('hello');
-            // var event = JSON.stringify(e).split('\"').join('');
             AlertIOS.alert(
                 'Drop a Pin?',
                 null,
@@ -73,7 +67,6 @@ export default class Map extends Component {
                 },
                 {
                   text: 'OK'
-                  // onPress: () => this.currentPosition.push(e)
                 }]
               )
           }

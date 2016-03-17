@@ -3,8 +3,6 @@ import {store } from 'redux';
 let nextPinId = 0;
 
 
-// const fire = new Firebase("https://interruptedlobster.firebaseio.com/user1");
-
 function dropNewPin(pinInfo) {
   return {
     type: DROP_NEW_PIN,
@@ -13,7 +11,7 @@ function dropNewPin(pinInfo) {
   };
 }
 
-export default function getLocationToSave(long, lat, title) {
+export default function getLocationToSave() {
   return (dispatch) => {
     navigator.geolocation.getCurrentPosition(
     (position) => {
@@ -22,8 +20,6 @@ export default function getLocationToSave(long, lat, title) {
         coords.lat = position.coords.latitude;
         coords.title = 'My Current Location';
         dispatch(dropNewPin(coords));
-        // fire.push(coords);
-        console.log('made it in success callback of getLocationToSave', this.state);
     },
     (error) => {
       alert(error.message);
