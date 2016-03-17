@@ -14,8 +14,8 @@ export default function(state = initialState, action) {
         ...state.pins,
           {
             id: action.id,
-            long: action.long,
-            lat: action.lat,
+            longitude: action.longitude,
+            latitude: action.latitude,
             title:action.title,
             visible: true
           }

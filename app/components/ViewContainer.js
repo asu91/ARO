@@ -8,7 +8,12 @@ export default class ViewContainer extends Component {
     super(props);
     this.state = {
       view: 'map',
-      currLoc: null,
+      currLoc: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
     };
     this.fireRef = new Firebase("https://interruptedlobster.firebaseio.com/");
   }
@@ -32,18 +37,23 @@ export default class ViewContainer extends Component {
         var coords = {};
         coords.longitude = position.coords.longitude;
         coords.latitude = position.coords.latitude;
-        this.setState({currLoc: coords});
+        this.setState({
+          currLoc: coords
+        });
         // update firebase with current position
         // this.currentPosition.set(position);
       }
     );
   }
 
+        // <AR locs={ this.state.currLoc }/>
   render() {
     return (
       <View>
-        <AR locs={ this.state.currLoc }/>
-        <Map/>
+        <Map 
+          dropPin={this.props.actions.getLocationToSave}
+          currLoc={this.state.currLoc}
+        />
         <DropNewPinButton/>
       </View>
     );

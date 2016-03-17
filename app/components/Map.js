@@ -1,5 +1,5 @@
 
-import React, { Component, PropTypes, StyleSheet, Text, View, Dimensions, AlertIOS  } from 'react-native';
+import React, { Component, StyleSheet, View, Dimensions, AlertIOS  } from 'react-native';
 
 import MapView from 'react-native-maps';
 
@@ -14,45 +14,9 @@ export default class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      lastPosition: undefined,
-      pins: [],
-      walker: undefined
     };
-
-    // this.currentPosition = new Firebase("https://interruptedlobster.firebaseio.com/testPosition");
+    this.testRef = new Firebase("https://interruptedlobster.firebaseio.com/pins");
   }
-
-  // listenForItems(itemsRef) {
-  //     itemsRef.on('value', (snap) => {
-  //       // get children as an array
-        
-  //       this.setState({
-  //         firebasePosition: snap
-  //       });
-  //     });
-  //   }
-
-  // componentDidMount() {
-  //   navigator.geolocation.getCurrentPosition(
-  //     (position) => {
-  //       var initialPosition = JSON.stringify(position);
-  //       this.setState({walker: initialPosition});
-  //     },
-  //     (error) => {
-  //       alert(error.message)
-  //     },
-  //     {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-  //   );
-
-  //   this.watchID = navigator.geolocation.watchPosition(
-  //     (position) => {
-  //       var lastPosition = JSON.stringify(position);
-  //       // update firebase with current position
-  //       // this.currentPosition.set(position);
-  //       this.setState({lastPosition: position});
-  //     }
-  //   );
-  // }
 
   onRegionChange(region) {
     this.setState({ position: region });
@@ -63,27 +27,36 @@ export default class Map extends Component {
       <View style={styles.container}>
         <MapView
           showsUserLocation={true}
-          followUserLocation={true}
-          region={this.state.position}
-          onRegionChange={this.onRegionChange.bind(this)}
+          // followUserLocation={true}
+          region={{
+            latitude: this.props.currLoc.latitude,
+            longitude: this.props.currLoc.longitude,
+            latitudeDelta: 0.00922,
+            longitudeDelta: 0.00421
+          }}
+          // onRegionChange={this.onRegionChange.bind(this)}
           style={styles.map}
           showsCompass={true}
           onLongPress={
-            () =>
-            // this.currentPosition.push('hello');
-            // var event = JSON.stringify(e).split('\"').join('');
-            AlertIOS.alert(
-                'Drop a Pin?',
-                null,
-                [{
-                  text: 'Cancel',
-                  style: 'cancel'
-                },
-                {
-                  text: 'OK'
-                  // onPress: () => this.currentPosition.push(e)
-                }]
-              )
+            (e) => {
+              let coords = e.nativeEvent.coordinate
+
+              AlertIOS.alert(
+                  'Drop a Pin?',
+                  null,
+                  [{
+                    text: 'Cancel',
+                    style: 'cancel'
+                  },
+                  {
+                    text: 'OK',
+                    onPress: () => {
+                      this.props.dropPin(coords)
+                      this.testRef.push(coords)
+                    }
+                  }]
+                )
+            }
           }
         />
 
@@ -98,7 +71,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {

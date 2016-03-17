@@ -2,8 +2,6 @@
 import React, { Component } from 'react-native';
 import getLocationToSave from '../actions/action_pins.js';
 import Button from 'react-native-button';
-
-// import DropNewPinButton from '../components/DropNewPinButton.js';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
