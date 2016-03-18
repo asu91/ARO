@@ -28,7 +28,7 @@ export default class ViewContainer extends Component {
         });
       },
       (error) => {
-        alert(error.message)
+        alert(error.message);
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
@@ -47,13 +47,9 @@ export default class ViewContainer extends Component {
     );
   }
 
-  push(e) {
-    this.firebaseRef.push(e)
-  }
-
         // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
   render() {
-    const {actions, pins} = this.props
+    const {actions, pins} = this.props;
     return (
       <View>
         <Map
