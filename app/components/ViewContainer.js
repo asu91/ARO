@@ -51,12 +51,12 @@ export default class ViewContainer extends Component {
 
 
         // <AR locs={ this.state.currLoc }/>
+        // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
   render() {
+    const {actions, pins} = this.props
     return (
       <View>
-        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
         <Map 
-          dropPin={this.props.actions.getLocationToSave}
           initialLoc={this.state.initialLoc}
           currLoc={this.state.currLoc}
           fullLoc={this.state.fullLoc}
@@ -64,6 +64,8 @@ export default class ViewContainer extends Component {
           toggleFalse={
             () => this.toggleFalse()
           }
+          dropPin={actions.getLocationToSave}
+          pins = {pins}
         />     
 
         <DropNewPinButton/>
