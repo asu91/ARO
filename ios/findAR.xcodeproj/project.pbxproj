@@ -77,6 +77,20 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = findAR;
 		};
+		00EB06141C9B8485000BBD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C854D54C15414C36834DABA6 /* RCTCamera.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
+			remoteInfo = RCTCamera;
+		};
+		00EB06231C9B8485000BBD45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DEE088EED8CB40388C0D8B41 /* AirMaps.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
+			remoteInfo = AirMaps;
+		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */;
@@ -262,6 +276,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		00EB060F1C9B8485000BBD45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00EB06151C9B8485000BBD45 /* libRCTCamera.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		00EB06201C9B8485000BBD45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00EB06241C9B8485000BBD45 /* libAirMaps.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		139105B71AF99BAD00B5F7CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +463,9 @@
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = FA5DK25727;
+					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "findAR" */;
@@ -449,6 +482,7 @@
 			projectReferences = (
 				{
 					ProductGroup = 237657A71C9B825E00424DF3 /* Products */;
+					ProductGroup = 00EB06201C9B8485000BBD45 /* Products */;
 					ProjectRef = DEE088EED8CB40388C0D8B41 /* AirMaps.xcodeproj */;
 				},
 				{
@@ -461,6 +495,7 @@
 				},
 				{
 					ProductGroup = 237657B81C9B825E00424DF3 /* Products */;
+					ProductGroup = 00EB060F1C9B8485000BBD45 /* Products */;
 					ProjectRef = C854D54C15414C36834DABA6 /* RCTCamera.xcodeproj */;
 				},
 				{
@@ -553,6 +588,20 @@
 			fileType = archive.ar;
 			path = libRCTVibration.a;
 			remoteRef = 00C302E31ABCB9EE00DB3ED1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00EB06151C9B8485000BBD45 /* libRCTCamera.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCamera.a;
+			remoteRef = 00EB06141C9B8485000BBD45 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		00EB06241C9B8485000BBD45 /* libAirMaps.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAirMaps.a;
+			remoteRef = 00EB06231C9B8485000BBD45 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -740,6 +789,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -752,7 +802,9 @@
 				INFOPLIST_FILE = findAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR1;
 				PRODUCT_NAME = findAR;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -761,6 +813,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -772,7 +825,9 @@
 				INFOPLIST_FILE = findAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR1;
 				PRODUCT_NAME = findAR;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
