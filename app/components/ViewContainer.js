@@ -2,7 +2,7 @@ import React, { Component, PropTypes, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
 import Button from 'react-native-button';
-import DropNewPinButton from '../containers/container_dropNewPin'
+import DropNewPinButton from '../containers/container_dropNewPin';
 export default class ViewContainer extends Component {
 
   constructor(props) {
@@ -15,7 +15,8 @@ export default class ViewContainer extends Component {
       },
       isFollowingUser: true,
     };
-    this.fireRef = new Firebase("https://interruptedlobster.firebaseio.com/");
+    this.firebaseRef = this.props.firebase.child('endpoint_Alex');
+
   }
 
   componentDidMount() {
@@ -48,6 +49,9 @@ export default class ViewContainer extends Component {
     );
   }
 
+  push(e) {
+    this.firebaseRef.push(e)
+  }
 
         // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
   render() {
@@ -64,6 +68,11 @@ export default class ViewContainer extends Component {
         />     
 
         <DropNewPinButton/>
+        <Button
+          onPress={this.push.bind(this,'holymoly')}
+        >
+          press me
+        </Button>
       </View>
     );
   }
