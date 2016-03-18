@@ -1,6 +1,6 @@
-
 import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 'react-native';
 
+import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
@@ -10,12 +10,7 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      },
+      position: null,
     };
     this.testRef = new Firebase("https://interruptedlobster.firebaseio.com/pins");
   }
@@ -45,19 +40,25 @@ export default class Map extends Component {
     });
   }
 
+  moveMapToUser(location) {
+    this.setState({position: {
+      longitude: this.props.currLoc.longitude,
+      latitude: this.props.currLoc.latitude,
+      longitudeDelta: 0.005,
+      latitudeDelta: 0.005
+    }});
+  }
+
   render() {
     const { pins, dropPin, currLoc } = this.props;
     return (
       <View style={styles.container}>
         <MapView
           showsUserLocation={true}
-          region={{
-            latitude: currLoc.latitude,
-            longitude: currLoc.longitude,
-            latitudeDelta: 0.00922,
-            longitudeDelta: 0.00421
-          }}
-          // onRegionChange={this.onRegionChange.bind(this)}
+
+          region={this.state.position}
+          onRegionChange={this.onRegionChange.bind(this)}
+
           style={styles.map}
           showsCompass={true}
           onLongPress={
@@ -82,8 +83,15 @@ export default class Map extends Component {
             }
           }
         >
+
+
         {Object.keys(pins.pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
+
         </MapView>
+        <Button
+          onPress={this.moveMapToUser.bind(this, this.props.fullLoc)}>
+          CENTER ON ME
+        </Button>
       </View>
     )
   }
@@ -107,7 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   map: {
-    height: Dimensions.get('window').height/2,
+    height: Dimensions.get('window').height/1.5,
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
