@@ -1,7 +1,6 @@
-import React, { Component, PropTypes, View } from 'react-native';
+import React, { Component, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
-import Button from 'react-native-button';
 import DropNewPinButton from '../containers/container_dropNewPin';
 export default class ViewContainer extends Component {
 
