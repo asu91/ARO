@@ -1,9 +1,10 @@
 import React, { Component, PropTypes, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
+import Button from 'react-native-button';
 import DropNewPinButton from '../containers/container_dropNewPin'
-
 export default class ViewContainer extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +13,7 @@ export default class ViewContainer extends Component {
         latitude: 37.78825,
         longitude: -122.4324,
       },
+      isFollowingUser: true,
     };
     this.fireRef = new Firebase("https://interruptedlobster.firebaseio.com/");
   }
@@ -22,7 +24,9 @@ export default class ViewContainer extends Component {
         var coords = {};
         coords.longitude = position.coords.longitude;
         coords.latitude = position.coords.latitude;
-        this.setState({currLoc: coords});
+        this.setState({
+          currLoc: coords
+        });
       },
       (error) => {
         alert(error.message)
@@ -44,6 +48,8 @@ export default class ViewContainer extends Component {
     );
   }
 
+
+        // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
   render() {
     const {actions, pins} = this.props
     return (
@@ -52,7 +58,12 @@ export default class ViewContainer extends Component {
           dropPin={actions.getLocationToSave}
           currLoc={this.state.currLoc}
           pins = {pins}
-        />
+
+          initialLoc={this.state.initialLoc}
+          isFollowingUser={this.state.isFollowingUser}
+
+        />     
+
         <DropNewPinButton/>
       </View>
     );
