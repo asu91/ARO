@@ -44,10 +44,10 @@ export default class ViewContainer extends Component {
     );
   }
 
-        // <AR locs={ this.state.currLoc }/>
   render() {
     return (
       <View>
+        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
         <Map 
           dropPin={this.props.actions.getLocationToSave}
           currLoc={this.state.currLoc}
