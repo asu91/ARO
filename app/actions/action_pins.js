@@ -1,5 +1,4 @@
-import { DROP_NEW_PIN } from '../constants/constants.js';
-import { store } from 'redux';
+import { DROP_NEW_PIN , userData } from '../constants/constants.js';
 let nextPinId = 0;
 
 function dropNewPin(pinInfo) {
@@ -23,13 +22,14 @@ export default function getLocationToSave(location) {
               coords.latitude = position.coords.latitude;
               coords.title = 'My Current Location';
               dispatch(dropNewPin(coords));
+              userData.push(coords);
           },
           (error) => {
             console.error(error);
           },
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
-        
+
       } else {
         coords.longitude = location.longitude;
         coords.latitude = location.latitude;

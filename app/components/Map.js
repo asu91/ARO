@@ -4,7 +4,7 @@ import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
-import {PinCallout} from './PinCallout.js';
+import { PinCallout } from './PinCallout.js';
 
 export default class Map extends Component {
   constructor(props) {
@@ -12,9 +12,10 @@ export default class Map extends Component {
     this.state = {
       position: null,
     };
-    this.testRef = new Firebase("https://interruptedlobster.firebaseio.com/pins");
   }
+  componentWillMount() {
 
+  }
   onRegionChange(region) {
     this.setState({ position: region });
   }

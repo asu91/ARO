@@ -14,7 +14,6 @@ export default class ViewContainer extends Component {
       },
       isFollowingUser: true,
     };
-
   }
 
   componentDidMount() {
@@ -59,7 +58,7 @@ export default class ViewContainer extends Component {
           initialLoc={this.state.initialLoc}
           isFollowingUser={this.state.isFollowingUser}
 
-        />     
+        />
 
         <DropNewPinButton/>
 

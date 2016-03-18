@@ -19,6 +19,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 const SideMenu = require('react-native-side-menu');
+const Firebase = require('firebase');
 
 
 //creates logger
@@ -28,8 +29,6 @@ const store = createStore(
   rootReducer,
   applyMiddleware(thunk, promise, logger)
 );
-
-const Firebase = require('firebase');
 
 class findAR extends Component {
 

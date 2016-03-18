@@ -1,9 +1,11 @@
 //this should add ownprops from parent map
 import React, { Component } from 'react-native';
 import getLocationToSave from '../actions/action_pins.js';
+
 import Button from 'react-native-button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { userData } from '../constants/constants';
 
 class DropNewPinButton extends Component {
   constructor(props) {
@@ -14,10 +16,12 @@ class DropNewPinButton extends Component {
      title: ''
     };
   }
-
   handleClick() {
-   this.props.actions.getLocationToSave();
+    console.log(this.props, 'this is props in DropNewPinButton');
+  const { getLocationToSave } = this.props;
+  getLocationToSave();
   }
+
   render() {
     return (
       <Button
@@ -35,10 +39,5 @@ function mapStateToProps(state) {
     pins: state.pins
   };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators({getLocationToSave: getLocationToSave}, dispatch)
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropNewPinButton);
+export default connect(mapStateToProps, { getLocationToSave })(DropNewPinButton);
