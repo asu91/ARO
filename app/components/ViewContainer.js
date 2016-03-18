@@ -14,7 +14,6 @@ export default class ViewContainer extends Component {
       },
       isFollowingUser: true,
     };
-    this.firebaseRef = this.props.firebase.child('endpoint_Alex');
 
   }
 
@@ -67,11 +66,7 @@ export default class ViewContainer extends Component {
         />     
 
         <DropNewPinButton/>
-        <Button
-          onPress={this.push.bind(this,'holymoly')}
-        >
-          press me
-        </Button>
+
       </View>
     );
   }
