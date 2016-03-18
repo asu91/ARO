@@ -29,7 +29,6 @@ class DropNewPinButton extends Component {
         onPress={this.handleClick.bind(this)}>
         Press Me!
       </Button>
-
     );
   }
 }
