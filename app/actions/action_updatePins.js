@@ -8,5 +8,12 @@ function updatePins(pins) {
 }
 
 export default function() {
+ return (dispatch) => {
+  userData.once("value", function(snap) {
+    snap.forEach(function(savedPin) {
+      savedPin.val().
+    }
 
+  });
+ };
 }

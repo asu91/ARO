@@ -2,7 +2,7 @@ import React, { Component, PropTypes, StyleSheet, Text, View  } from 'react-nati
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import getLocationToSave from '../actions/action_pins.js';
-import updatePins from '../actions/action_updatePins.js';
+import getPins from '../actions/action_updatePins.js';
 import ViewContainer from '../components/ViewContainer.js';
 
 
@@ -12,4 +12,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getLocationToSave, updatePins })(ViewContainer);
+export default connect(mapStateToProps, { getLocationToSave, getPins })(ViewContainer);

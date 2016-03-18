@@ -14,7 +14,8 @@ export default class Map extends Component {
     };
   }
   componentWillMount() {
-
+    const { getPins } = this.props;
+    getPins();
   }
   onRegionChange(region) {
     this.setState({ position: region });
