@@ -58,7 +58,6 @@ export default class ViewContainer extends Component {
           dropPin={actions.getLocationToSave}
           currLoc={this.state.currLoc}
           pins = {pins}
-
           initialLoc={this.state.initialLoc}
           isFollowingUser={this.state.isFollowingUser}
 

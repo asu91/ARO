@@ -6,7 +6,6 @@ import _ from 'underscore';
 import image from '../assets/redPin.png';
 import {PinCallout} from './PinCallout.js';
 
-
 export default class Map extends Component {
   constructor(props) {
     super(props);
@@ -59,6 +58,7 @@ export default class Map extends Component {
 
           region={this.state.position}
           onRegionChange={this.onRegionChange.bind(this)}
+
           style={styles.map}
           showsCompass={true}
           onLongPress={
@@ -83,14 +83,15 @@ export default class Map extends Component {
             }
           }
         >
+
+
         {Object.keys(pins.pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
+
         </MapView>
-        />
         <Button
           onPress={this.moveMapToUser.bind(this, this.props.fullLoc)}>
           CENTER ON ME
         </Button>
-
       </View>
     )
   }
