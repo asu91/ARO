@@ -3,12 +3,6 @@ import AR from './AR.js';
 import Map from './Map.js';
 import DropNewPinButton from '../containers/container_dropNewPin'
 
-const testArray = [
-  { name: 'AWS', latitude: 37.783278, longitude: -122.4084808 },           // AWS
-  { name: 'Punjab', latitude: 37.7840612, longitude: -122.4093445 },       // Punjab
-  { name: 'Hack Reactor', latitude: 37.7835551, longitude: -122.4089013 }, // Hack Reactor
-  ];
-
 export default class ViewContainer extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +47,7 @@ export default class ViewContainer extends Component {
   render() {
     return (
       <View>
-        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins }/>
+        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
         <Map 
           dropPin={this.props.actions.getLocationToSave}
           currLoc={this.state.currLoc}
