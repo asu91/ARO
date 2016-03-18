@@ -4,10 +4,10 @@ import Map from './Map.js';
 import DropNewPinButton from '../containers/container_dropNewPin'
 
 const testArray = [
-  { name: 'AWS', latitude: 37.7832379, longitude: -122.4084653 },    // AWS
-  { name: 'Punjab', latitude: 37.7840612, longitude: -122.4093445 } ];  // Punjab
-
-const testLoc = { latitude: 37.7836881, longitude: -122.4088256 }; // Test location
+  { name: 'AWS', latitude: 37.783278, longitude: -122.4084808 },           // AWS
+  { name: 'Punjab', latitude: 37.7840612, longitude: -122.4093445 },       // Punjab
+  { name: 'Hack Reactor', latitude: 37.7835551, longitude: -122.4089013 }, // Hack Reactor
+  ];
 
 export default class ViewContainer extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ export default class ViewContainer extends Component {
   render() {
     return (
       <View>
-        <AR currLoc={ testLoc } locs={ testArray }/>
+        <AR currLoc={ this.state.currLoc } locs={ testArray }/>
         <Map 
           dropPin={this.props.actions.getLocationToSave}
           currLoc={this.state.currLoc}
