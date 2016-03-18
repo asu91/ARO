@@ -1,13 +1,26 @@
-import {PIN_MAP} from '../constants/constants.js';
+import {PIN_MAP, DROP_NEW_PIN} from '../constants/constants.js';
 
 const initialState = {
-  pins: [],
+  pins: []
 };
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case 'PIN_MAP':
+    case PIN_MAP:
       return  Object.assign({}, state);
+    case DROP_NEW_PIN:
+      return Object.assign({}, state, {
+        pins: [
+        ...state.pins,
+          {
+            id: action.id,
+            longitude: action.longitude,
+            latitude: action.latitude,
+            title:action.title,
+            visible: true
+          }
+        ]
+      })
     default:
       return state;
   }
