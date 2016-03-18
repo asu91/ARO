@@ -53,7 +53,7 @@ export default class ViewContainer extends Component {
   render() {
     return (
       <View>
-        <AR currLoc={ this.state.currLoc } locs={ testArray }/>
+        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins }/>
         <Map 
           dropPin={this.props.actions.getLocationToSave}
           currLoc={this.state.currLoc}

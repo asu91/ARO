@@ -15,9 +15,6 @@ const WEBVIEW_STYLE = `
     font: 62.5% arial, sans-serif;
     background: transparent;
   }
-  ul {
-    float: left;
-  }
 `;
 
 const WEBVIEW_SCRIPTS = `
@@ -40,11 +37,6 @@ const HTML = `
   </head>
   <body>
     <p id="alpha"></p>
-    <ul>
-      <li>AWS: <span id="aws"></span></li>
-      <li>Punjab: <span id="punjab"></span></li>
-      <li>HR: <span id="hr"></span></li>
-    </ul>
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>
@@ -91,10 +83,6 @@ const BRIDGE_INJECT_SCRIPT = `
         meshes[i].position.z = loc.z;
       });
 
-      $('#aws').text( meshes[0].position.x + ' ' + meshes[0].position.z );
-      $('#punjab').text( meshes[1].position.x + ' ' + meshes[1].position.z );
-      $('#hr').text( meshes[2].position.x + ' ' + meshes[2].position.z );
-
       // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
   });
@@ -114,6 +102,8 @@ export default class AR extends Component {
       // Calculate the relative x and z ( where -x is west, x is east, -z is north, and z is south )
       // Each unit being a foot.
 
+
+
     arrayOfPins.forEach( function( pin ) {
       locs.push( Location.relativeLocsInFeet( currentLocation, pin ) );
     });
@@ -122,12 +112,13 @@ export default class AR extends Component {
   }
 
   sendLocsToBridge( props ) {
-    var locs = JSON.stringify( this.calculateLocs( props.currLoc, props.locs ) );
+    var locs = JSON.stringify( this.calculateLocs( props.currLoc, props.pins ) );
     this.refs.webviewbridge.sendToBridge( locs );
   }
 
   onBridgeMessage( message ) {
     if( message === "BRIDGE_READY" ) {
+
       this.sendLocsToBridge( this.props );
     }
   }
