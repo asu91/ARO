@@ -8,12 +8,15 @@ import Location from '../lib/orientation/locationMath.js';
 const REF_WEBVIEW_BRIDGE = 'webviewbridge';
 
 const WEBVIEW_STYLE = `
-  body {
+  * {
     color: white;
     margin: 0;
     padding: 0;
     font: 62.5% arial, sans-serif;
     background: transparent;
+  }
+  ul {
+    float: left;
   }
 `;
 
@@ -37,6 +40,11 @@ const HTML = `
   </head>
   <body>
     <p id="alpha"></p>
+    <ul>
+      <li>AWS: <span id="aws"></span></li>
+      <li>Punjab: <span id="punjab"></span></li>
+      <li>HR: <span id="hr"></span></li>
+    </ul>
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>
@@ -82,6 +90,11 @@ const BRIDGE_INJECT_SCRIPT = `
         meshes[i].position.x = loc.x;
         meshes[i].position.z = loc.z;
       });
+
+      $('#aws').text( meshes[0].position.x + ' ' + meshes[0].position.z );
+      $('#punjab').text( meshes[1].position.x + ' ' + meshes[1].position.z );
+      $('#hr').text( meshes[2].position.x + ' ' + meshes[2].position.z );
+
       // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
   });
@@ -108,14 +121,21 @@ export default class AR extends Component {
     return locs;
   }
 
+  sendLocsToBridge( props ) {
+    var locs = JSON.stringify( this.calculateLocs( props.currLoc, props.locs ) );
+    this.refs.webviewbridge.sendToBridge( locs );
+  }
+
   onBridgeMessage( message ) {
     if( message === "BRIDGE_READY" ) {
-      var locs = JSON.stringify( this.calculateLocs( this.props.currLoc, this.props.locs ) );
-      this.refs.webviewbridge.sendToBridge( locs );
+      this.sendLocsToBridge( this.props );
     }
   }
 
   // TODO: When we receive a new state, we should recalculate the rendered pins and send them to the webview.
+  componentDidUpdate( prevProps ) {
+    this.sendLocsToBridge( prevProps );
+  }
 
   render() {
     return (
