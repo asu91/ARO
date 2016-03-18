@@ -1,6 +1,6 @@
 //this should add ownprops from parent map
 import React, { Component } from 'react-native';
-import getLocationToSave from '../actions/action_pins.js';
+import getLocationToSave from '../actions/action_dropNewPin.js';
 
 import Button from 'react-native-button';
 import { bindActionCreators } from 'redux';
