@@ -4,10 +4,6 @@ let nextPinId = 0;
 function dropNewPin(pinInfo) {
   return {
     type: DROP_NEW_PIN,
-    // id: nextPinId,
-    // longitude: pinInfo.longitude,
-    // latitude: pinInfo.latitude,
-    // title: pinInfo.title
     payload: pinInfo
   };
 }

@@ -1,19 +1,20 @@
 import { UPDATE_PINS, userData } from '../constants/constants.js';
 
-function updatePins(pins) {
+function updatePins(allPins) {
   return {
     type: UPDATE_PINS,
-    ...pins
-  }
+    payload: allPins
+  };
 }
 
 export default function() {
  return (dispatch) => {
   userData.once("value", function(snap) {
+    var fetchedPins = [];
     snap.forEach(function(savedPin) {
-      savedPin.val();
+      fetchedPins.push(savedPin.val());
     });
-
+    updatePins(fetchedPins);
   });
  };
 }

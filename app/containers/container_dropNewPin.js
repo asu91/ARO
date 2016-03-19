@@ -18,8 +18,8 @@ class DropNewPinButton extends Component {
   }
   handleClick() {
     console.log(this.props, 'this is props in DropNewPinButton');
-  const { getLocationToSave } = this.props;
-  getLocationToSave();
+    const { getLocationToSave } = this.props;
+    getLocationToSave();
   }
 
   render() {
@@ -27,7 +27,7 @@ class DropNewPinButton extends Component {
       <Button
         style={{borderWidth: 1, borderColor: 'blue'}}
         onPress={this.handleClick.bind(this)}>
-        Press Me!
+        Press Me !
       </Button>
     );
   }

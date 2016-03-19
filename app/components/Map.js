@@ -15,6 +15,7 @@ export default class Map extends Component {
   }
   componentWillMount() {
     const { getPins } = this.props;
+    console.log('we just rendered!', this.props.pins)
     getPins();
   }
   onRegionChange(region) {
