@@ -13,7 +13,7 @@ export default class PinListItem extends Component {
         onPress={() => alert('why you touch')}
         underlayColor={'silver'}
       >
-        <View style={style.listItem}>
+        <View style={style.container}>
           <Text style={style.text}>
             {this.props.pin}
           </Text>
@@ -24,10 +24,15 @@ export default class PinListItem extends Component {
 }
 
 const style = StyleSheet.create({
-  listItem: {
-    backgroundColor: 'white',
+  container: {
+    flex: 1,
+    backgroundColor: 'red',
+    borderRadius: 4,
+    margin: 5,
+    padding: 10
   },
   text: {
-    justifyContent: 'center'
+    alignSelf: 'center',
+    fontSize: 24,
   }
 });
