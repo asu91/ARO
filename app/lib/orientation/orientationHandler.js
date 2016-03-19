@@ -7,7 +7,7 @@ export default HANDLE_ORIENTATION = `
     }
 
     var leftOrRight = function( A, B ) {
-      return ( -1 * A.x * B.z ) + ( A.z * B.x ) > 0 ? 'left' : 'right';
+      return ( -1 * A.x * B.z ) + ( A.z * B.x ) > 0;
     }
 
     var angleFromCamera = function( vector ) {
@@ -16,6 +16,23 @@ export default HANDLE_ORIENTATION = `
 
     var inFrustum = function( vector ) {
       return frustum.containsPoint( vector );
+    }
+
+    var renderDirection = function( vector ) {
+      $(".left").addClass( "hidden" );
+      $(".right").addClass( "hidden" );
+      if( !inFrustum( vector ) ) {
+        if( leftOrRight( camera.getWorldDirection(), vector ) ) {
+          $(".left").removeClass( "hidden" );
+        } else {
+          $(".right").removeClass( "hidden" );
+        }
+      }
+    }
+
+    var updateHUDForTarget = function( targetLoc ) {
+      renderDirection( targetLoc.position );
+      $("#target").text( "Target: " + targetLoc.title );
     }
 
     if (window.DeviceOrientationEvent) {
@@ -38,19 +55,10 @@ export default HANDLE_ORIENTATION = `
         camera.matrixWorldInverse.getInverse( camera.matrixWorld );
         frustum.setFromMatrix( new THREE.Matrix4().multiply( camera.projectionMatrix, camera.matrixWorldInverse ) );
 
-        // Handle directional indicator:
-        // findOffCameraObjects( meshes, function( mesh ) {
-        //   // For each pin not in frustum,
-        //     // Determine whether it is to the left or to the right
-        //     // Render ( or not ) an indicator for the appropriate direction.
-        // });
+        $("#alpha").text( "Heading: " + compassdir );
 
-        $("#alpha").text( camera.rotation.y );
+        updateHUDForTarget( meshes[2] );
 
-        $("#aws").text( "AWS " + angleFromCamera( meshes[0].position ) + " " + inFrustum( meshes[0].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[0].position ) );
-        $("#punjab").text( "Punjab: " + angleFromCamera( meshes[1].position ) + " " + inFrustum( meshes[1].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[1].position ) );
-        $("#hr").text( "HR: " + angleFromCamera( meshes[2].position ) + " " + inFrustum( meshes[2].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[2].position ) );
-        $("#starbucks").text( "SB: " + angleFromCamera( meshes[3].position ) + " " + inFrustum( meshes[3].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[3].position ) );
       }, false );
     }
 

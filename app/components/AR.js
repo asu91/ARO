@@ -63,10 +63,7 @@ const HTML = `
     <div class="direction-marker left hidden"></div>
     <div class="direction-marker right hidden"></div>
     <p id="alpha"></p>
-    <p id="aws"></p>
-    <p id="punjab"></p>
-    <p id="hr"></p>
-    <p id="starbucks"></p>
+    <p id="target"></p>
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>
@@ -109,6 +106,7 @@ const BRIDGE_INJECT_SCRIPT = `
           meshes[i].visible = true;
           scene.add( meshes[i] );
         }
+        meshes[i].title = loc.title;
         meshes[i].position.x = loc.x;
         meshes[i].position.z = loc.z;
       });
