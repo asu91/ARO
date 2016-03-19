@@ -14,9 +14,7 @@ export default class ViewContainer extends Component {
       },
       isFollowingUser: true,
     };
-
   }
-
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -41,25 +39,24 @@ export default class ViewContainer extends Component {
         this.setState({
           currLoc: coords
         });
-        // update firebase with current position
-        // this.currentPosition.set(position);
       }
     );
   }
 
         // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
   render() {
-    const {actions, pins} = this.props;
+    const {getLocationToSave, getPins, pins} = this.props;
     return (
       <View>
         <Map
-          dropPin={actions.getLocationToSave}
+          dropPin={getLocationToSave}
+          getPins={getPins}
           currLoc={this.state.currLoc}
           pins = {pins}
           initialLoc={this.state.initialLoc}
           isFollowingUser={this.state.isFollowingUser}
 
-        />     
+        />
 
         <DropNewPinButton/>
 

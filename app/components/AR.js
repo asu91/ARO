@@ -139,7 +139,7 @@ export default class AR extends Component {
           aspect={Camera.constants.Aspect.fill}>
         </Camera>
         <View style={styles.webviewcont}>
-          <WebViewBridge 
+          <WebViewBridge
             ref={ REF_WEBVIEW_BRIDGE }
             automaticallyAdjustContentInsets={true}
             source={{ html: HTML }}
