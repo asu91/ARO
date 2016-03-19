@@ -15,6 +15,30 @@ const WEBVIEW_STYLE = `
     font: 62.5% arial, sans-serif;
     background: transparent;
   }
+
+  .direction-marker {
+    position: fixed;
+    width: 30px;
+    height: 100vh;
+  }
+
+  .left {
+    z-index: 1;
+    float: left;
+    left: 0;
+    background: linear-gradient(to right, rgba(29,147,145,1) 0%,rgba(125,185,232,0) 100%);
+  }
+
+  .right {
+    z-index: 1;
+    float: right;
+    right: 0;
+    background: linear-gradient(to left, rgba(29,147,145,1) 0%,rgba(125,185,232,0) 100%);
+  }
+
+  .hidden {
+    display: none;
+  }
 `;
 
 const WEBVIEW_SCRIPTS = `
@@ -36,11 +60,13 @@ const HTML = `
     </style>
   </head>
   <body>
+    <div class="direction-marker left hidden"></div>
+    <div class="direction-marker right hidden"></div>
     <p id="alpha"></p>
     <p id="aws"></p>
     <p id="punjab"></p>
-    <p id="hr">Hello</p>
-
+    <p id="hr"></p>
+    <p id="starbucks"></p>
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>
