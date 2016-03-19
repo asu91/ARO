@@ -78,7 +78,6 @@ export default class Map extends Component {
                     text: 'OK',
                     onPress: () => {
                       dropPin(coords)
-                      this.testRef.push(coords)
                     }
                   }]
                 )
