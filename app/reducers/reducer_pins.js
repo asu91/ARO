@@ -1,4 +1,4 @@
-import {DROP_NEW_PIN} from '../constants/constants.js';
+import {DROP_NEW_PIN, UPDATE_PINS} from '../constants/constants.js';
 
 const testArray = [
   { title: 'AWS', latitude: 37.783278, longitude: -122.4084808 },           // AWS
@@ -12,19 +12,15 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch(action.type) {
+    case UPDATE_PINS:
+      return Object.assign({}, state);
     case DROP_NEW_PIN:
       return Object.assign({}, state, {
         pins: [
         ...state.pins,
-          {
-            id: action.id,
-            longitude: action.longitude,
-            latitude: action.latitude,
-            title:action.title,
-            visible: true
-          }
+        action.payload
         ]
-      })
+      });
     default:
       return state;
   }
