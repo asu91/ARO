@@ -37,6 +37,10 @@ const HTML = `
   </head>
   <body>
     <p id="alpha"></p>
+    <p id="aws"></p>
+    <p id="punjab"></p>
+    <p id="hr">Hello</p>
+
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>

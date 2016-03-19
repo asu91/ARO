@@ -1,6 +1,7 @@
 export default THREE_RENDER_MARKER = `
   <script>
     var camera, scene, renderer;
+    var frustum;
     var meshes = [];
     var mesh;
     var hemiLight;
@@ -14,7 +15,7 @@ export default THREE_RENDER_MARKER = `
       /* CAMERA */
 
       camera = new THREE.PerspectiveCamera( fov, window.innerWidth / window.innerHeight, 1, 5280 );
-
+      frustum = new THREE.Frustum();
       scene = new THREE.Scene();
 
       /* LIGHTS */
