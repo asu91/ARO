@@ -1,9 +1,9 @@
 import React, { Component, StyleSheet, Dimensions, View } from 'react-native';
 import Camera from 'react-native-camera';
 import WebViewBridge from 'react-native-webview-bridge';
+import Location from '../lib/orientation/locationMath.js';
 import THREE_RENDER_MARKER from '../lib/threejs/marker.js';
 import HANDLE_ORIENTATION from '../lib/orientation/orientationHandler.js';
-import Location from '../lib/orientation/locationMath.js';
 
 const REF_WEBVIEW_BRIDGE = 'webviewbridge';
 
@@ -96,11 +96,11 @@ const BRIDGE_INJECT_SCRIPT = `
       // Message is an array of all of the pins we want to display,
       // where x and z on each pin is the relative location to the
       // device in feet.
-      var locs = JSON.parse( message );
+      var message = JSON.parse( message );
 
       mesh.visible = false;
 
-      locs.forEach( function( loc, i ) {
+      message.locs.forEach( function( loc, i ) {
         if( !( meshes[i] instanceof THREE.Mesh ) ) {
           meshes[i] = mesh.clone();
           meshes[i].visible = true;
@@ -134,8 +134,9 @@ export default class AR extends Component {
   }
 
   sendLocsToBridge( props ) {
-    var locs = JSON.stringify( this.calculateLocs( props.currLoc, props.pins ) );
-    this.refs.webviewbridge.sendToBridge( locs );
+    let message = {}
+    message.locs = this.calculateLocs( props.currLoc, props.pins );
+    this.refs.webviewbridge.sendToBridge( JSON.stringify( message ) );
   }
 
   onBridgeMessage( message ) {
