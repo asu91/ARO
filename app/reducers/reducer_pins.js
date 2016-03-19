@@ -15,7 +15,7 @@ export default function(state = initialState, action) {
     case UPDATE_PINS:
       return Object.assign({}, state, {
         pins: [
-        ...state.testPin,
+        ...state.pins,
         ...action.payload
         ]
       });

@@ -14,7 +14,7 @@ export default function() {
     snap.forEach(function(savedPin) {
       fetchedPins.push(savedPin.val());
     });
-    updatePins(fetchedPins);
+    dispatch(updatePins(fetchedPins));
   });
  };
 }
