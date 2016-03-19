@@ -4,6 +4,7 @@ export default THREE_RENDER_MARKER = `
     var meshes = [];
     var mesh;
     var hemiLight;
+    var fov = 70;
 
     init();
     animate();
@@ -12,7 +13,7 @@ export default THREE_RENDER_MARKER = `
 
       /* CAMERA */
 
-      camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 5280 );
+      camera = new THREE.PerspectiveCamera( fov, window.innerWidth / window.innerHeight, 1, 5280 );
 
       scene = new THREE.Scene();
 
@@ -56,7 +57,7 @@ export default THREE_RENDER_MARKER = `
 
       geometry.computeBoundingBox();
 
-      var material = new THREE.MeshPhongMaterial( { specular: 0x111111, color: 0xffffff, shininess: 100, shading: THREE.FlatShading, side: THREE.FrontSide } );
+      var material = new THREE.MeshPhongMaterial( { specular: 0x111111, color: 0xffffff, shininess: 100, specular: 100, reflectivity: 100, shading: THREE.FlatShading, side: THREE.FrontSide } );
 
       mesh = new THREE.Mesh( geometry, material );
       scene.add( mesh );
@@ -77,7 +78,7 @@ export default THREE_RENDER_MARKER = `
 
     function onWindowResize() {
 
-      camera.aspect = 70;
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
 
       renderer.setSize( window.innerWidth, window.innerHeight );
@@ -95,6 +96,9 @@ export default THREE_RENDER_MARKER = `
     function render() {
 
       mesh.rotation.y += 0.01;
+      meshes.forEach( function( mesh ) {
+        mesh.rotation.y += 0.01;
+      })
 
       renderer.render( scene, camera );
 

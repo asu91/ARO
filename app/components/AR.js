@@ -95,19 +95,13 @@ export default class AR extends Component {
 
 
   calculateLocs( currentLocation, arrayOfPins ) {
-
     var locs = [];
-
     // For each pin in the array of pins,
       // Calculate the relative x and z ( where -x is west, x is east, -z is north, and z is south )
       // Each unit being a foot.
-
-
-
     arrayOfPins.forEach( function( pin ) {
       locs.push( Location.relativeLocsInFeet( currentLocation, pin ) );
     });
-
     return locs;
   }
 
@@ -118,7 +112,6 @@ export default class AR extends Component {
 
   onBridgeMessage( message ) {
     if( message === "BRIDGE_READY" ) {
-
       this.sendLocsToBridge( this.props );
     }
   }

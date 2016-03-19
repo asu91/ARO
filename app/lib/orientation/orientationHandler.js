@@ -19,6 +19,10 @@ export default HANDLE_ORIENTATION = `
 
         camera.rotation.y = -degreeToRad( compassdir );
 
+        // Handle directional indicator:
+        // Examine the bearing of each pin relative to the camera's heading.
+        // Render ( or not ) an indicator for the appropriate direction.
+
         $("#alpha").text( compassdir );
       }, false );
     }
