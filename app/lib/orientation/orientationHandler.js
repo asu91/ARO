@@ -50,7 +50,7 @@ export default HANDLE_ORIENTATION = `
         $("#aws").text( "AWS " + angleFromCamera( meshes[0].position ) + " " + inFrustum( meshes[0].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[0].position ) );
         $("#punjab").text( "Punjab: " + angleFromCamera( meshes[1].position ) + " " + inFrustum( meshes[1].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[1].position ) );
         $("#hr").text( "HR: " + angleFromCamera( meshes[2].position ) + " " + inFrustum( meshes[2].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[2].position ) );
-
+        $("#starbucks").text( "SB: " + angleFromCamera( meshes[3].position ) + " " + inFrustum( meshes[3].position ) + " " + leftOrRight( camera.getWorldDirection(), meshes[3].position ) );
       }, false );
     }
 

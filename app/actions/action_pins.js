@@ -1,6 +1,6 @@
 import { DROP_NEW_PIN } from '../constants/constants.js';
 import { store } from 'redux';
-let nextPinId = 3;
+let nextPinId = 4;
 
 function dropNewPin(pinInfo) {
   return {
