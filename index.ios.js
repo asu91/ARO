@@ -45,14 +45,14 @@ class findAR extends Component {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigator={navigator}/>;
     return (
       <Provider store={store}>
-        <SideMenu menu={menu}>
           <ViewContainer firebase={this.firebaseRef}>
           </ViewContainer>
-        </SideMenu>
       </Provider>
     );
   }
 }
 
 AppRegistry.registerComponent('findAR', () => findAR);
+        // <SideMenu menu={menu}>
+        // </SideMenu>
 

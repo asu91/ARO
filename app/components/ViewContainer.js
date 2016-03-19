@@ -2,6 +2,7 @@ import React, { Component, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
 import DropNewPinButton from '../containers/container_dropNewPin';
+import PinList from './PinList.js';
 export default class ViewContainer extends Component {
 
   constructor(props) {
@@ -48,21 +49,21 @@ export default class ViewContainer extends Component {
   }
 
         // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
+        // <Map
+        //   dropPin={actions.getLocationToSave}
+        //   currLoc={this.state.currLoc}
+        //   pins = {pins}
+        //   initialLoc={this.state.initialLoc}
+        //   isFollowingUser={this.state.isFollowingUser}
+
+        // />
+
+        // <DropNewPinButton/>
   render() {
     const {actions, pins} = this.props;
     return (
       <View>
-        <Map
-          dropPin={actions.getLocationToSave}
-          currLoc={this.state.currLoc}
-          pins = {pins}
-          initialLoc={this.state.initialLoc}
-          isFollowingUser={this.state.isFollowingUser}
-
-        />     
-
-        <DropNewPinButton/>
-
+        <PinList/>
       </View>
     );
   }
