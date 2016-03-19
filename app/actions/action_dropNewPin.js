@@ -8,7 +8,6 @@ function dropNewPin(pinInfo) {
 }
 
 export default function getLocationToSave(location) {
-  nextPinId++;
   return (dispatch) => {
       var coords = {};
       if(!location) {
