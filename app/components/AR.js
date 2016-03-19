@@ -70,6 +70,7 @@ const HTML = `
 `;
 
 const BRIDGE_INJECT_SCRIPT = `
+  var targetLocIdx = 0;
   function webViewBridgeReady(cb) {
     //checks whether WebViewBridge exists in global scope.
     if (window.WebViewBridge) {
@@ -111,6 +112,11 @@ const BRIDGE_INJECT_SCRIPT = `
         meshes[i].position.z = loc.z;
       });
 
+      if( message.targetLocIdx !== targetLocIdx ) {
+        targetLocIdx = message.targetLocIdx;
+        // TODO: Color targeted pin differently
+      }
+
       // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
   });
@@ -135,6 +141,7 @@ export default class AR extends Component {
 
   sendLocsToBridge( props ) {
     let message = {}
+    message.targetLocIdx = props.targetLocIdx || 0;
     message.locs = this.calculateLocs( props.currLoc, props.pins );
     this.refs.webviewbridge.sendToBridge( JSON.stringify( message ) );
   }

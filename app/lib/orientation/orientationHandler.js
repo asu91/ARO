@@ -61,7 +61,7 @@ export default HANDLE_ORIENTATION = `
 
         $("#alpha").text( "Heading: " + compassdir );
 
-        updateHUDForTarget( meshes[2] );
+        updateHUDForTarget( meshes[targetLocIdx] );
 
       }, false );
     }
