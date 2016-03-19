@@ -18,6 +18,10 @@ export default HANDLE_ORIENTATION = `
       return frustum.containsPoint( vector );
     }
 
+    var getDistanceFromCamera = function( vector ) {
+      return Math.sqrt( Math.pow( vector.x, 2 ) + Math.pow( vector.z, 2 ) );
+    }
+
     var renderDirection = function( vector ) {
       $(".left").addClass( "hidden" );
       $(".right").addClass( "hidden" );
@@ -32,7 +36,7 @@ export default HANDLE_ORIENTATION = `
 
     var updateHUDForTarget = function( targetLoc ) {
       renderDirection( targetLoc.position );
-      $("#target").text( "Target: " + targetLoc.title );
+      $("#target").text( targetLoc.title + ": " + getDistanceFromCamera( targetLoc.position ).toFixed(0) + " feet" );
     }
 
     if (window.DeviceOrientationEvent) {
