@@ -33,7 +33,7 @@ export default class Map extends Component {
         >
           <MapView.Callout tooltip>
             <PinCallout>
-              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.longitude} + {pinObject.latitude}</Text>
+              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>pinId: {pinObject.id}</Text>
             </PinCallout>
           </MapView.Callout>
 
@@ -41,11 +41,13 @@ export default class Map extends Component {
       );
     });
   }
-
+//TODO: move map to user in a smoother way
+//it is very sudden and disrupted right now
   moveMapToUser(location) {
+    const {currLoc} = this.props;
     this.setState({position: {
-      longitude: this.props.currLoc.longitude,
-      latitude: this.props.currLoc.latitude,
+      longitude: currLoc.longitude,
+      latitude: currLoc.latitude,
       longitudeDelta: 0.005,
       latitudeDelta: 0.005
     }});
@@ -57,7 +59,8 @@ export default class Map extends Component {
       <View style={styles.container}>
         <MapView
           showsUserLocation={true}
-          initialRegion={{longitudeDelta: 0.05000044296161832, latitude: 37.77644419981398,longitude: -122.4142810713981, latitudeDelta: 0.0636722351829988  }}
+          //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
+          initialRegion={{longitudeDelta: 0.005000044296161832, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.00536722351829988  }}
           region={this.state.position}
           onRegionChange={this.onRegionChange.bind(this)}
 
