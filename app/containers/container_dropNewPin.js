@@ -17,7 +17,6 @@ class DropNewPinButton extends Component {
     };
   }
   handleClick() {
-    console.log(this.props, 'this is props in DropNewPinButton');
     const { getLocationToSave } = this.props;
     getLocationToSave();
   }
