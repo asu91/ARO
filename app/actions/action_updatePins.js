@@ -1,5 +1,5 @@
-import { UPDATE_PINS, userData } from '../constants/constants.js';
-
+import { UPDATE_PINS } from '../constants/constants.js';
+import { userData } from '../lib/db/db.js';
 function updatePins(allPins) {
   return {
     type: UPDATE_PINS,

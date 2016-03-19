@@ -5,7 +5,7 @@ import getLocationToSave from '../actions/action_dropNewPin.js';
 import Button from 'react-native-button';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { userData } from '../constants/constants';
+import { userData } from '../lib/db/db.js';
 
 class DropNewPinButton extends Component {
   constructor(props) {

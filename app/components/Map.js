@@ -23,7 +23,7 @@ export default class Map extends Component {
   renderMarkers() {
     const { pins } = this.props;
     return _.map(pins.pins, (pinObject) => {
-
+      console.log(pinObject.id, 'this is object id upon rendering marker!!!')
       return (
 
         <MapView.Marker
@@ -33,7 +33,7 @@ export default class Map extends Component {
         >
           <MapView.Callout tooltip>
             <PinCallout>
-              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.title}</Text>
+              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.longitude} + {pinObject.latitude}</Text>
             </PinCallout>
           </MapView.Callout>
 
