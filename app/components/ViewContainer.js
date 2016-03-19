@@ -39,8 +39,6 @@ export default class ViewContainer extends Component {
         this.setState({
           currLoc: coords
         });
-        // update firebase with current position
-        // this.currentPosition.set(position);
       }
     );
   }

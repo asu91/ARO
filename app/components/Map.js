@@ -23,7 +23,7 @@ export default class Map extends Component {
   renderMarkers() {
     const { pins } = this.props;
     return _.map(pins.pins, (pinObject) => {
-      console.log(pinObject.id, 'this is object id upon rendering marker!!!')
+      // console.log(pinObject.id, 'this is object id upon rendering marker!!!')
       return (
 
         <MapView.Marker
@@ -57,7 +57,7 @@ export default class Map extends Component {
       <View style={styles.container}>
         <MapView
           showsUserLocation={true}
-
+          initialRegion={{longitudeDelta: 0.05000044296161832, latitude: 37.77644419981398,longitude: -122.4142810713981, latitudeDelta: 0.0636722351829988  }}
           region={this.state.position}
           onRegionChange={this.onRegionChange.bind(this)}
 

@@ -6,7 +6,6 @@ function dropNewPin(pinInfo) {
     payload: pinInfo
   };
 }
-
 export default function getLocationToSave(location) {
   return (dispatch) => {
       var coords = {};

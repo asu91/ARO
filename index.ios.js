@@ -19,7 +19,6 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 const SideMenu = require('react-native-side-menu');
-const Firebase = require('firebase');
 
 
 //creates logger
@@ -34,7 +33,6 @@ class findAR extends Component {
 
   constructor() {
     super();
-    this.firebaseRef = new Firebase("https://interruptedlobster.firebaseio.com/");
   }
 
   onMenuItemSelected () {
@@ -45,7 +43,7 @@ class findAR extends Component {
     return (
       <Provider store={store}>
         <SideMenu menu={menu}>
-          <ViewContainer firebase={this.firebaseRef}>
+          <ViewContainer >
           </ViewContainer>
         </SideMenu>
       </Provider>

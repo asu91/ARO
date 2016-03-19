@@ -26,7 +26,7 @@ class DropNewPinButton extends Component {
       <Button
         style={{borderWidth: 1, borderColor: 'blue'}}
         onPress={this.handleClick.bind(this)}>
-        Press Me !
+        Drop New Pin!
       </Button>
     );
   }
