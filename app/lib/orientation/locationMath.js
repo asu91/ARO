@@ -34,11 +34,15 @@ let Location = {};
     return haversine( start, end, this.EARTH_RADIUS_IN_FEET );
   }
 
+  Location.bearing = function( x, z ) {
+    return Math.atan2( z, x );
+  }
+
   Location.relativeLocsInFeet = function ( start, end ) {
-    const name = end.name || undefined;
+    const title = end.title || undefined;
     const z = -1 * this.locDegreesToFeet( end.latitude - start.latitude ).toFixed(1);
     const x = this.locDegreesToFeet( end.longitude - start.longitude ).toFixed(1);
-    return { name, x, z };
+    return { title, x, z };
   }
 
 export default Location;
