@@ -1,4 +1,4 @@
-import React, {Component, View, ListView, Text} from 'react-native';
+import React, {Component, View, ListView, Animated} from 'react-native';
 import PinListItem from './PinListItem.js';
 
 
@@ -15,7 +15,7 @@ export default class PinList extends Component {
 
   componentDidMount() {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(['one', 'two'])
+      dataSource: this.state.dataSource.cloneWithRows(['one', 'two', 'three', 'four'])
     });
   }
 
@@ -27,11 +27,14 @@ export default class PinList extends Component {
 
   render() {
     return (
-
+      <Animated.View
+        
+      >
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.item.bind(this)}
         />
+      </Animated.View>
 
       );
   }

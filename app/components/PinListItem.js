@@ -11,7 +11,6 @@ export default class PinListItem extends Component {
     return (
       <TouchableHighlight 
         onPress={() => alert('why you touch')}
-        underlayColor={'silver'}
       >
         <View style={style.container}>
           <Text style={style.text}>
@@ -19,16 +18,16 @@ export default class PinListItem extends Component {
           </Text>
         </View>
       </TouchableHighlight>
-    );``
+    );
   }
 }
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'silver',
     borderRadius: 4,
-    margin: 5,
+    margin: 4,
     padding: 10
   },
   text: {
