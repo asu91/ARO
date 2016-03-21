@@ -1,6 +1,7 @@
 import { UPDATE_PINS } from '../constants/constants.js';
 import { userData } from '../lib/db/db.js';
 function updatePins(allPins) {
+  console.log('updating pins')
   return {
     type: UPDATE_PINS,
     payload: allPins

@@ -8,13 +8,14 @@ export default class PinListItem extends Component {
   }
 
   render() {
+    const { pin } = this.props
     return (
       <TouchableHighlight 
         onPress={() => alert('why you touch')}
       >
         <View style={style.container}>
           <Text style={style.text}>
-            {this.props.pin}
+            {pin.title}
           </Text>
         </View>
       </TouchableHighlight>

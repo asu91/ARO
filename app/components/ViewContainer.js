@@ -3,6 +3,7 @@ import AR from './AR.js';
 import Map from './Map.js';
 import DropNewPinButton from '../containers/container_dropNewPin';
 import PinList from './PinList.js';
+
 export default class ViewContainer extends Component {
 
   constructor(props) {
@@ -16,6 +17,12 @@ export default class ViewContainer extends Component {
       isFollowingUser: true,
     };
   }
+
+  componentWillMount() {
+    const { getPins } = this.props;
+    getPins();
+  }
+
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -45,29 +52,24 @@ export default class ViewContainer extends Component {
   }
 
         // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
+
+
+        // <DropNewPinButton/>
         // <Map
-        //   dropPin={actions.getLocationToSave}
+        //   dropPin={getLocationToSave}
+        //   getPins={getPins}
         //   currLoc={this.state.currLoc}
         //   pins = {pins}
         //   initialLoc={this.state.initialLoc}
         //   isFollowingUser={this.state.isFollowingUser}
 
         // />
-
-        // <DropNewPinButton/>
   render() {
-    const {getLocationToSave, getPins, pins} = this.props;
+    const {getLocationToSave, pins} = this.props;
     return (
       <View>
-        <PinList/>
-        <Map
-          dropPin={getLocationToSave}
-          getPins={getPins}
-          currLoc={this.state.currLoc}
-          pins = {pins}
-          initialLoc={this.state.initialLoc}
-          isFollowingUser={this.state.isFollowingUser}
-
+        <PinList
+          pins={pins}
         />
 
         <DropNewPinButton/>

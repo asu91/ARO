@@ -13,13 +13,11 @@ export default class Map extends Component {
       position: null,
     };
   }
-  componentWillMount() {
-    const { getPins } = this.props;
-    getPins();
-  }
+
   onRegionChange(region) {
     this.setState({ position: region });
   }
+  
   renderMarkers() {
     const { pins } = this.props;
     return _.map(pins.pins, (pinObject) => {
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   map: {
-    height: Dimensions.get('window').height/1.5,
+    height: Dimensions.get('window').height/2,
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
