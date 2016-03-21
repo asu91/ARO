@@ -7,6 +7,7 @@ export default class PinList extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // create the data source
       dataSource: new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       })
@@ -14,6 +15,7 @@ export default class PinList extends Component {
   }
 
   componentDidMount() {
+    // populate the data source
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(['one', 'two', 'three', 'four'])
     });
@@ -21,6 +23,7 @@ export default class PinList extends Component {
 
   item(pin) {
     return (
+        // pass down info to PinListItem
         <PinListItem pin={pin}  />
       );
   }

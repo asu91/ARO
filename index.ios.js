@@ -29,13 +29,10 @@ const store = createStore(
   applyMiddleware(thunk, promise, logger)
 );
 
-const Firebase = require('firebase');
-
 class findAR extends Component {
 
   constructor() {
     super();
-    this.firebaseRef = new Firebase("https://interruptedlobster.firebaseio.com/");
   }
 
   onMenuItemSelected () {
@@ -45,14 +42,14 @@ class findAR extends Component {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigator={navigator}/>;
     return (
       <Provider store={store}>
-          <ViewContainer firebase={this.firebaseRef}>
+        <SideMenu menu={menu}>
+          <ViewContainer >
           </ViewContainer>
+        </SideMenu>
       </Provider>
     );
   }
 }
 
 AppRegistry.registerComponent('findAR', () => findAR);
-        // <SideMenu menu={menu}>
-        // </SideMenu>
 

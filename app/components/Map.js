@@ -4,7 +4,7 @@ import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
-import {PinCallout} from './PinCallout.js';
+import { PinCallout } from './PinCallout.js';
 
 export default class Map extends Component {
   constructor(props) {
@@ -12,16 +12,18 @@ export default class Map extends Component {
     this.state = {
       position: null,
     };
-    this.testRef = new Firebase("https://interruptedlobster.firebaseio.com/pins");
   }
-
+  componentWillMount() {
+    const { getPins } = this.props;
+    getPins();
+  }
   onRegionChange(region) {
     this.setState({ position: region });
   }
   renderMarkers() {
     const { pins } = this.props;
     return _.map(pins.pins, (pinObject) => {
-
+      // console.log(pinObject.id, 'this is object id upon rendering marker!!!')
       return (
 
         <MapView.Marker
@@ -31,7 +33,7 @@ export default class Map extends Component {
         >
           <MapView.Callout tooltip>
             <PinCallout>
-              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.title}</Text>
+              <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>pinId: {pinObject.id}</Text>
             </PinCallout>
           </MapView.Callout>
 
@@ -39,11 +41,13 @@ export default class Map extends Component {
       );
     });
   }
-
+//TODO: move map to user in a smoother way
+//it is very sudden and disrupted right now
   moveMapToUser(location) {
+    const {currLoc} = this.props;
     this.setState({position: {
-      longitude: this.props.currLoc.longitude,
-      latitude: this.props.currLoc.latitude,
+      longitude: currLoc.longitude,
+      latitude: currLoc.latitude,
       longitudeDelta: 0.005,
       latitudeDelta: 0.005
     }});
@@ -55,7 +59,8 @@ export default class Map extends Component {
       <View style={styles.container}>
         <MapView
           showsUserLocation={true}
-
+          //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
+          initialRegion={{longitudeDelta: 0.005000044296161832, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.00536722351829988  }}
           region={this.state.position}
           onRegionChange={this.onRegionChange.bind(this)}
 
@@ -76,7 +81,6 @@ export default class Map extends Component {
                     text: 'OK',
                     onPress: () => {
                       dropPin(coords)
-                      this.testRef.push(coords)
                     }
                   }]
                 )
