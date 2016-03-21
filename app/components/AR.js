@@ -1,9 +1,9 @@
 import React, { Component, StyleSheet, Dimensions, View } from 'react-native';
 import Camera from 'react-native-camera';
 import WebViewBridge from 'react-native-webview-bridge';
+import Location from '../lib/orientation/locationMath.js';
 import THREE_RENDER_MARKER from '../lib/threejs/marker.js';
 import HANDLE_ORIENTATION from '../lib/orientation/orientationHandler.js';
-import Location from '../lib/orientation/locationMath.js';
 
 const REF_WEBVIEW_BRIDGE = 'webviewbridge';
 
@@ -14,6 +14,30 @@ const WEBVIEW_STYLE = `
     padding: 0;
     font: 62.5% arial, sans-serif;
     background: transparent;
+  }
+
+  .direction-marker {
+    position: fixed;
+    width: 30px;
+    height: 100vh;
+  }
+
+  .left {
+    z-index: 1;
+    float: left;
+    left: 0;
+    background: linear-gradient(to right, rgba(29,147,145,1) 0%,rgba(125,185,232,0) 100%);
+  }
+
+  .right {
+    z-index: 1;
+    float: right;
+    right: 0;
+    background: linear-gradient(to left, rgba(29,147,145,1) 0%,rgba(125,185,232,0) 100%);
+  }
+
+  .hidden {
+    display: none;
   }
 `;
 
@@ -36,13 +60,17 @@ const HTML = `
     </style>
   </head>
   <body>
+    <div class="direction-marker left hidden"></div>
+    <div class="direction-marker right hidden"></div>
     <p id="alpha"></p>
+    <p id="target"></p>
     ${ WEBVIEW_SCRIPTS }
   </body>
 </html>
 `;
 
 const BRIDGE_INJECT_SCRIPT = `
+  var targetLocIdx = 0;
   function webViewBridgeReady(cb) {
     //checks whether WebViewBridge exists in global scope.
     if (window.WebViewBridge) {
@@ -69,19 +97,25 @@ const BRIDGE_INJECT_SCRIPT = `
       // Message is an array of all of the pins we want to display,
       // where x and z on each pin is the relative location to the
       // device in feet.
-      var locs = JSON.parse( message );
+      var message = JSON.parse( message );
 
       mesh.visible = false;
 
-      locs.forEach( function( loc, i ) {
+      message.locs.forEach( function( loc, i ) {
         if( !( meshes[i] instanceof THREE.Mesh ) ) {
           meshes[i] = mesh.clone();
           meshes[i].visible = true;
           scene.add( meshes[i] );
         }
+        meshes[i].title = loc.title;
         meshes[i].position.x = loc.x;
         meshes[i].position.z = loc.z;
       });
+
+      if( message.targetLocIdx !== targetLocIdx ) {
+        targetLocIdx = message.targetLocIdx;
+        // TODO: Color targeted pin differently
+      }
 
       // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
@@ -95,30 +129,25 @@ export default class AR extends Component {
 
 
   calculateLocs( currentLocation, arrayOfPins ) {
-
     var locs = [];
-
     // For each pin in the array of pins,
       // Calculate the relative x and z ( where -x is west, x is east, -z is north, and z is south )
       // Each unit being a foot.
-
-
-
     arrayOfPins.forEach( function( pin ) {
       locs.push( Location.relativeLocsInFeet( currentLocation, pin ) );
     });
-
     return locs;
   }
 
   sendLocsToBridge( props ) {
-    var locs = JSON.stringify( this.calculateLocs( props.currLoc, props.pins ) );
-    this.refs.webviewbridge.sendToBridge( locs );
+    let message = {}
+    message.targetLocIdx = props.targetLocIdx || 0;
+    message.locs = this.calculateLocs( props.currLoc, props.pins );
+    this.refs.webviewbridge.sendToBridge( JSON.stringify( message ) );
   }
 
   onBridgeMessage( message ) {
     if( message === "BRIDGE_READY" ) {
-
       this.sendLocsToBridge( this.props );
     }
   }
