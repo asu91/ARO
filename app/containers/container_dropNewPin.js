@@ -18,8 +18,10 @@ class DropNewPinButton extends Component {
   }
 
   handleClick() {
-    const { getLocationToSave } = this.props;
-    getLocationToSave();
+    const { getLocationToSave, recent } = this.props;
+    console.log('click works yolo')
+    getLocationToSave(null, recent);
+
   }
 
   render() {
@@ -35,7 +37,8 @@ class DropNewPinButton extends Component {
 
 function mapStateToProps(state) {
   return {
-    pins: state.pins
+    pins: state.pins,
+    recent: state.recent
   };
 }
 

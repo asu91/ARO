@@ -47,7 +47,7 @@ export default class Map extends Component {
   }
 
   render() {
-    const { pins, dropPin, currLoc } = this.props;
+    const { pins, getLocationToSave, currLoc, recent } = this.props;
     return (
       <View style={styles.container}>
         <MapView
@@ -73,7 +73,7 @@ export default class Map extends Component {
                   {
                     text: 'OK',
                     onPress: () => {
-                      dropPin(coords)
+                      getLocationToSave(coords, recent)
                     }
                   }]
                 )

@@ -1,5 +1,5 @@
 import { DROP_NEW_PIN, UPDATE_RECENT } from '../constants/constants.js';
-import { userData } from '../lib/db/db.js';
+import { userData, userRecent } from '../lib/db/db.js';
 function dropNewPin(payload, id) {
   return {
     type: DROP_NEW_PIN,
@@ -25,7 +25,7 @@ function checkRecent(current, id) {
   }
 }
 
-export default function getLocationToSave(location) {
+export default function getLocationToSave(location, current) {
   function getLocationHelper(loc, title, dispatch){
     let coords = {};
      coords.longitude = loc.longitude;
@@ -35,8 +35,8 @@ export default function getLocationToSave(location) {
      let pushedObj = userData.push(coords);
      coords.id = pushedObj.key();
      pushedObj.update({"id": pushedObj.key()});
-     // return pushedObj;
      dispatch(dropNewPin(coords, pushedObj.key()));
+     dispatch(updateRecent(checkRecent(current, coords.id)));
   }
   return (dispatch) => {
       if(!location) {
