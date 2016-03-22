@@ -18,6 +18,10 @@ export default function getLocationToSave(location) {
               coords.title = 'My Current Location';
               //this assigns pushedObj to added pin object while adding to db
               let pushedObj = userData.push(coords);
+              coords.id = pushedObj.key();
+              pushedObj.update({
+                id: pushedObj.key()
+              });
               dispatch(dropNewPin(coords, pushedObj.key()));
           },
           (error) => {
@@ -30,6 +34,10 @@ export default function getLocationToSave(location) {
         coords.latitude = location.latitude;
         coords.title = 'New Pin Location';
         let pushedObj = userData.push(coords);
+        coords.id = pushedObj.key();
+        pushedObj.update({
+          id: pushedObj.key()
+        });
         dispatch(dropNewPin(coords, pushedObj.key()));
       }
     };

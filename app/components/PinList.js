@@ -1,7 +1,6 @@
 import React, {Component, View, ListView} from 'react-native';
 import PinListItem from './PinListItem.js';
 
-
 export default class PinList extends Component {
 
   constructor(props) {
@@ -14,40 +13,29 @@ export default class PinList extends Component {
     };
   }
 
-  componentDidMount() {
-    const { pins } = this.props;
-    // populate the data source
-
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(pins)
-    });
-  }
-
   componentWillReceiveProps(nextProps) {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(nextProps.pins)
     });
   }
 
-  item(pin) {
-    const {getPins} = this.props;
+  renderItem(pin) {
+    const {deletePin} = this.props;
     return (
-        // pass down info to PinListItem
+        // pass down pin info to PinListItem
         <PinListItem
           pin={pin}
-          getPins={getPins}
+          deletePin={deletePin}
         />
       );
   }
 
   render() {
     return (
-
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.item.bind(this)}
-        />
-
-      );
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderItem.bind(this)}
+      />
+    );
   }
 }

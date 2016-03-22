@@ -47,27 +47,23 @@ export default class ViewContainer extends Component {
       }
     );
   }
-        // <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
-        // <Map
-        //   dropPin={getLocationToSave}
-        //   currLoc={this.state.currLoc}
-        //   pins = {pins}
-        //   initialLoc={this.state.initialLoc}
-        //   isFollowingUser={this.state.isFollowingUser}
-
-        // />
-
 
   render() {
-    const {getLocationToSave, pins, getPins} = this.props;
+    const {getLocationToSave, pins, deletePin} = this.props;
     return (
       <View>
+        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
+        <Map
+          dropPin={getLocationToSave}
+          currLoc={this.state.currLoc}
+          pins = {pins}
+          initialLoc={this.state.initialLoc}
+          isFollowingUser={this.state.isFollowingUser}
+        />
         <PinList
-          getPins={getPins}
+          deletePin={deletePin}
           pins={pins}
           />
-
-
         <DropNewPinButton/>
       </View>
     );

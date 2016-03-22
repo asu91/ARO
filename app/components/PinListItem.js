@@ -1,15 +1,13 @@
 import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
-import { userData } from '../lib/db/db.js'
 
 export default class PinListItem extends Component {
 
   constructor(props) {
     super(props);
-    this.firebaseRef = userData;
   }
 
   render() {
-    const { pin, getPins } = this.props;
+    const { pin, deletePin } = this.props;
     return (
       <TouchableHighlight 
         onPress={() => {
@@ -23,11 +21,8 @@ export default class PinListItem extends Component {
               {
                 text: 'OK',
                 onPress: () => {
-                  console.log(pin._key)
-                  // this.firebaseRef.child(pin.id).remove()
-                  getPins()
+                  deletePin(pin)
                 }
-                
               }]
             )
         }}
@@ -45,10 +40,10 @@ export default class PinListItem extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'silver',
+    backgroundColor: 'white',
     borderRadius: 4,
     margin: 4,
-    padding: 10
+    padding: 6
   },
   text: {
     alignSelf: 'center',
