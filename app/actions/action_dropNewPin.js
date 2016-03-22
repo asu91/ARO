@@ -1,4 +1,4 @@
-import { DROP_NEW_PIN } from '../constants/constants.js';
+import { DROP_NEW_PIN, UPDATE_RECENT } from '../constants/constants.js';
 import { userData } from '../lib/db/db.js';
 function dropNewPin(payload, id) {
   return {
@@ -6,6 +6,11 @@ function dropNewPin(payload, id) {
     id,
     payload
   };
+}
+function updateRecent() {
+  return {
+    type: UPDATE_RECENT,
+  }
 }
 export default function getLocationToSave(location) {
   return (dispatch) => {
