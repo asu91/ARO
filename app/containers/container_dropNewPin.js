@@ -19,7 +19,6 @@ class DropNewPinButton extends Component {
 
   handleClick() {
     const { getLocationToSave, recent } = this.props;
-    console.log('click works yolo')
     getLocationToSave(null, recent);
 
   }

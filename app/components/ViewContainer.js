@@ -16,8 +16,9 @@ export default class ViewContainer extends Component {
     };
   }
   componentWillMount() {
-    const { getPins } = this.props;
+    const { getPins, updateRecent } = this.props;
     getPins();
+    updateRecent();
   }
 
   componentDidMount() {
