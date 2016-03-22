@@ -1,7 +1,6 @@
 import React, { Component, StyleSheet, Dimensions, View } from 'react-native';
 import Camera from 'react-native-camera';
 import WebViewBridge from 'react-native-webview-bridge';
-import Location from '../lib/orientation/locationMath.js';
 import THREE_RENDER_MARKER from '../lib/threejs/marker.js';
 import HANDLE_ORIENTATION from '../lib/orientation/orientationHandler.js';
 import Location from '../lib/orientation/locationMath.js';
