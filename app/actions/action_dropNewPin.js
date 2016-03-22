@@ -7,23 +7,42 @@ function dropNewPin(payload, id) {
     payload
   };
 }
-function updateRecent() {
+function updateRecent(recentArray) {
   return {
     type: UPDATE_RECENT,
+    recentArray
+  };
+}
+function checkRecent(current, id) {
+  var updated;
+  if(current.length >= 10) {
+    updated = current.slice(1);
+    updated.push(id);
+    return updated;
+  } else {
+    current = current.concat(id);
+    return current;
   }
 }
+
 export default function getLocationToSave(location) {
+  function getLocationHelper(loc, title, dispatch){
+    let coords = {};
+     coords.longitude = loc.longitude;
+     coords.latitude = loc.latitude;
+     coords.title = title;
+     //this assigns pushedObj to added pin object while adding to db
+     let pushedObj = userData.push(coords);
+     coords.id = pushedObj.key();
+     pushedObj.update({"id": pushedObj.key()});
+     // return pushedObj;
+     dispatch(dropNewPin(coords, pushedObj.key()));
+  }
   return (dispatch) => {
-      var coords = {};
       if(!location) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-              coords.longitude = position.coords.longitude;
-              coords.latitude = position.coords.latitude;
-              coords.title = 'My Current Location';
-              //this assigns pushedObj to added pin object while adding to db
-              let pushedObj = userData.push(coords);
-              dispatch(dropNewPin(coords, pushedObj.key()));
+             getLocationHelper(position.coords, "My Current Location", dispatch);
           },
           (error) => {
             console.error(error);
@@ -31,11 +50,7 @@ export default function getLocationToSave(location) {
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
       } else {
-        coords.longitude = location.longitude;
-        coords.latitude = location.latitude;
-        coords.title = 'New Pin Location';
-        let pushedObj = userData.push(coords);
-        dispatch(dropNewPin(coords, pushedObj.key()));
+        getLocationHelper(location, "My New Location", dispatch );
       }
     };
 }

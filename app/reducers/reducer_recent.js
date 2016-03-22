@@ -1,16 +1,12 @@
-import {DROP_NEW_PIN} from '../constants/constants.js';
+import {UPDATE_RECENT} from '../constants/constants.js';
 
-const initialState = [];
+const initialState = [0,1,2];
 
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case DROP_NEW_PIN:
-      let newPin = {};
-      newPin[action.id] = action.payload;
-      return Object.assign({}, state,
-        newPin
-      );
+    case UPDATE_RECENT:
+      return action.recentArray;
     default:
       return state;
   }
