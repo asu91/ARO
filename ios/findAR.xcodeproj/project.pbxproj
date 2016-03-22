@@ -112,21 +112,6 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
-		237657AA1C9B825E00424DF3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DEE088EED8CB40388C0D8B41 /* AirMaps.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 11FA5C511C4A1296003AC2EE;
-			remoteInfo = AirMaps;
-		};
-		237657BB1C9B825E00424DF3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C854D54C15414C36834DABA6 /* RCTCamera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
-			remoteInfo = RCTCamera;
-		};
-
 		23A603EA1C98FA7A00C547E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 72FADD943C1D41D0B1057E28 /* React-Native-Webview-Bridge.xcodeproj */;
@@ -331,22 +316,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		237657A71C9B825E00424DF3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				237657AB1C9B825E00424DF3 /* libAirMaps.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		237657B81C9B825E00424DF3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				237657BC1C9B825E00424DF3 /* libRCTCamera.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		23A603D91C98FA7900C547E9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,7 +434,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = FA5DK25727;
+						DevelopmentTeam = QWT92J29VF;
 					};
 				};
 			};
@@ -482,7 +451,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 237657A71C9B825E00424DF3 /* Products */;
 					ProductGroup = 00EB06201C9B8485000BBD45 /* Products */;
 					ProjectRef = DEE088EED8CB40388C0D8B41 /* AirMaps.xcodeproj */;
 				},
@@ -495,7 +463,6 @@
 					ProjectRef = D4A5D0076F624CAEBB615EAE /* RCTCamera.xcodeproj */;
 				},
 				{
-					ProductGroup = 237657B81C9B825E00424DF3 /* Products */;
 					ProductGroup = 00EB060F1C9B8485000BBD45 /* Products */;
 					ProjectRef = C854D54C15414C36834DABA6 /* RCTCamera.xcodeproj */;
 				},
@@ -626,21 +593,6 @@
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		237657AB1C9B825E00424DF3 /* libAirMaps.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libAirMaps.a;
-			remoteRef = 237657AA1C9B825E00424DF3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		237657BC1C9B825E00424DF3 /* libRCTCamera.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCamera.a;
-			remoteRef = 237657BB1C9B825E00424DF3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-
 		23A603EB1C98FA7A00C547E9 /* libReact-Native-Webview-Bridge.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -791,8 +743,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-
-
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				HEADER_SEARCH_PATHS = (
@@ -806,7 +756,7 @@
 				INFOPLIST_FILE = findAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR;
 				PRODUCT_NAME = findAR;
 				PROVISIONING_PROFILE = "";
 			};
@@ -817,7 +767,6 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -830,7 +779,7 @@
 				INFOPLIST_FILE = findAR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.findAR;
 				PRODUCT_NAME = findAR;
 				PROVISIONING_PROFILE = "";
 			};

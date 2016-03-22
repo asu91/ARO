@@ -15,16 +15,20 @@ export default class PinList extends Component {
   }
 
   componentDidMount() {
-    // populate the data source
     const { pins } = this.props;
-    console.log('all pins?', pins)
+    // populate the data source
+
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(pins.pins)
     });
   }
-  renderPins() {
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(nextProps.pins.pins)
+    });
   }
+
   item(pin) {
     return (
         // pass down info to PinListItem

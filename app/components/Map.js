@@ -1,5 +1,4 @@
 import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 'react-native';
-
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
