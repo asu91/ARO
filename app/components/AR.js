@@ -126,9 +126,7 @@ export default class AR extends Component {
   constructor(props) {
     super(props);
   }
-
   calculateLocs( currentLocation, objectOfPins ) {
-
     var locs = [];
     // For each pin in the array of pins,
       // Calculate the relative x and z ( where -x is west, x is east, -z is north, and z is south )

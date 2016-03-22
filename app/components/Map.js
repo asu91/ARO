@@ -21,7 +21,6 @@ export default class Map extends Component {
     const { pins } = this.props;
     return _.map(pins, (pinObject, key) => {
       return (
-
         <MapView.Marker
           image={image}
           key={key}
