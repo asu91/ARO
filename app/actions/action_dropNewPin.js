@@ -1,11 +1,10 @@
 import { DROP_NEW_PIN } from '../constants/constants.js';
 import { userData } from '../lib/db/db.js';
-let currentId = 0;
-function dropNewPin(pinInfo, currentId) {
+function dropNewPin(payload, id) {
   return {
     type: DROP_NEW_PIN,
-    id: currentId,
-    payload: pinInfo
+    id,
+    payload
   };
 }
 export default function getLocationToSave(location) {
