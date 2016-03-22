@@ -104,6 +104,7 @@ const BRIDGE_INJECT_SCRIPT = `
       message.locs.forEach( function( loc, i ) {
         if( !( meshes[i] instanceof THREE.Mesh ) ) {
           meshes[i] = mesh.clone();
+          // TODO: instantiate a new text model
           meshes[i].visible = true;
           scene.add( meshes[i] );
         }
