@@ -41,9 +41,6 @@ export default class ViewContainer extends Component {
         var coords = {};
         coords.longitude = position.coords.longitude;
         coords.latitude = position.coords.latitude;
-        // this.setState({
-        //   currLoc: coords
-        // });
       }
     );
   }
