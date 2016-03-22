@@ -1,17 +1,36 @@
-import React, {Component, Text, TouchableHighlight, View, StyleSheet} from 'react-native';
-
+import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
+import { userData } from '../lib/db/db.js'
 
 export default class PinListItem extends Component {
 
   constructor(props) {
     super(props);
+    this.firebaseRef = userData;
   }
 
   render() {
-    const { pin } = this.props
+    const { pin, getPins } = this.props;
     return (
       <TouchableHighlight 
-        onPress={() => alert('why you touch')}
+        onPress={() => {
+          AlertIOS.alert(
+              'Delete Pin?',
+              null,
+              [{
+                text: 'Cancel',
+                style: 'cancel'
+              },
+              {
+                text: 'OK',
+                onPress: () => {
+                  console.log(pin._key)
+                  // this.firebaseRef.child(pin.id).remove()
+                  getPins()
+                }
+                
+              }]
+            )
+        }}
       >
         <View style={style.container}>
           <Text style={style.text}>

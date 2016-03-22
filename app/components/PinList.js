@@ -1,4 +1,4 @@
-import React, {Component, View, ListView, Animated} from 'react-native';
+import React, {Component, View, ListView} from 'react-native';
 import PinListItem from './PinListItem.js';
 
 
@@ -19,33 +19,34 @@ export default class PinList extends Component {
     // populate the data source
 
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(pins.pins)
+      dataSource: this.state.dataSource.cloneWithRows(pins)
     });
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.pins.pins)
+      dataSource: this.state.dataSource.cloneWithRows(nextProps.pins)
     });
   }
 
   item(pin) {
+    const {getPins} = this.props;
     return (
         // pass down info to PinListItem
-        <PinListItem pin={pin}  />
+        <PinListItem
+          pin={pin}
+          getPins={getPins}
+        />
       );
   }
 
   render() {
     return (
-      <Animated.View
-        
-      >
+
         <ListView
           dataSource={this.state.dataSource}
           renderRow={this.item.bind(this)}
         />
-      </Animated.View>
 
       );
   }

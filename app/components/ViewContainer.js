@@ -63,10 +63,11 @@ export default class ViewContainer extends Component {
 
 
   render() {
-    const {getLocationToSave, pins} = this.props;
+    const {getLocationToSave, pins, getPins} = this.props;
     return (
       <View>
         <PinList
+          getPins={getPins}
           pins={pins}
           />
 

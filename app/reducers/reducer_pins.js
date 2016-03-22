@@ -1,4 +1,4 @@
-import {DROP_NEW_PIN, UPDATE_PINS} from '../constants/constants.js';
+import { DROP_NEW_PIN, UPDATE_PINS, REMOVE_PIN } from '../constants/constants.js';
 
 const testObj = {
  0: { title: 'AWS', latitude: 37.783278, longitude: -122.4084808 },           // AWS
