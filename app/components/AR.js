@@ -2,6 +2,7 @@ import React, { Component, StyleSheet, Dimensions, View } from 'react-native';
 import Camera from 'react-native-camera';
 import WebViewBridge from 'react-native-webview-bridge';
 import THREE_RENDER_MARKER from '../lib/threejs/marker.js';
+import THREE_RENDER_TEXT from '../lib/threejs/text.js';
 import HANDLE_ORIENTATION from '../lib/orientation/orientationHandler.js';
 import Location from '../lib/orientation/locationMath.js';
 import _ from 'underscore';
@@ -45,6 +46,7 @@ const WEBVIEW_SCRIPTS = `
   <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
   ${ THREE_RENDER_MARKER }
+  ${ THREE_RENDER_TEXT }
   ${ HANDLE_ORIENTATION }
 `;
 
@@ -104,10 +106,19 @@ const BRIDGE_INJECT_SCRIPT = `
       message.locs.forEach( function( loc, i ) {
         if( !( meshes[i] instanceof THREE.Mesh ) ) {
           meshes[i] = mesh.clone();
-          // TODO: instantiate a new text model
           meshes[i].visible = true;
           scene.add( meshes[i] );
         }
+        // TODO: instantiate a new text model
+        if( !( textmodels[i] instanceof THREE.Mesh ) ) {
+          textmodels[i] = createTextModel( loc.title );
+          textmodels[i].visible = true;
+          scene.add( textmodels[i] );
+        }
+        textmodels[i].position.y = -25;
+        textmodels[i].lookAt( camera.position );
+        textmodels[i].position.x = loc.x;
+        textmodels[i].position.z = loc.z;
         meshes[i].title = loc.title;
         meshes[i].position.x = loc.x;
         meshes[i].position.z = loc.z;
