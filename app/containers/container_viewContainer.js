@@ -10,7 +10,7 @@ import ViewContainer from '../components/ViewContainer.js';
 function mapStateToProps(state) {
   return {
     pins: state.pins,
-    recent: state.pins
+    recent: state.recent
   };
 }
 

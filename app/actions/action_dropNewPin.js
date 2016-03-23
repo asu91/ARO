@@ -13,8 +13,11 @@ function setRecent(payload) {
     payload
   };
 }
-function checkRecent(current, id) {
+function checkRecent(current = [], id) {
   var updated;
+  if(!Array.isArray(current)) {
+    return [id];
+  }
   if(current.length >= 10) {
     updated = current.slice(1);
     updated.push(id);
