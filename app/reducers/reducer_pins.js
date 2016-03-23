@@ -30,9 +30,7 @@ export default function(state = initialState, action) {
       deletedPinState[id] = Object.assign({}, state[id]);
       // delete pin
       delete deletedPinState[id];      
-      return Object.assign({},
-        deletedPinState
-      );
+      return deletedPinState;
     default:
       return state;
   }
