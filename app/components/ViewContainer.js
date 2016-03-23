@@ -2,6 +2,8 @@ import React, { Component, View } from 'react-native';
 import AR from './AR.js';
 import Map from './Map.js';
 import DropNewPinButton from '../containers/container_dropNewPin';
+import PinList from './PinList.js';
+
 export default class ViewContainer extends Component {
 
   constructor(props) {
@@ -12,9 +14,9 @@ export default class ViewContainer extends Component {
         latitude: 37.7835551,
         longitude: -122.4089013,
       },
-      isFollowingUser: true,
     };
   }
+
   componentWillMount() {
     const { getPins, updateRecent } = this.props;
     getPins();
@@ -45,20 +47,24 @@ export default class ViewContainer extends Component {
       }
     );
   }
-        // <AR currLoc={ this.state.currLoc } pins= { pins } />
 
+        // <AR currLoc={ this.state.currLoc } pins={pins} />
   render() {
-    const {getLocationToSave, pins, recent} = this.props;
+    const { getLocationToSave, pins, deletePin, recent } = this.props;
+
     return (
       <View>
         <Map
           getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
           initialLoc={this.state.initialLoc}
-          isFollowingUser={this.state.isFollowingUser}
           pins = {pins}
           recent = {recent}
         />
+        <PinList
+          deletePin={deletePin}
+          pins={pins}
+          />
         <DropNewPinButton/>
       </View>
     );

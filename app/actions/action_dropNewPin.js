@@ -55,6 +55,7 @@ export default function getLocationToSave(location, current) {
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
       } else {
+
         getLocationHelper(location, "My New Location", dispatch );
       }
     };
