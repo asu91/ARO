@@ -31,6 +31,7 @@ export default class PinListItem extends Component {
 
   editTitle(value) {
     const { pin, updatePins, updateRecent } = this.props;
+    
     updatePins(pin, value);
     updateRecent();
   }
