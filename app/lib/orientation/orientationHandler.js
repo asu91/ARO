@@ -50,7 +50,7 @@ const HANDLE_ORIENTATION = `
         else compassdir = e.alpha;
 
         // Set camera's heading
-        camera.rotation.y = -degreeToRad( compassdir );
+        camera.rotation.y = -degreeToRad( compassdir + window.orientation );
         
         // Configure frustum
         camera.updateMatrix(); // make sure camera's local matrix is updated
