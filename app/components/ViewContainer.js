@@ -57,11 +57,13 @@ export default class ViewContainer extends Component {
         //   recent = {recent}
         // />
   render() {
-    const { getLocationToSave, pins, deletePin, recent } = this.props;
+    const { getLocationToSave, pins, updatePins, updateRecent, deletePin, recent } = this.props;
 
     return (
       <View>
         <PinList
+          updatePins={updatePins}
+          updateRecent={updateRecent}
           deletePin={deletePin}
           pins={pins}
           />
