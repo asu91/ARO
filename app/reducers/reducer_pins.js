@@ -13,7 +13,6 @@ const initialState = testObj;
 export default function(state = initialState, action) {
   switch(action.type) {
     case UPDATE_PINS:
-        console.log('payload:',action.payload)
       return Object.assign({}, state,
          action.payload
       );
@@ -24,17 +23,18 @@ export default function(state = initialState, action) {
         newPin
       );
     case DELETE_PIN:
-      let id = action.payload.id
+      let id = action.payload.id;
+      // create copy of state
       let deletedPinState = Object.assign({}, state);
+      // create copy of reference to pin we want to delete
       deletedPinState[id] = Object.assign({}, state[id]);
+      // delete pin
       delete deletedPinState[id];      
-
       return Object.assign({},
         deletedPinState
-      )
-    default:
-      return Object.assign({}, state
       );
+    default:
+      return state;
   }
 }
 

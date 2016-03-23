@@ -14,13 +14,13 @@ export default class ViewContainer extends Component {
         latitude: 37.7835551,
         longitude: -122.4089013,
       },
-      isFollowingUser: true,
     };
   }
 
   componentWillMount() {
-    const { getPins } = this.props;
+    const { getPins, updateRecent } = this.props;
     getPins();
+    updateRecent();
   }
 
   componentDidMount() {
@@ -49,16 +49,17 @@ export default class ViewContainer extends Component {
   }
 
   render() {
-    const {getLocationToSave, pins, deletePin} = this.props;
+    const { getLocationToSave, pins, deletePin, recent } = this.props;
+
     return (
       <View>
-        <AR currLoc={ this.state.currLoc } pins={ this.props.pins.pins } />
+        <AR currLoc={ this.state.currLoc } pins={pins} />
         <Map
-          dropPin={getLocationToSave}
+          getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
-          pins = {pins}
           initialLoc={this.state.initialLoc}
-          isFollowingUser={this.state.isFollowingUser}
+          pins = {pins}
+          recent = {recent}
         />
         <PinList
           deletePin={deletePin}

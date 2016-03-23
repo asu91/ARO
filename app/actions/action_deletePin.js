@@ -14,5 +14,3 @@ export default function (pin) {
     dispatch(deletePin(pin));
   };
 }
-
-

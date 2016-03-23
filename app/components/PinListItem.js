@@ -6,25 +6,30 @@ export default class PinListItem extends Component {
     super(props);
   }
 
-  render() {
+  touchOptions() {
     const { pin, deletePin } = this.props;
+    AlertIOS.alert(
+        'Delete Pin?',
+        null,
+        [{
+          text: 'Cancel',
+          style: 'cancel'
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            deletePin(pin)
+          }
+        }]
+      )
+  }
+
+  render() {
+    const { pin } = this.props;
     return (
       <TouchableHighlight 
         onPress={() => {
-          AlertIOS.alert(
-              'Delete Pin?',
-              null,
-              [{
-                text: 'Cancel',
-                style: 'cancel'
-              },
-              {
-                text: 'OK',
-                onPress: () => {
-                  deletePin(pin)
-                }
-              }]
-            )
+          this.touchOptions()
         }}
       >
         <View style={style.container}>

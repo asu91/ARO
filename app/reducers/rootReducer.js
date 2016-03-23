@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import pinReducer from './reducer_pins';
+import pins from './reducer_pins';
+import recent from './reducer_recent.js';
 export default rootReducer = combineReducers({
-  pins: pinReducer
+  pins,
+  recent
 });
