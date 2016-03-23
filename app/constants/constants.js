@@ -1,6 +1,5 @@
 export const DROP_NEW_PIN = 'DROP_NEW_PIN';
 export const UPDATE_PINS = 'UPDATE_PINS';
+export const UPDATE_RECENT = 'UPDATE_RECENT';
+export const SET_RECENT = 'SET_RECENT';
 
-const Firebase = require('firebase');
-export const ref = new Firebase("https://interruptedlobster.firebaseio.com/tiff");
-export const userData = ref.child('user');

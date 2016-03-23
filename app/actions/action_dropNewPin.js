@@ -1,5 +1,5 @@
-import { DROP_NEW_PIN } from '../constants/constants.js';
-import { userData } from '../lib/db/db.js';
+import { DROP_NEW_PIN, UPDATE_RECENT, SET_RECENT} from '../constants/constants.js';
+import { userData, userRecent } from '../lib/db/db.js';
 function dropNewPin(payload, id) {
   return {
     type: DROP_NEW_PIN,
@@ -7,18 +7,47 @@ function dropNewPin(payload, id) {
     payload
   };
 }
-export default function getLocationToSave(location) {
+function setRecent(payload) {
+  return {
+    type: SET_RECENT,
+    payload
+  };
+}
+function checkRecent(current = [], id) {
+  var updated;
+  if(!Array.isArray(current)) {
+    return [id];
+  }
+  if(current.length >= 10) {
+    updated = current.slice(1);
+    updated.push(id);
+    return updated;
+  } else {
+    current = current.concat(id);
+    return current;
+  }
+}
+
+export default function getLocationToSave(location, current) {
+  function getLocationHelper(loc, title, dispatch){
+    let coords = {}, recent;
+     coords.longitude = loc.longitude;
+     coords.latitude = loc.latitude;
+     coords.title = title;
+     //this assigns pushedObj to added pin object while adding to db
+     let pushedObj = userData.push(coords);
+     coords.id = pushedObj.key();
+     pushedObj.update({"id": pushedObj.key()});
+     dispatch(dropNewPin(coords, pushedObj.key()));
+     recent = checkRecent(current, coords.id);
+     dispatch(setRecent(recent));
+     userRecent.set(recent);
+  }
   return (dispatch) => {
-      var coords = {};
       if(!location) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
-              coords.longitude = position.coords.longitude;
-              coords.latitude = position.coords.latitude;
-              coords.title = 'My Current Location';
-              //this assigns pushedObj to added pin object while adding to db
-              let pushedObj = userData.push(coords);
-              dispatch(dropNewPin(coords, pushedObj.key()));
+             getLocationHelper(position.coords, "My Current Location", dispatch);
           },
           (error) => {
             console.error(error);
@@ -26,11 +55,7 @@ export default function getLocationToSave(location) {
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
       } else {
-        coords.longitude = location.longitude;
-        coords.latitude = location.latitude;
-        coords.title = 'New Pin Location';
-        let pushedObj = userData.push(coords);
-        dispatch(dropNewPin(coords, pushedObj.key()));
+        getLocationHelper(location, "My New Location", dispatch );
       }
     };
 }

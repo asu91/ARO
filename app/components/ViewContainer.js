@@ -16,8 +16,9 @@ export default class ViewContainer extends Component {
     };
   }
   componentWillMount() {
-    const { getPins } = this.props;
+    const { getPins, updateRecent } = this.props;
     getPins();
+    updateRecent();
   }
 
   componentDidMount() {
@@ -47,15 +48,16 @@ export default class ViewContainer extends Component {
         // <AR currLoc={ this.state.currLoc } pins= { pins } />
 
   render() {
-    const {getLocationToSave, pins} = this.props;
+    const {getLocationToSave, pins, recent} = this.props;
     return (
       <View>
         <Map
-          dropPin={getLocationToSave}
+          getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
-          pins = {pins}
           initialLoc={this.state.initialLoc}
           isFollowingUser={this.state.isFollowingUser}
+          pins = {pins}
+          recent = {recent}
         />
         <DropNewPinButton/>
       </View>
