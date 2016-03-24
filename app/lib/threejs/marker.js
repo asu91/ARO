@@ -29,9 +29,9 @@ const THREE_RENDER_MARKER = `
 
       var geometry = new THREE.Geometry();
 
-      var height = 10;
+      var height = 25;
       var heightsplit = .75
-      var width = 4;
+      var width = 10;
 
       geometry.vertices.push(
         new THREE.Vector3( 0, 0, 0 ),
