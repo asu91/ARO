@@ -1,4 +1,4 @@
-export default THREE_RENDER_TEXT = `
+const THREE_RENDER_TEXT = `
 <script src="http://mrdoob.github.com/three.js/examples/fonts/helvetiker_regular.typeface.js"></script>
 <script>
   var textmodels = [];
@@ -44,3 +44,5 @@ export default THREE_RENDER_TEXT = `
   }
 </script>
 `;
+
+export default THREE_RENDER_TEXT;
