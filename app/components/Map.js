@@ -4,7 +4,6 @@ import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
 import { PinCallout } from './PinCallout.js';
-import { EditCallout } from './EditCallout.js';
 
 export default class Map extends Component {
   constructor(props) {
