@@ -1,4 +1,4 @@
-export default THREE_RENDER_MARKER = `
+const THREE_RENDER_MARKER = `
   <script>
     var camera, scene, renderer;
     var frustum;
@@ -106,3 +106,5 @@ export default THREE_RENDER_MARKER = `
     }
   </script>
 `;
+
+export default THREE_RENDER_MARKER;
