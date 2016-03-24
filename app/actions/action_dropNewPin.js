@@ -34,11 +34,13 @@ export default function getLocationToSave(location, current) {
      coords.longitude = loc.longitude;
      coords.latitude = loc.latitude;
      coords.title = title;
-     //this assigns pushedObj to added pin object while adding to db
+     // this assigns pushedObj to added pin object while adding to db
      let pushedObj = userData.push(coords);
      coords.id = pushedObj.key();
+     // this adds the 'key' as a key-value pair in the pin object
      pushedObj.update({"id": pushedObj.key()});
      dispatch(dropNewPin(coords, pushedObj.key()));
+     // this updates the recent pins state
      recent = checkRecent(current, coords.id);
      dispatch(setRecent(recent));
      userRecent.set(recent);

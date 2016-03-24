@@ -13,7 +13,7 @@ const initialState = testObj;
 export default function(state = initialState, action) {
   switch(action.type) {
     case UPDATE_PINS:
-      return Object.assign({}, state,
+      return Object.assign({},
          action.payload
       );
     case DROP_NEW_PIN:

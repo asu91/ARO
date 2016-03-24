@@ -13,7 +13,7 @@ export default function(pin, newTitle) {
     userData.child(pin.id).set(pin);
   }
   return (dispatch) => {
-    userData.once("value", function(snap) {
+    userData.on("value", function(snap) {
       dispatch(updatePins(snap.val()));
     });
   };

@@ -57,6 +57,7 @@ export default class ViewContainer extends Component {
         //   deletePin={deletePin}
         //   pins={pins}
         //   />
+
   render() {
     const { getLocationToSave, pins, updatePins, updateRecent, deletePin, recent } = this.props;
 
@@ -65,10 +66,12 @@ export default class ViewContainer extends Component {
         <Map
           getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
-          getCurrLoc={this}
           initialLoc={this.state.initialLoc}
           pins = {pins}
           recent = {recent}
+          updatePins={updatePins}
+          updateRecent={updateRecent}
+          deletePin={deletePin}
         />
         <DropNewPinButton/>
       </View>

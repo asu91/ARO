@@ -7,7 +7,7 @@ import React, {
 export const PinCallout = React.createClass({
   render() {
     return (
-      <View style={[styles.container]}>
+      <View style={styles.container}>
         <View style={styles.bubble}>
           <View style={styles.amount}>
             {this.props.children}
