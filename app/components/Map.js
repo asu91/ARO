@@ -36,29 +36,32 @@ export default class Map extends Component {
       );
     });
   }
-//TODO: move map to user in a smoother way
-//it is very sudden and disrupted right now
+
   moveMapToUser(location) {
     const {currLoc} = this.props;
-    this.setState({position: {
-      longitude: currLoc.longitude,
+    let currRegion = {
       latitude: currLoc.latitude,
-      longitudeDelta: 0.005,
-      latitudeDelta: 0.005
-    }});
+      longitude: currLoc.longitude,
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005
+    };
+    this.refs.map.animateToRegion(currRegion, 250)
   }
+
+
 
   render() {
     const { pins, getLocationToSave, currLoc, recent } = this.props;
     return (
       <View style={styles.container}>
         <MapView
+          ref="map"
           showsUserLocation={true}
           //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
           initialRegion={{longitudeDelta: 0.005000044296161832, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.00536722351829988  }}
           region={this.state.position}
           onRegionChange={this.onRegionChange.bind(this)}
-
+          onRegionChangeComplete={() => console.log('??',this.animateToCoordinate)}
           style={styles.map}
           showsCompass={true}
           onLongPress={
