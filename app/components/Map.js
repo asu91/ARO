@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
 import { PinCallout } from './PinCallout.js';
+import { PinEditButton } from './PinEditButton.js'
 
 export default class Map extends Component {
   constructor(props) {
@@ -61,40 +62,19 @@ export default class Map extends Component {
   }
 
   renderEditButton() {
-    const { deletePin } = this.props;
+    const { updatePins, updateRecent, deletePin } = this.props;
     return (
       <View style={styles.buttonContainer}>
-      <Button style={[styles.bubble, styles.button]}
-        onPress={() => AlertIOS.prompt(
-            this.state.selectedPin.title,
-            'Editting Pin',
-            [{
-              text: 'Cancel',
-              style: 'cancel'
-            },
-            {
-              text: 'Edit Title',
-              onPress: this.editTitle.bind(this)
-            },
-            {
-              text: 'Delete',
-              onPress: () => {
-                deletePin(this.state.selectedPin);
-                this.setState({selectedPin: undefined})
-              }
-            }],
-            'plain-text'
-          )}
-      >Edit</Button>
+        <PinEditButton 
+          pin={this.state.selectedPin}
+          style={[styles.bubble, styles.button]}
+          updatePins={updatePins}
+          updateRecent={updateRecent}
+          deletePin={deletePin}
+          hideButton={() => this.setState({selectedPin: undefined})}
+        />
       </View>
     )
-  }
-
-  editTitle(value) {
-    const { updatePins, updateRecent } = this.props;
-    
-    updatePins(this.state.selectedPin, value);
-    updateRecent();
   }
 
   moveMapToUser(location) {
