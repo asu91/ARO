@@ -1,5 +1,4 @@
-
-export default HANDLE_ORIENTATION = `
+const HANDLE_ORIENTATION = `
   <script>
 
     var degreeToRad = function( degree ) {
@@ -68,3 +67,5 @@ export default HANDLE_ORIENTATION = `
 
   </script>
 `;
+
+export default HANDLE_ORIENTATION;
