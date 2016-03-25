@@ -1,5 +1,4 @@
-
-export default HANDLE_ORIENTATION = `
+const HANDLE_ORIENTATION = `
   <script>
 
     var degreeToRad = function( degree ) {
@@ -46,12 +45,12 @@ export default HANDLE_ORIENTATION = `
 
         if( e.webkitCompassHeading) {
           // Apple works only with this, alpha doesn't work
-          compassdir = e.webkitCompassHeading;  
+          compassdir = e.webkitCompassHeading + window.orientation;  
         }
         else compassdir = e.alpha;
 
         // Set camera's heading
-        camera.rotation.y = -degreeToRad( compassdir );
+        camera.rotation.y = -degreeToRad( compassdir);
         
         // Configure frustum
         camera.updateMatrix(); // make sure camera's local matrix is updated
@@ -68,3 +67,5 @@ export default HANDLE_ORIENTATION = `
 
   </script>
 `;
+
+export default HANDLE_ORIENTATION;

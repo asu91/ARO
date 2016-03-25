@@ -49,7 +49,6 @@ export default class ViewContainer extends Component {
     );
   }
 
-
         // <AR currLoc={ this.state.currLoc } pins={pins} />
         // <PinList
         //   updatePins={updatePins}
@@ -73,6 +72,7 @@ export default class ViewContainer extends Component {
           updateRecent={updateRecent}
           deletePin={deletePin}
         />
+
         <DropNewPinButton/>
       </View>
     );
