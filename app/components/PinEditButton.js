@@ -19,12 +19,14 @@ export default class PinEditButton extends Component{
       <Button
         style={[styles.bubble, styles.button]}
 
-        onPress={ () => AlertIOS.prompt(
+        onPress={ () => {
+          hideButton();
+          AlertIOS.prompt(
             pin.title,
             'Editting Pin',
             [{
               text: 'Cancel',
-              style: 'cancel'
+              style: 'cancel',
             },
             {
               text: 'Edit Title',
@@ -34,11 +36,10 @@ export default class PinEditButton extends Component{
               text: 'Delete',
               onPress: () => {
                 deletePin(pin);
-                hideButton();
               }
             }],
             'plain-text'
-          )}>
+          )}}>
         EDIT PIN</Button>
     )
   }
