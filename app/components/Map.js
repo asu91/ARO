@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    height: Dimensions.get('window').height/1.1,
+    height: Dimensions.get('window').height/1.15,
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
@@ -148,14 +148,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 75,
-    bottom: 110,
+    bottom: 90,
   },
 
   centerButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 100,
-    bottom: 60,
+    bottom: 40,
     borderRadius: 10,
   },
 
