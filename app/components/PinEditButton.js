@@ -23,7 +23,7 @@ export default class PinEditButton extends Component{
           hideButton();
           AlertIOS.prompt(
             pin.title,
-            'Editting Pin',
+            'Editing Pin',
             [{
               text: 'Cancel',
               style: 'cancel',

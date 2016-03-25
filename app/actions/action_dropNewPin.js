@@ -57,7 +57,9 @@ export default function getLocationToSave(location, current, pinTitle) {
           {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
         );
       } else {
-
+        if(pinTitle === '') {
+          pinTitle = 'New Totem';
+        }
         getLocationHelper(location, pinTitle, dispatch );
       }
     };
