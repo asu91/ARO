@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   editButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
-    left: Dimensions.get('window').width/2 - 50,
+    left: Dimensions.get('window').width/2 - 75,
     bottom: 110,
   },
 

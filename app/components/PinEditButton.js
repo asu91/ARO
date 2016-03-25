@@ -39,7 +39,7 @@ export default class PinEditButton extends Component{
             }],
             'plain-text'
           )}>
-        Edit</Button>
+        EDIT PIN</Button>
     )
   }
 }
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    width: 100,
+    width: 150,
     alignItems: 'center',
   },
 })
