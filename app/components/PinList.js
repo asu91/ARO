@@ -19,6 +19,12 @@ export default class PinList extends Component {
     });
   }
 
+  componentWillMount() {
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(this.props.pins)
+    });
+  }
+
   renderItem(pin) {
     const {deletePin} = this.props;
     return (
