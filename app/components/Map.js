@@ -4,7 +4,7 @@ import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
 import { PinCallout } from './PinCallout.js';
-import { PinEditButton } from './PinEditButton.js'
+import PinEditButton from './PinEditButton.js'
 
 export default class Map extends Component {
   constructor(props) {
@@ -67,7 +67,6 @@ export default class Map extends Component {
       <View style={styles.buttonContainer}>
         <PinEditButton 
           pin={this.state.selectedPin}
-          style={[styles.bubble, styles.button]}
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}
@@ -110,7 +109,6 @@ export default class Map extends Component {
           }
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
-
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
         <Button
@@ -135,18 +133,6 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
-  },
-
-  bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-
-  button: {
-    width: 100,
-    alignItems: 'center',
   },
 
   buttonContainer: {

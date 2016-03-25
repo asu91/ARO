@@ -1,8 +1,7 @@
-import React, { Component, AlertIOS , View} from 'react-native';
+import React, { Component, AlertIOS , View, StyleSheet} from 'react-native';
 import Button from 'react-native-button';
 
 export default class PinEditButton extends Component{
-
   constructor(props) {
     super(props);
   }
@@ -18,6 +17,8 @@ export default class PinEditButton extends Component{
     const { pin, deletePin, hideButton } = this.props;
     return(
       <Button
+        style={[styles.bubble, styles.button]}
+
         onPress={ () => AlertIOS.prompt(
             pin.title,
             'Editting Pin',
@@ -41,6 +42,18 @@ export default class PinEditButton extends Component{
         Edit</Button>
     )
   }
-
-
 }
+
+const styles = StyleSheet.create({
+  bubble: {
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+
+  button: {
+    width: 100,
+    alignItems: 'center',
+  },
+})
