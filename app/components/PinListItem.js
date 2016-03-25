@@ -8,20 +8,32 @@ export default class PinListItem extends Component {
 
   touchOptions() {
     const { pin, deletePin } = this.props;
-    AlertIOS.alert(
-        'Delete Pin?',
-        null,
+    AlertIOS.prompt(
+        pin.title,
+        '('+pin.longitude + ', ' + pin.latitude + ')',
         [{
           text: 'Cancel',
           style: 'cancel'
         },
         {
-          text: 'OK',
+          text: 'Edit Title',
+          onPress: this.editTitle.bind(this)
+        },
+        {
+          text: 'Delete',
           onPress: () => {
-            deletePin(pin)
+            deletePin(pin);
           }
-        }]
-      )
+        }],
+        'plain-text'
+      );
+  }
+
+  editTitle(value) {
+    const { pin, updatePins, updateRecent } = this.props;
+    
+    updatePins(pin, value);
+    updateRecent();
   }
 
   render() {

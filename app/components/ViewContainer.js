@@ -1,9 +1,9 @@
 import React, { Component, View } from 'react-native';
-import AR from './AR.js';
-import Map from './Map.js';
+import AR from './AR';
+import Map from './Map';
 import DropNewPinButton from '../containers/container_dropNewPin';
+import PinList from './PinList';
 import Button from 'react-native-button';
-import PinList from './PinList.js';
 
 export default class ViewContainer extends Component {
 
@@ -19,8 +19,8 @@ export default class ViewContainer extends Component {
   }
 
   componentWillMount() {
-    const { getPins, updateRecent } = this.props;
-    getPins();
+    const { updatePins, updateRecent } = this.props;
+    updatePins();
     updateRecent();
   }
 
@@ -45,6 +45,7 @@ export default class ViewContainer extends Component {
         var coords = {};
         coords.longitude = position.coords.longitude;
         coords.latitude = position.coords.latitude;
+        this.setState({currLoc: coords});
       }
     );
   }
@@ -54,8 +55,10 @@ export default class ViewContainer extends Component {
   }
 
   render() {
-    const { getLocationToSave, pins, deletePin, recent } = this.props;
+    const { getLocationToSave, pins, updatePins, updateRecent, deletePin, recent } = this.props;
+
     return (
+
       <View style={{flex: 1}}>
       { this.state.view === 'ar' ? <AR currLoc={ this.state.currLoc } pins={pins} /> : void 0 }
       { this.state.view === 'map' ? <Map
@@ -64,6 +67,10 @@ export default class ViewContainer extends Component {
           initialLoc={this.state.initialLoc}
           pins = {pins}
           recent = {recent}
+          updatePins={updatePins}
+          updateRecent={updateRecent}
+          deletePin={deletePin}
+
         /> : void 0 }
       { this.state.view === 'list' ? <PinList
           deletePin={deletePin}

@@ -7,10 +7,14 @@ function updatePins(payload) {
   };
 }
 
-export default function() {
- return (dispatch) => {
-  userData.once("value", function(snap) {
-    dispatch(updatePins(snap.val()));
-  });
- };
+export default function(pin, newTitle) {
+  if(arguments.length === 2) {
+    pin.title = newTitle;
+    userData.child(pin.id).set(pin);
+  }
+  return (dispatch) => {
+    userData.on("value", function(snap) {
+      dispatch(updatePins(snap.val()));
+    });
+  };
 }
