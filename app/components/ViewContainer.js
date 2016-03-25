@@ -3,6 +3,7 @@ import AR from './AR';
 import Map from './Map';
 import DropNewPinButton from '../containers/container_dropNewPin';
 import PinList from './PinList';
+import Button from 'react-native-button';
 
 export default class ViewContainer extends Component {
 
@@ -49,30 +50,44 @@ export default class ViewContainer extends Component {
     );
   }
 
-        // <AR currLoc={ this.state.currLoc } pins={pins} />
-        // <PinList
-        //   updatePins={updatePins}
-        //   updateRecent={updateRecent}
-        //   deletePin={deletePin}
-        //   pins={pins}
-        //   />
+  toggleView(view) {
+    this.setState({ view });
+  }
 
   render() {
     const { getLocationToSave, pins, updatePins, updateRecent, deletePin, recent } = this.props;
 
     return (
-      <View>
-        <Map
+
+      <View style={{flex: 1}}>
+      { this.state.view === 'ar' ? <AR currLoc={ this.state.currLoc } pins={pins} /> : void 0 }
+      { this.state.view === 'map' ? <Map
           getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
           initialLoc={this.state.initialLoc}
           pins = {pins}
           recent = {recent}
-          updatePins={updatePins}
-          updateRecent={updateRecent}
-          deletePin={deletePin}
-        />
 
+        /> : void 0 }
+      { this.state.view === 'list' ? <PinList
+          deletePin={deletePin}
+          pins={pins}
+          /> : void 0 }
+      { this.state.view != 'list' ? <Button
+          onPress={this.toggleView.bind(this, 'list')}
+        >
+          List
+        </Button> : void 0 }
+      { this.state.view != 'ar' ? <Button
+          onPress={this.toggleView.bind(this, 'ar')}
+        >
+          AR
+        </Button> : void 0 }
+      { this.state.view != 'map' ? <Button
+          onPress={this.toggleView.bind(this, 'map')}
+        >
+          Map
+        </Button> : void 0 }
         <DropNewPinButton/>
       </View>
     );
