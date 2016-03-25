@@ -28,7 +28,7 @@ function checkRecent(current = [], id) {
   }
 }
 
-export default function getLocationToSave(location, current) {
+export default function getLocationToSave(location, current, pinTitle) {
   function getLocationHelper(loc, title, dispatch){
     let coords = {}, recent;
      coords.longitude = loc.longitude;
@@ -58,7 +58,7 @@ export default function getLocationToSave(location, current) {
         );
       } else {
 
-        getLocationHelper(location, "My New Location", dispatch );
+        getLocationHelper(location, pinTitle, dispatch );
       }
     };
 }

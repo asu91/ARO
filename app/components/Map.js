@@ -3,8 +3,8 @@ import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
 import image from '../assets/redPin.png';
-import { PinCallout } from './PinCallout.js';
-import PinEditButton from './PinEditButton.js'
+import { PinCallout } from './PinCallout';
+import PinEditButton from './PinEditButton';
 
 export default class Map extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ export default class Map extends Component {
     this.state = {
       position: null,
       selectedPin: undefined,
+      dropPinLocation: undefined,
     };
   }
 
@@ -19,21 +20,26 @@ export default class Map extends Component {
     this.setState({ position: region });
   }
 
-  dropPin(coordinate) {
+  setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
-    AlertIOS.alert(
+    getLocationToSave(this.state.dropPinLocation, recent, title);
+    this.setState({dropPinLocation: undefined});
+  }
+
+  dropPin(coordinate) {
+    this.setState({dropPinLocation: coordinate});
+    AlertIOS.prompt(
         'Drop a Pin?',
-        null,
+        'Enter title:',
         [{
           text: 'Cancel',
           style: 'cancel'
         },
         {
           text: 'OK',
-          onPress: () => {
-            getLocationToSave(coordinate, recent)
-          }
-        }]
+          onPress: this.setPinTitle.bind(this)
+        }],
+        'plain-text'
       );
   }
   
