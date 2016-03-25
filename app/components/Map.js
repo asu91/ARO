@@ -70,7 +70,7 @@ export default class Map extends Component {
   renderEditButton() {
     const { updatePins, updateRecent, deletePin } = this.props;
     return (
-      <View style={styles.buttonContainer}>
+      <View style={styles.editButton}>
         <PinEditButton 
           pin={this.state.selectedPin}
           updatePins={updatePins}
@@ -117,10 +117,13 @@ export default class Map extends Component {
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
-        <Button
-          onPress={this.moveMapToUser.bind(this, this.props.fullLoc)}>
-          CENTER ON ME
-        </Button>
+        <View style={styles.centerButton}>
+          <Button
+            style={[styles.bubble, styles.button]}
+            onPress={this.moveMapToUser.bind(this, this.props.fullLoc)}>
+            CENTER ON ME
+          </Button>
+        </View>
       </View>
     )
   }
@@ -135,17 +138,37 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    height: Dimensions.get('window').height/1.25,
+    height: Dimensions.get('window').height/1.1,
     margin: 10,
     borderWidth: 1,
     borderColor: '#000000',
   },
 
-  buttonContainer: {
-    left: Dimensions.get('window').width/2 - 50,
-    bottom: 100,
-    backgroundColor: 'transparent',
+  editButton: {
     position: 'absolute',
+    backgroundColor: 'transparent',
+    left: Dimensions.get('window').width/2 - 50,
+    bottom: 110,
+  },
+
+  centerButton: {
+    position: 'absolute',
+    backgroundColor: 'transparent',
+    left: Dimensions.get('window').width/2 - 100,
+    bottom: 60,
+    borderRadius: 10,
+  },
+
+  bubble: {
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+
+  button: {
+    width: 200,
+    alignItems: 'center',
   },
 });
 

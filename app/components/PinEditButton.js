@@ -47,9 +47,9 @@ export default class PinEditButton extends Component{
 const styles = StyleSheet.create({
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
   },
 
   button: {
