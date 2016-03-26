@@ -11,7 +11,8 @@ import ViewContainer from '../components/ViewContainer.js';
 function mapStateToProps(state) {
   return {
     pins: state.pins,
-    recent: state.recent
+    recent: state.recent,
+    friends: state.friends,
   };
 }
 

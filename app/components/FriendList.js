@@ -28,12 +28,12 @@ export default class FriendList extends Component {
   renderItem(friend) {
     const { onPress } = this.props;
     return (
-        // pass down pin info to FriendListItem
-        <FriendListItem
-          onPress={onPress}
-          friend={friend}
-        />
-      );
+      // pass down pin info to FriendListItem
+      <FriendListItem
+        onPress={onPress}
+        friend={friend}
+      />
+    );
   }
 
   render() {

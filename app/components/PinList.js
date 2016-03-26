@@ -26,7 +26,7 @@ export default class PinList extends Component {
   }
 
   renderItem(pin) {
-    const { updatePins, updateRecent, deletePin } = this.props;
+    const { updatePins, updateRecent, deletePin, friends } = this.props;
     return (
         // pass down pin info to PinListItem
         <PinListItem
@@ -34,6 +34,7 @@ export default class PinList extends Component {
           updateRecent={updateRecent}
           deletePin={deletePin}
           pin={pin}
+          friends={friends}
         />
       );
   }

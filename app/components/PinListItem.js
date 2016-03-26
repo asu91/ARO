@@ -1,4 +1,5 @@
 import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
+import FriendList from './FriendList';
 
 export default class PinListItem extends Component {
 
@@ -20,6 +21,10 @@ export default class PinListItem extends Component {
           onPress: this.editTitle.bind(this)
         },
         {
+          text: 'Share Pin',
+          onPress: () => { this.renderFriends },
+        },
+        {
           text: 'Delete',
           onPress: () => {
             deletePin(pin);
@@ -27,6 +32,19 @@ export default class PinListItem extends Component {
         }],
         'plain-text'
       );
+  }
+
+  renderFriends() {
+    const { friends, pin } = this.props;
+    return (
+      <FriendList onPress={this.shareWithFriend.bind( this, pin )} friends={friends} />
+    );
+  }
+
+  shareWithFriend( pin, friend ) {
+    // Make a copy of the pin
+    // Set pin.friend to the userID of the person sending the pin
+    // Post the pin to the friend's firebase.
   }
 
   editTitle(value) {
