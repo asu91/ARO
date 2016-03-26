@@ -5,4 +5,4 @@ export const UPDATE_RECENT = 'UPDATE_RECENT';
 export const SET_RECENT = 'SET_RECENT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
-
+export const UPDATE_FRIENDS = 'UPDATE_FRIENDS';
