@@ -1,5 +1,7 @@
 import React, {Component, View, ListView} from 'react-native';
-import FriendListItem from './FriendListItem.js';
+import Button from 'react-native-button';
+import { Actions } from 'react-native-router-flux';
+import FriendListItem from './FriendListItem';
 
 export default class FriendList extends Component {
 
@@ -38,10 +40,13 @@ export default class FriendList extends Component {
 
   render() {
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderItem.bind(this)}
-      />
+      <View style={{ marginTop: 15 }}>
+        <Button onPress={ () => { Actions.pop() }}>Back</Button>
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderItem.bind(this)}
+        />
+      </View>
     );
   }
 }

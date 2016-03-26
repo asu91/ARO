@@ -43,6 +43,7 @@ export default class PinList extends Component {
   render() {
     return (
       <ListView
+        style={{ marginTop: 15 }}
         dataSource={this.state.dataSource}
         renderRow={this.renderItem.bind(this)}
       />
