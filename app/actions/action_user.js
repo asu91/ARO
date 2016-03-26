@@ -16,7 +16,6 @@ export const firebase_check = (userCredentials) => {
   function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
-    console.log(userExistsBool, 'checkIfUserExists bool')
       callback(userExistsBool);
     });
   }

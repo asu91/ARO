@@ -31,32 +31,28 @@ class LogIn extends Component {
 
   render() {
   const { user, action } = this.props;
-    var _this = this;
     return (
       <View style={styles.loginContainer}>
 
         <FBLogin style={{ marginBottom: 10, }}
           permissions={["email","user_friends"]}
           onLogin={function(data){
-            console.log("*******Logged in! and this is props, this is data cred", data.credentials);
+            //upon successful log in to fb
             changeUser(data.credentials.userId)
             Actions.view();
             action.firebase_check(data.credentials);
           }}
           onLogout={function(){
-            console.log("*******Logged out.");
             action.logOut();
           }}
           onLoginFound={function(data){
-            //if user was already signed in, no need to sign in again
-            console.log("********Existing login found.");
+            //if user was already signed in this will exec
             changeUser(data.credentials.userId)
             Actions.view();
             action.firebase_check(data.credentials);
           }}
           onLoginNotFound={function(){
             //if user has not signed in since last session
-            console.log("*******No user logged in.");
             action.logOut();
           }}
           onError={function(data){
@@ -64,15 +60,13 @@ class LogIn extends Component {
             console.log(data);
           }}
           onCancel={function(){
+            //when user hits cancel on fb sigin
             console.log("******User cancelled.");
           }}
           onPermissionsMissing={function(data){
-            console.log("*******Check permissions!");
             console.log(data);
           }}
         />
-
-        <Text>{ user ? user.token : "N/A" }</Text>
       </View>
     );
   }
@@ -93,9 +87,7 @@ var styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    user: state.user,
-    photo: state.user.photo,
-    info: state.user.info
+    user: state.user
   }
 }
 
