@@ -5,6 +5,8 @@ import _ from 'underscore';
 import image from '../assets/redPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
+import { myCurrLoc } from '../lib/db/db';
+import FriendLocations from './FriendLocations';
 
 export default class Map extends Component {
   constructor(props) {
@@ -67,6 +69,12 @@ export default class Map extends Component {
     });
   }
 
+  componentDidMount () {
+    myCurrLoc.on('value', function() {
+      console.log('walking')
+    })
+  }
+
   renderEditButton() {
     const { updatePins, updateRecent, deletePin } = this.props;
     return (
@@ -115,6 +123,10 @@ export default class Map extends Component {
           }
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
+
+
+        <FriendLocations/>
+
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
         <View style={styles.centerButton}>
