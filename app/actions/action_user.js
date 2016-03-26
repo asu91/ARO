@@ -29,7 +29,7 @@ export const firebase_check = (userCredentials) => {
     checkIfUserExists(id, (userExist) => {
       if(!userExist) {
         let userInfo={};
-        userInfo.id = id;
+        userInfo.userId = id;
         //fetch the other info
         return fetch(api)
         .then((response) => response.json())
@@ -49,6 +49,7 @@ export const firebase_check = (userCredentials) => {
         .then((responseData) => {
           ref.child(id).on("value", function(snapshot) {
             let found = snapshot.val();
+            console.log('this is found1!!! should be user object:', found);
             dispatch(logIn(found));
           });
           dispatch(updateFriends(responseData.friends.data));

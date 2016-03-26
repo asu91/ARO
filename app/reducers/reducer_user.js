@@ -5,9 +5,7 @@ var initialState = {};
 export default function(state = initialState, action) {
   switch(action.type){
     case LOG_IN:
-    let userInfo = {};
-      userInfo[action.payload.id] = action.payload;
-      return userInfo;
+      return action.payload;
     case LOG_OUT:
       return initialState;
     default:
