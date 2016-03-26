@@ -19,6 +19,7 @@ export const firebase_check = (userCredentials) => {
   let token = userCredentials.token;
   let api = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,friends,picture&access_token="+token;
   // let callfriends = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,friends,picture&access_token="+token;
+  let friendcall = "https://graph.facebook.com/v2.3/"+id+"?fields=name,friends&access_token="+token;
   function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
@@ -34,8 +35,6 @@ export const firebase_check = (userCredentials) => {
         return fetch(api)
         .then((response) => response.json())
         .then((responseData)=> {
-          console.log('this is responseData and it should have friends', responseData.friends.data);
-
           userInfo.name = responseData.name;
           userInfo.email = responseData.email;
           userInfo.picture = responseData.picture.data.url;
@@ -45,9 +44,15 @@ export const firebase_check = (userCredentials) => {
         dispatch(logIn(userInfo));
         });
       } else {
-        ref.child(id).on("value", function(snapshot) {
-          let found = snapshot.val();
-          dispatch(logIn(found));
+        //this api call to fb updates friends list
+        return fetch(friendcall)
+        .then((response) => response.json())
+        .then((responseData) => {
+          ref.child(id).on("value", function(snapshot) {
+            let found = snapshot.val();
+            dispatch(logIn(found));
+          });
+          dispatch(updateFriends(responseData.friends.data));
         });
       }
     });
