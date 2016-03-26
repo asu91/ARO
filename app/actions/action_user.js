@@ -15,10 +15,9 @@ export const updateFriends = (payload) => {
   };
 };
 export const firebase_check = (userCredentials) => {
-  let id = userCredentials.userId;
-  let token = userCredentials.token;
-  let api = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,friends,picture&access_token="+token;
-  let friendcall = "https://graph.facebook.com/v2.3/"+id+"?fields=name,friends&access_token="+token;
+  let {userId, token} = userCredentials;
+  let api = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,email,friends,picture&access_token="+token;
+  let friendcall = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,friends&access_token="+token;
   function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
@@ -26,10 +25,10 @@ export const firebase_check = (userCredentials) => {
     });
   }
   return(dispatch) => {
-    checkIfUserExists(id, (userExist) => {
+    checkIfUserExists(userId, (userExist) => {
       if(!userExist) {
         let userInfo={};
-        userInfo.id = id;
+        userInfo.id = userId;
         //fetch the other info
         return fetch(api)
         .then((response) => response.json())
@@ -38,7 +37,7 @@ export const firebase_check = (userCredentials) => {
           userInfo.email = responseData.email;
           userInfo.picture = responseData.picture.data.url;
         //pushes all gathereed infor to database
-        let newUser = ref.child(id).set(userInfo);
+        let newUser = ref.child(userId).set(userInfo);
         dispatch(updateFriends(responseData.friends.data));
         dispatch(logIn(userInfo));
         });
@@ -47,10 +46,11 @@ export const firebase_check = (userCredentials) => {
         return fetch(friendcall)
         .then((response) => response.json())
         .then((responseData) => {
-          ref.child(id).on("value", function(snapshot) {
+          ref.child(userId).on("value", function(snapshot) {
             let found = snapshot.val();
-            console.log('this is found1!!! should be user object:', found);
-            dispatch(logIn(found));
+            const { id, name, email, picture } = found;
+            let obj = {name, email, id, picture};
+            dispatch(logIn(obj));
           });
           dispatch(updateFriends(responseData.friends.data));
         });
