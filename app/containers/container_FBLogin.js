@@ -8,6 +8,8 @@ import React, {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as userActions from '../actions/action_user';
+import { Actions } from 'react-native-router-flux';
+import { changeUser } from '../lib/db/db';
 
 
 
@@ -36,7 +38,9 @@ class LogIn extends Component {
         <FBLogin style={{ marginBottom: 10, }}
           permissions={["email","user_friends"]}
           onLogin={function(data){
-            console.log("*******Logged in! and this is props");
+            console.log("*******Logged in! and this is props, this is data cred", data.credentials);
+            changeUser(data.credentials.userId)
+            Actions.view();
             action.firebase_check(data.credentials);
           }}
           onLogout={function(){
@@ -47,6 +51,7 @@ class LogIn extends Component {
             //if user was already signed in, no need to sign in again
             console.log("********Existing login found.");
             action.logIn(data.credentials);
+            Actions.view
           }}
           onLoginNotFound={function(){
             //if user has not signed in since last session

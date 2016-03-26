@@ -1,5 +1,6 @@
 import { LOG_IN, LOG_OUT} from '../constants/constants.js';
 import { ref } from '../lib/db/db.js';
+import { Actions } from 'react-native-router-flux';
 
 export const logIn = (payload) => {
   return {
@@ -12,14 +13,15 @@ export const firebase_check = (userCredentials) => {
   let id = userCredentials.userId;
   let token = userCredentials.token;
   let api = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,picture&access_token="+token;
-  function checkIfUserExists(userId) {
+  function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
-      return userExistsBool;
+    console.log(userExistsBool, 'checkIfUserExists bool')
+      callback(userExistsBool);
     });
   }
   return(dispatch) => {
-    let userExist = checkIfUserExists(id);
+    checkIfUserExists(id, (userExist) => {
       if(!userExist) {
         let userInfo={};
         userInfo.uid = id;
@@ -40,6 +42,7 @@ export const firebase_check = (userCredentials) => {
           dispatch(logIn(found));
         });
       }
+    });
   };
 };
 
