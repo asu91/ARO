@@ -8,7 +8,7 @@ export default class FriendListItem extends Component {
 
   render() {
     const { friend } = this.props;
-    const pic = friend.picture;
+    // const pic = friend.picture; TODO: Add picture and email
     return (
       <TouchableHighlight 
         onPress={() => {
@@ -17,15 +17,8 @@ export default class FriendListItem extends Component {
         }}
       >
         <View style={style.container}>
-          <Image
-            style={styles.icon}
-            source={require(pic)}
-          />
           <Text style={style.text}>
             {friend.name}
-          </Text>
-          <Text style={style.text}>
-            {friend.email}
           </Text>
         </View>
       </TouchableHighlight>
