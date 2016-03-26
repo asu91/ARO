@@ -1,7 +1,7 @@
 import React, {Component, View, ListView} from 'react-native';
-import PinListItem from './PinListItem.js';
+import FriendListItem from './FriendListItem.js';
 
-export default class PinList extends Component {
+export default class FriendList extends Component {
 
   constructor(props) {
     super(props);
@@ -26,10 +26,11 @@ export default class PinList extends Component {
   }
 
   renderItem(friend) {
+    const { onPress } = this.props;
     return (
         // pass down pin info to FriendListItem
         <FriendListItem
-          onPress={this.props.onPress}
+          onPress={onPress}
           friend={friend}
         />
       );
