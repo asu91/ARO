@@ -57,7 +57,7 @@ export default class PinListItem extends Component {
     // Make a copy of the pin
     var pinCopy = Object.assign({}, pin);
     // Set pin.friend to the userID of the person sending the pin
-    pinCopy.friend = user.id;
+    pinCopy.friend = user;
     // Post the pin to the friend's firebase.
     var friendPin = ref.child( friend.id ).child( 'pins' ).child( pin.id );
     friendPin.set( pinCopy );
