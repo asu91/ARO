@@ -74,6 +74,8 @@ export default class ViewContainer extends Component {
         /> : void 0 }
       { this.state.view === 'list' ? <PinList
           deletePin={deletePin}
+          updatePins={updatePins}
+          updateRecent={updateRecent}
           pins={pins}
           friends={friends}
           user={user}
