@@ -84,7 +84,7 @@ export default class PinListItem extends Component {
         }}
       >
         <View style={[style.container, pin.friend && style.friend]}>
-          <Text style={style.text}>
+          <Text style={[style.text, pin.friend && style.friendText]}>
             {pin.title}
           </Text>
           <Text style={style.friendName}>
@@ -110,6 +110,13 @@ const style = StyleSheet.create({
     fontSize: 24,
   },
   friend: {
-    backgroundColor: 'blue',
-  }
+    backgroundColor: 'lightblue',
+  },
+  friendText: {
+    color: 'black',
+  },
+  friendName: {
+    color: 'black',
+    alignSelf: 'center',
+  },
 });
