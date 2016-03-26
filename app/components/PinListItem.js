@@ -23,7 +23,7 @@ export default class PinListItem extends Component {
         },
         {
           text: 'Share Pin',
-          onPress: () => { this.renderFriends },
+          onPress: () => { this.renderFriends() },
         },
         {
           text: 'Delete',
