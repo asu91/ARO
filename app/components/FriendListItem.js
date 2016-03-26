@@ -15,7 +15,7 @@ export default class FriendListItem extends Component {
         onPress={() => {
           this.props.onPress( friend );
           // TODO: And then make the friend list go away.
-          Actions.view();
+          Actions.pop();
         }}
       >
         <View style={style.container}>
