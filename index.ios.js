@@ -18,6 +18,7 @@ import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import promise from 'redux-promise';
 import Signin from './app/containers/container_FBLogin';
+import FriendList from './app/components/FriendList';
 import { Router, Scene, Actions} from 'react-native-router-flux';
 
 
@@ -39,6 +40,7 @@ const scenes = Actions.create(
   <Scene key="root" hideNavBar>
       <Scene initial key="login" component={Signin} />
       <Scene key="view" component={ViewContainer} />
+      <Scene key="friends" component={FriendList} />
   </Scene>
 );
 AppRegistry.registerComponent('findAR', () => findAR);
