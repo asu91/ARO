@@ -1,5 +1,6 @@
 import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
 import FriendList from './FriendList';
+import { ref } from '../lib/db/db';
 
 export default class PinListItem extends Component {
 
@@ -42,9 +43,27 @@ export default class PinListItem extends Component {
   }
 
   shareWithFriend( pin, friend ) {
+    if( typeof friend.id !== 'string' ) {
+      console.log( 'shareWithFriend: friend id must be a string' );
+      return null;
+    }
+    if( typeof pin !== 'object' ) {
+      console.log( 'shareWithFriend: pin must be an object' );
+      return null;
+    }
+    if( typeof pin.id !== 'string' ) {
+      console.log( 'shareWithFriend: pin id must be a string' );
+      return null;
+    }
+    const { user } = this.props;
     // Make a copy of the pin
+    var pinCopy = Object.assign({}, pin);
     // Set pin.friend to the userID of the person sending the pin
+    pinCopy.friend = user.id;
     // Post the pin to the friend's firebase.
+    var friendPin = ref.child( friend.id ).child( 'pins' ).child( pin.id );
+    friendPin.set( pinCopy );
+    return true;
   }
 
   editTitle(value) {

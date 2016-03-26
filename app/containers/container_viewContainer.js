@@ -13,6 +13,7 @@ function mapStateToProps(state) {
     pins: state.pins,
     recent: state.recent,
     friends: state.friends,
+    user: state.user,
   };
 }
 

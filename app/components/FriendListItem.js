@@ -13,6 +13,7 @@ export default class FriendListItem extends Component {
       <TouchableHighlight 
         onPress={() => {
           this.props.onPress( friend );
+          // TODO: And then make the friend list go away.
         }}
       >
         <View style={style.container}>
