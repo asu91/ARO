@@ -1,13 +1,11 @@
-import { LOG_IN, LOG_OUT } from '../constants/constants.js';
+import { UPDATE_FRIENDS } from '../constants/constants.js';
 
-var initialState = {};
+var initialState = [];
 
 export default function(state = initialState, action) {
   switch(action.type){
-    case LOG_IN:
+    case UPDATE_FRIENDS:
       return action.payload;
-    case LOG_OUT:
-      return initialState;
     default:
       return state;
   }

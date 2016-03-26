@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT} from '../constants/constants.js';
+import { LOG_IN, LOG_OUT, UPDATE_FRIENDS} from '../constants/constants.js';
 import { ref } from '../lib/db/db.js';
 import { Actions } from 'react-native-router-flux';
 
@@ -8,11 +8,16 @@ export const logIn = (payload) => {
     payload
   };
 };
-
+export const updateFriends = (payload) => {
+  return{
+    type: UPDATE_FRIENDS,
+    payload
+  };
+};
 export const firebase_check = (userCredentials) => {
-  let id = userCredentials.userId;
-  let token = userCredentials.token;
-  let api = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,picture&access_token="+token;
+  let {userId, token} = userCredentials;
+  let api = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,email,friends,picture&access_token="+token;
+  let friendcall = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,friends&access_token="+token;
   function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
@@ -20,10 +25,10 @@ export const firebase_check = (userCredentials) => {
     });
   }
   return(dispatch) => {
-    checkIfUserExists(id, (userExist) => {
+    checkIfUserExists(userId, (userExist) => {
       if(!userExist) {
         let userInfo={};
-        userInfo.uid = id;
+        userInfo.id = userId;
         //fetch the other info
         return fetch(api)
         .then((response) => response.json())
@@ -32,13 +37,22 @@ export const firebase_check = (userCredentials) => {
           userInfo.email = responseData.email;
           userInfo.picture = responseData.picture.data.url;
         //pushes all gathereed infor to database
-        let newUser = ref.child(id).set(userInfo);
+        let newUser = ref.child(userId).set(userInfo);
+        dispatch(updateFriends(responseData.friends.data));
         dispatch(logIn(userInfo));
         });
       } else {
-        ref.child(id).on("value", function(snapshot) {
-          let found = snapshot.val();
-          dispatch(logIn(found));
+        //this api call to fb updates friends list
+        return fetch(friendcall)
+        .then((response) => response.json())
+        .then((responseData) => {
+          ref.child(userId).on("value", function(snapshot) {
+            let found = snapshot.val();
+            const { id, name, email, picture } = found;
+            let obj = {name, email, id, picture};
+            dispatch(logIn(obj));
+          });
+          dispatch(updateFriends(responseData.friends.data));
         });
       }
     });
