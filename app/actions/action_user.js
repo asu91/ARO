@@ -18,6 +18,7 @@ export const firebase_check = (userCredentials) => {
   let id = userCredentials.userId;
   let token = userCredentials.token;
   let api = "https://graph.facebook.com/v2.3/"+id+"?fields=name,email,friends,picture&access_token="+token;
+  let friendcall = "https://graph.facebook.com/v2.3/"+id+"?fields=name,friends&access_token="+token;
   function checkIfUserExists(userId, callback) {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
