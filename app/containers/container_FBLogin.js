@@ -50,8 +50,9 @@ class LogIn extends Component {
           onLoginFound={function(data){
             //if user was already signed in, no need to sign in again
             console.log("********Existing login found.");
-            action.logIn(data.credentials);
-            Actions.view
+            changeUser(data.credentials.userId)
+            Actions.view();
+            action.firebase_check(data.credentials);
           }}
           onLoginNotFound={function(){
             //if user has not signed in since last session
