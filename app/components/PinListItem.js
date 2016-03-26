@@ -73,6 +73,10 @@ export default class PinListItem extends Component {
 
   render() {
     const { pin } = this.props;
+    let name = '';
+    if( pin.friend ) {
+     name = pin.friend.name;
+    }
     return (
       <TouchableHighlight 
         onPress={() => {
@@ -84,7 +88,7 @@ export default class PinListItem extends Component {
             {pin.title}
           </Text>
           <Text style={style.friendName}>
-            {pin.friend}
+            {name}
           </Text>
         </View>
       </TouchableHighlight>
