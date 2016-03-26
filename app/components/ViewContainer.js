@@ -58,7 +58,7 @@ export default class ViewContainer extends Component {
   }
 
   render() {
-    const { getLocationToSave, pins, updatePins, updateRecent, deletePin, recent } = this.props;
+    const { pins, recent, friends, user, getLocationToSave, updatePins, updateRecent, deletePin } = this.props;
 
     return (
 
@@ -77,7 +77,11 @@ export default class ViewContainer extends Component {
         /> : void 0 }
       { this.state.view === 'list' ? <PinList
           deletePin={deletePin}
+          updatePins={updatePins}
+          updateRecent={updateRecent}
           pins={pins}
+          friends={friends}
+          user={user}
           /> : void 0 }
       { this.state.view != 'list' ? <Button
           onPress={this.toggleView.bind(this, 'list')}

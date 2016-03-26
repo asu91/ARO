@@ -26,7 +26,7 @@ export default class PinList extends Component {
   }
 
   renderItem(pin) {
-    const { updatePins, updateRecent, deletePin } = this.props;
+    const { updatePins, updateRecent, deletePin, friends, user } = this.props;
     return (
         // pass down pin info to PinListItem
         <PinListItem
@@ -34,6 +34,8 @@ export default class PinList extends Component {
           updateRecent={updateRecent}
           deletePin={deletePin}
           pin={pin}
+          friends={friends}
+          user={user}
         />
       );
   }
@@ -41,6 +43,7 @@ export default class PinList extends Component {
   render() {
     return (
       <ListView
+        style={{ marginTop: 15 }}
         dataSource={this.state.dataSource}
         renderRow={this.renderItem.bind(this)}
       />
