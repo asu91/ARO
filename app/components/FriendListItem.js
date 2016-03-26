@@ -1,4 +1,5 @@
 import React, {Component, Image, Text, TouchableHighlight, View, StyleSheet} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 export default class FriendListItem extends Component {
 
@@ -14,6 +15,7 @@ export default class FriendListItem extends Component {
         onPress={() => {
           this.props.onPress( friend );
           // TODO: And then make the friend list go away.
+          Actions.view();
         }}
       >
         <View style={style.container}>

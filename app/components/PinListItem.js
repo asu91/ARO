@@ -1,4 +1,5 @@
 import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import FriendList from './FriendList';
 import { ref } from '../lib/db/db';
 
@@ -9,7 +10,7 @@ export default class PinListItem extends Component {
   }
 
   touchOptions() {
-    const { pin, deletePin } = this.props;
+    const { pin, deletePin, friends } = this.props;
     AlertIOS.prompt(
         pin.title,
         '('+pin.longitude + ', ' + pin.latitude + ')',
@@ -23,7 +24,7 @@ export default class PinListItem extends Component {
         },
         {
           text: 'Share Pin',
-          onPress: () => { this.renderFriends() },
+          onPress: () => { Actions.friends({ onPress: this.shareWithFriend.bind( this, pin ), friends: friends }) },
         },
         {
           text: 'Delete',
@@ -35,14 +36,12 @@ export default class PinListItem extends Component {
       );
   }
 
-  renderFriends() {
-    const { friends, pin } = this.props;
-    return (
-      <FriendList onPress={this.shareWithFriend.bind( this, pin )} friends={friends} />
-    );
-  }
-
   shareWithFriend( pin, friend ) {
+    const { user } = this.props;
+    if( typeof user.id !== 'string' ) {
+      console.log( 'shareWithFriend: user id must be a string' );
+      return null;
+    }
     if( typeof friend.id !== 'string' ) {
       console.log( 'shareWithFriend: friend id must be a string' );
       return null;
@@ -55,7 +54,6 @@ export default class PinListItem extends Component {
       console.log( 'shareWithFriend: pin id must be a string' );
       return null;
     }
-    const { user } = this.props;
     // Make a copy of the pin
     var pinCopy = Object.assign({}, pin);
     // Set pin.friend to the userID of the person sending the pin
