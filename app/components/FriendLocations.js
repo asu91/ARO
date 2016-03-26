@@ -1,4 +1,4 @@
-import React, { Component, Text } from 'react-native';
+import React, { Component, Text, Image } from 'react-native';
 import MapView from 'react-native-maps';
 import { myCurrLoc } from '../lib/db/db';
 import { PinCallout } from './PinCallout';
@@ -28,6 +28,9 @@ export default class FriendLocations extends Component {
     return (
       <MapView.Marker
         coordinate={this.state.myLoc}
+        image={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
+        // centerOffset={{ x: -42, y: -60 }}
+        style={{borderRadius: 13, backgroundColor: 'transparent'}}
       >
         <MapView.Callout tooltip>
           <PinCallout>
@@ -38,5 +41,8 @@ export default class FriendLocations extends Component {
 
     );
   }
+            // <Image
+            //   source={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
+            // />
 
 }

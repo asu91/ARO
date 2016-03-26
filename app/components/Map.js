@@ -2,7 +2,7 @@ import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
-import image from '../assets/redPin.png';
+import redPin from '../assets/redPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 import { myCurrLoc } from '../lib/db/db';
@@ -52,7 +52,7 @@ export default class Map extends Component {
       return (
         // console.log(pinObject,'this is pinObject')
         <MapView.Marker
-          image={image}
+          image={redPin}
           key={key}
           coordinate={{latitude: pinObject.latitude, longitude: pinObject.longitude}}
           onSelect={() => this.setState({ selectedPin: pinObject })}
