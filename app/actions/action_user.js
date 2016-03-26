@@ -29,7 +29,7 @@ export const firebase_check = (userCredentials) => {
     checkIfUserExists(id, (userExist) => {
       if(!userExist) {
         let userInfo={};
-        userInfo.userId = id;
+        userInfo.id = id;
         //fetch the other info
         return fetch(api)
         .then((response) => response.json())
