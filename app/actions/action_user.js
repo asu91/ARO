@@ -19,7 +19,7 @@ export const updateFriends = (payload) => {
 
 //we have array of all friends but fb does not give photo on initial call, so we have another
 //helper function that gets each users friends photo
-function generateFriends(friends, token, callback) {
+const generateFriends = (friends, token, callback) =>{
   let friendsArray = [];
   _.each(friends, function(friend, index) {
     let photoquery =  "https://graph.facebook.com/v2.3/"+friend.id+"?fields=picture,name&access_token="+token;
@@ -37,19 +37,20 @@ function generateFriends(friends, token, callback) {
       }
     });
   });
-}
+};
 
 export const firebase_check = (userCredentials) => {
   let {userId, token} = userCredentials;
   let api = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,email,friends,picture&access_token="+token;
   let friendcall = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,friends&access_token="+token;
   let friendsArray = [];
-  function checkIfUserExists(userId, callback) {
+
+ const checkIfUserExists = (userId, callback) => {
     ref.once('value', function(snapshot) {
     let userExistsBool = snapshot.hasChild(userId);
       callback(userExistsBool);
     });
-  }
+  };
   return(dispatch) => {
     checkIfUserExists(userId, (userExist) => {
       if(!userExist) {
@@ -65,7 +66,7 @@ export const firebase_check = (userCredentials) => {
           //pushes all gathereed infor to database
           let newUser = ref.child(userId).set(userInfo);
           //generates friends for new user
-          generateFriends(responseData.friends.data, token, function(allFriends) {
+          generateFriends(responseData.friends.data, token, (allFriends)=> {
             dispatch(updateFriends(allFriends));
           });
           //logs new user in
@@ -84,7 +85,7 @@ export const firebase_check = (userCredentials) => {
         .then((response) => response.json())
         .then((responseData) => {
           let friends = responseData.friends.data;
-          generateFriends(friends, token, function(allFriends) {
+          generateFriends(friends, token, (allFriends) => {
             dispatch(updateFriends(allFriends));
           });
         });
@@ -93,7 +94,7 @@ export const firebase_check = (userCredentials) => {
   };
 };
 
-export const logOut = function () {
+export const logOut = () => {
   return {
     type: LOG_OUT
   };
