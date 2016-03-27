@@ -23,9 +23,12 @@ export default class PinListItem extends Component {
           onPress: this.editTitle.bind(this)
         },
         {
-          text: 'Share Pin',
+          text: 'Share',
           onPress: () => { Actions.friends({ onPress: this.shareWithFriend.bind( this, pin ), friends: friends }) },
         },
+        {
+          text: 'Set Target',
+        }
         {
           text: 'Delete',
           onPress: () => {
