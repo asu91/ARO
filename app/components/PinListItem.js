@@ -73,21 +73,29 @@ export default class PinListItem extends Component {
 
   render() {
     const { pin } = this.props;
+    let name = '';
+    if( pin.friend ) {
+     name = pin.friend.name;
+    }
     return (
       <TouchableHighlight 
         onPress={() => {
           this.touchOptions()
         }}
       >
-        <View style={style.container}>
-          <Text style={style.text}>
+        <View style={[style.container, pin.friend && style.friend]}>
+          <Text style={[style.text, pin.friend && style.friendText]}>
             {pin.title}
+          </Text>
+          <Text style={style.friendName}>
+            {name}
           </Text>
         </View>
       </TouchableHighlight>
     );
   }
 }
+
 
 const style = StyleSheet.create({
   container: {
@@ -100,5 +108,15 @@ const style = StyleSheet.create({
   text: {
     alignSelf: 'center',
     fontSize: 24,
-  }
+  },
+  friend: {
+    backgroundColor: 'lightblue',
+  },
+  friendText: {
+    color: 'black',
+  },
+  friendName: {
+    color: 'black',
+    alignSelf: 'center',
+  },
 });
