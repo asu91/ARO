@@ -1,6 +1,6 @@
 import React, { Component, Text, Image, View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
-import { myCurrLoc } from '../lib/db/db';
+import { myCurrLoc, curLoc } from '../lib/db/db';
 import { PinCallout } from './PinCallout';
 
 
@@ -17,16 +17,24 @@ export default class FriendLocations extends Component {
   }
 
   componentDidMount() {
-    var self = this
+    const { friends } = this.props;
+    let self = this;
     myCurrLoc.on('value', function(newLocation) {
-
-      self.setState({ coordinate: newLocation.val() });
+        self.udpateCurrLoc(newLocation.val());
     });
+
+    // for(var i = 0; i < friends.length; i++) {
+    //   self.setListener(friends[i]);
+    // }
   }
 
-  animate() {
-
+  udpateCurrLoc(newLocation) {
+    this.setState({ coordinate: newLocation });
   }
+
+  // setListener(friend) {
+  //   currLoc.child(friend.id).on("value",)
+  // }
 
   render() {
     return (

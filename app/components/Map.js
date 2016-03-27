@@ -69,11 +69,11 @@ export default class Map extends Component {
     });
   }
 
-  componentDidMount () {
-    myCurrLoc.on('value', function() {
-      console.log('walking')
-    })
-  }
+  // componentDidMount () {
+  //   myCurrLoc.on('value', function() {
+  //     console.log('walking')
+  //   })
+  // }
 
   renderEditButton() {
     const { updatePins, updateRecent, deletePin } = this.props;
@@ -104,7 +104,7 @@ export default class Map extends Component {
 
 
   render() {
-    const { pins, getLocationToSave, currLoc, recent } = this.props;
+    const { pins, getLocationToSave, currLoc, recent, friends } = this.props;
     return (
       <View style={styles.container}>
         <MapView
@@ -124,8 +124,8 @@ export default class Map extends Component {
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
-
-        <FriendLocations/>
+        <FriendLocations 
+          friends={friends}/>
 
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
