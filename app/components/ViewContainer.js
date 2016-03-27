@@ -55,12 +55,12 @@ export default class ViewContainer extends Component {
   }
 
   render() {
-    const { pins, recent, friends, user, getLocationToSave, updatePins, updateRecent, deletePin } = this.props;
+    const { pins, recent, friends, user, targetPin, getLocationToSave, updatePins, updateRecent, deletePin } = this.props;
 
     return (
 
       <View style={{flex: 1}}>
-      { this.state.view === 'ar' ? <AR currLoc={ this.state.currLoc } pins={pins} /> : void 0 }
+      { this.state.view === 'ar' ? <AR currLoc={ this.state.currLoc } pins={pins} targetPin={targetPin} /> : void 0 }
       { this.state.view === 'map' ? <Map
           getLocationToSave={getLocationToSave}
           currLoc={this.state.currLoc}
@@ -70,6 +70,7 @@ export default class ViewContainer extends Component {
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}
+          targetPin={targetPin}
 
         /> : void 0 }
       { this.state.view === 'list' ? <PinList
@@ -79,6 +80,7 @@ export default class ViewContainer extends Component {
           pins={pins}
           friends={friends}
           user={user}
+          targetPin={targetPin}
           /> : void 0 }
       { this.state.view != 'list' ? <Button
           onPress={this.toggleView.bind(this, 'list')}
