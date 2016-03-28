@@ -59,7 +59,6 @@ export default class ViewContainer extends Component {
 
   render() {
     const { pins, recent, friends, user, getLocationToSave, updatePins, updateRecent, deletePin } = this.props;
-
     return (
 
       <View style={{flex: 1}}>

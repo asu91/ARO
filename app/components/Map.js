@@ -5,7 +5,7 @@ import _ from 'underscore';
 import redPin from '../assets/redPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
-import { myCurrLoc } from '../lib/db/db';
+import { myCurrLoc, currLoc } from '../lib/db/db';
 import FriendLocations from './FriendLocations';
 
 export default class Map extends Component {
@@ -15,7 +15,52 @@ export default class Map extends Component {
       position: null,
       selectedPin: undefined,
       dropPinLocation: undefined,
+      loaded: false,
+      friendLocs: {},
     };
+  }
+// Friend
+  componentWillMount() {
+    const { friends } = this.props;
+    let self = this;
+   
+    console.log('friends length', friends)
+    for(var i = 0; i < friends.length; i++) {
+      self.setListener(friends[i]);
+      console.log(i, friends.length-1)
+      if(i === friends.length - 1) {
+        console.log('set to true')
+        this.setState({loaded: true});
+      }
+    }
+  }
+
+  setListener(friend) {
+    let self = this;
+    console.log('friend', friend)
+    currLoc.child(friend.id).on("value", function(snap) {
+      self.state.friendLocs[friend.id] = snap.val();
+      console.log('snapval', snap.val());
+      console.log('state',self.state.friendLocs);
+    });
+  }
+
+  renderFriends() {
+    console.log('rendienrafgaf')
+    let copy = this.state.friendLocs;
+    return _.map(copy, (coords, id) => {
+        // console.log(coords,'coords?')
+        return (
+        <MapView.Marker
+          coordinate={coords}
+          key={id}
+          image={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
+          // image={redPin}
+          style={styles.icon}
+        />
+
+        )
+      });
   }
 
   onRegionChange(region) {
@@ -102,7 +147,8 @@ export default class Map extends Component {
 
 
   render() {
-    const { pins, getLocationToSave, currLoc, recent, friends } = this.props;
+    const { pins, getLocationToSave, currLoc, recent, friends, fullLoc } = this.props;
+    // console.log('render Map')
     return (
       <View style={styles.container}>
         <MapView
@@ -122,15 +168,14 @@ export default class Map extends Component {
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
-        <FriendLocations 
-          friends={friends}/>
+        { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
 
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
         <View style={styles.centerButton}>
           <Button
             style={[styles.bubble, styles.button]}
-            onPress={this.moveMapToUser.bind(this, this.props.fullLoc)}>
+            onPress={this.moveMapToUser.bind(this, fullLoc)}>
             CENTER ON ME
           </Button>
         </View>
@@ -179,6 +224,11 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     alignItems: 'center',
+  },
+
+  icon: {
+    borderRadius: 13,
+    backgroundColor: 'transparent',
   },
 });
 
