@@ -73,6 +73,7 @@ const HTML = `
 
 const BRIDGE_INJECT_SCRIPT = `
   var targetLocIdx = 0;
+  var targetPinId;
   function webViewBridgeReady(cb) {
     //checks whether WebViewBridge exists in global scope.
     if (window.WebViewBridge) {
@@ -103,6 +104,11 @@ const BRIDGE_INJECT_SCRIPT = `
 
       mesh.visible = false;
 
+      if( message.targetPinId !== targetPinId ) {
+        targetPinId = message.targetPinId;
+        // TODO: Color targeted pin differently
+      }
+
       message.locs.forEach( function( loc, i ) {
         if( !( meshes[i] instanceof THREE.Mesh ) ) {
           meshes[i] = mesh.clone();
@@ -122,12 +128,11 @@ const BRIDGE_INJECT_SCRIPT = `
         meshes[i].title = loc.title;
         meshes[i].position.x = loc.x;
         meshes[i].position.z = loc.z;
+        if( loc.id === targetPinId ) {
+          targetLocIdx = i;
+        }
       });
 
-      if( message.targetLocIdx !== targetLocIdx ) {
-        targetLocIdx = message.targetLocIdx;
-        // TODO: Color targeted pin differently
-      }
 
       // TODO: Delete any meshes in indices greater than or equal to locs.length;
     };
@@ -138,6 +143,7 @@ export default class AR extends Component {
   constructor(props) {
     super(props);
   }
+
   calculateLocs( currentLocation, objectOfPins ) {
     var locs = [];
     // For each pin in the array of pins,
@@ -151,8 +157,9 @@ export default class AR extends Component {
 
   sendLocsToBridge( props ) {
     let message = {}
-    message.targetLocIdx = props.targetLocIdx || 0;
-    message.locs = this.calculateLocs( props.currLoc, props.pins );
+    const { currLoc, pins, targetPin } = props;
+    message.targetPinId = targetPin.id;
+    message.locs = this.calculateLocs( currLoc, pins );
     this.refs.webviewbridge.sendToBridge( JSON.stringify( message ) );
   }
 

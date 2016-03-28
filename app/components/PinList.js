@@ -25,14 +25,28 @@ export default class PinList extends Component {
     });
   }
 
+  redraw() {
+    let newPins = {};
+    for( var key in this.props.pins ) {
+      newPins[key] = Object.assign({}, this.props.pins[key]);
+    }
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(newPins)
+    })
+  }
+
+
   renderItem(pin) {
-    const { updatePins, updateRecent, deletePin, friends, user } = this.props;
+    const { updatePins, updateRecent, deletePin, setTarget, targetPin, friends, user } = this.props;
     return (
         // pass down pin info to PinListItem
         <PinListItem
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}
+          targetPin={targetPin}
+          setTarget={setTarget}
+          redraw={this.redraw.bind(this)}
           pin={pin}
           friends={friends}
           user={user}
