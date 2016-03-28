@@ -14,7 +14,7 @@ export default class PinEditButton extends Component{
   }
 
   render() {
-    const { pin, deletePin, hideButton } = this.props;
+    const { pin, deletePin, hideButton, setTarget } = this.props;
     return(
       <Button
         style={[styles.bubble, styles.button]}
@@ -31,6 +31,12 @@ export default class PinEditButton extends Component{
             {
               text: 'Edit Title',
               onPress: this.editTitle.bind(this)
+            },
+            {
+              text: 'Set Target',
+              onPress: () => {
+                setTarget(pin)
+              },
             },
             {
               text: 'Delete',

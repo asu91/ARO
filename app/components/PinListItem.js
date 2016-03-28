@@ -10,7 +10,7 @@ export default class PinListItem extends Component {
   }
 
   touchOptions() {
-    const { pin, deletePin, friends } = this.props;
+    const { pin, friends, deletePin, setTarget, redraw } = this.props;
     AlertIOS.prompt(
         pin.title,
         '('+pin.longitude + ', ' + pin.latitude + ')',
@@ -23,8 +23,15 @@ export default class PinListItem extends Component {
           onPress: this.editTitle.bind(this)
         },
         {
-          text: 'Share Pin',
+          text: 'Share',
           onPress: () => { Actions.friends({ onPress: this.shareWithFriend.bind( this, pin ), friends: friends }) },
+        },
+        {
+          text: 'Set Target',
+          onPress: () => {
+            setTarget(pin);
+            redraw();
+          },
         },
         {
           text: 'Delete',
@@ -72,8 +79,9 @@ export default class PinListItem extends Component {
   }
 
   render() {
-    const { pin } = this.props;
+    const { pin, targetPin } = this.props;
     let name = '';
+    let isTarget = pin.id === targetPin.id;
     if( pin.friend ) {
      name = pin.friend.name;
     }
@@ -83,7 +91,7 @@ export default class PinListItem extends Component {
           this.touchOptions()
         }}
       >
-        <View style={[style.container, pin.friend && style.friend]}>
+        <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
           <Text style={[style.text, pin.friend && style.friendText]}>
             {pin.title}
           </Text>
@@ -119,4 +127,7 @@ const style = StyleSheet.create({
     color: 'black',
     alignSelf: 'center',
   },
+  target: {
+    backgroundColor: 'red',
+  }
 });

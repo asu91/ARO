@@ -1,8 +1,9 @@
-import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 'react-native';
+import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image  } from 'react-native';
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
-import image from '../assets/redPin.png';
+import baseImg from '../assets/redPin.png';
+import targetImg from '../assets/blackPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 
@@ -44,18 +45,21 @@ export default class Map extends Component {
   }
   
   renderMarkers() {
-    const { pins } = this.props;
+    const { pins, targetPin } = this.props;
+
     return _.map(pins, (pinObject, key) => {
-      // console.log(pinObject,'this is pinObject')
+      let image = baseImg;
+      if ( key === targetPin.id ) {
+        image = targetImg;
+      }
       return (
-        // console.log(pinObject,'this is pinObject')
         <MapView.Marker
-          image={image}
           key={key}
           coordinate={{latitude: pinObject.latitude, longitude: pinObject.longitude}}
           onSelect={() => this.setState({ selectedPin: pinObject })}
           onDeselect={() => this.setState({ selectedPin: undefined })}
         >
+          <Image source={image} />
           <MapView.Callout tooltip>
             <PinCallout>
               <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.title}</Text>
@@ -68,7 +72,7 @@ export default class Map extends Component {
   }
 
   renderEditButton() {
-    const { updatePins, updateRecent, deletePin } = this.props;
+    const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
     return (
       <View style={styles.editButton}>
         <PinEditButton 
@@ -76,11 +80,14 @@ export default class Map extends Component {
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}
+          setTarget={setTarget}
+          targetPin={targetPin}
           hideButton={() => this.setState({selectedPin: undefined})}
         />
       </View>
     )
   }
+
 
   moveMapToUser(location) {
     const {currLoc} = this.props;

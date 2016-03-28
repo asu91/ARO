@@ -1,11 +1,12 @@
 import React, { Component, PropTypes, StyleSheet, Text, View  } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import getLocationToSave from '../actions/action_dropNewPin.js';
-import updatePins from '../actions/action_updatePins.js';
-import deletePin from '../actions/action_deletePin.js';
-import updateRecent from '../actions/action_updateRecent.js';
-import ViewContainer from '../components/ViewContainer.js';
+import getLocationToSave from '../actions/action_dropNewPin';
+import updatePins from '../actions/action_updatePins';
+import deletePin from '../actions/action_deletePin';
+import updateRecent from '../actions/action_updateRecent';
+import setTarget from '../actions/action_setTarget';
+import ViewContainer from '../components/ViewContainer';
 
 
 function mapStateToProps(state) {
@@ -14,7 +15,8 @@ function mapStateToProps(state) {
     recent: state.recent,
     friends: state.friends,
     user: state.user,
+    targetPin: state.targetPin,
   };
 }
 
-export default connect(mapStateToProps, { getLocationToSave, updatePins, deletePin, updateRecent })(ViewContainer);
+export default connect(mapStateToProps, { getLocationToSave, updatePins, deletePin, updateRecent, setTarget })(ViewContainer);
