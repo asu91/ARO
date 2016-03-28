@@ -46,6 +46,7 @@ export default class PinListItem extends Component {
   shareWithFriend( pin, friend ) {
     const { user } = this.props;
     if( typeof user.id !== 'string' ) {
+      console.log(user.id)
       console.log( 'shareWithFriend: user id must be a string' );
       return null;
     }
