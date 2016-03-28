@@ -10,7 +10,7 @@ export default class PinListItem extends Component {
   }
 
   touchOptions() {
-    const { pin, friends, deletePin, setTarget } = this.props;
+    const { pin, friends, deletePin, setTarget, redraw } = this.props;
     AlertIOS.prompt(
         pin.title,
         '('+pin.longitude + ', ' + pin.latitude + ')',
@@ -30,6 +30,7 @@ export default class PinListItem extends Component {
           text: 'Set Target',
           onPress: () => {
             setTarget(pin);
+            redraw();
           },
         },
         {
