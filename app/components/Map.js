@@ -47,8 +47,8 @@ export default class Map extends Component {
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
-    let image;
     return _.map(pins, (pinObject, key) => {
+      let image;
       // console.log(pinObject,'this is pinObject')
       if ( key === targetPin.id ) {
         image = targetImg;
@@ -76,7 +76,7 @@ export default class Map extends Component {
   }
 
   renderEditButton() {
-    const { updatePins, updateRecent, deletePin, setTarget } = this.props;
+    const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
     return (
       <View style={styles.editButton}>
         <PinEditButton 
@@ -85,6 +85,7 @@ export default class Map extends Component {
           updateRecent={updateRecent}
           deletePin={deletePin}
           setTarget={setTarget}
+          targetPin={targetPin}
           hideButton={() => this.setState({selectedPin: undefined})}
         />
       </View>
