@@ -147,7 +147,7 @@ export default class Map extends Component {
 
   render() {
     // TODO: Map is re-rendering continually. Fix bug
-    const { pins, getLocationToSave, currLoc, recent, friends, fullLoc } = this.props;
+    const { pins, getLocationToSave, currLoc, recent, friends } = this.props;
     return (
       <View style={styles.container}>
         <MapView
@@ -174,7 +174,7 @@ export default class Map extends Component {
         <View style={styles.centerButton}>
           <Button
             style={[styles.bubble, styles.button]}
-            onPress={this.moveMapToUser.bind(this, fullLoc)}>
+            onPress={this.moveMapToUser.bind(this)}>
             CENTER ON ME
           </Button>
         </View>
