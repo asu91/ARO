@@ -5,6 +5,7 @@ import getLocationToSave from '../actions/action_dropNewPin.js';
 import updatePins from '../actions/action_updatePins.js';
 import deletePin from '../actions/action_deletePin.js';
 import updateRecent from '../actions/action_updateRecent.js';
+import setTarget from '../actions/action_setTarget.js';
 import ViewContainer from '../components/ViewContainer.js';
 
 
@@ -17,4 +18,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { getLocationToSave, updatePins, deletePin, updateRecent })(ViewContainer);
+export default connect(mapStateToProps, { getLocationToSave, updatePins, deletePin, updateRecent, setTarget })(ViewContainer);
