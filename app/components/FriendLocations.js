@@ -1,7 +1,9 @@
 import React, { Component, Text, Image, View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
-import { myCurrLoc, curLoc } from '../lib/db/db';
+import _ from 'underscore';
+import { myCurrLoc, currLoc } from '../lib/db/db';
 import { PinCallout } from './PinCallout';
+import redPin from '../assets/redPin.png';
 
 
 export default class FriendLocations extends Component {
@@ -9,50 +11,53 @@ export default class FriendLocations extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coordinate: {
-        latitude: 0,
-        longitude: 0
-      }
+      friendLocs: {},
     };
   }
 
   componentDidMount() {
     const { friends } = this.props;
     let self = this;
-    myCurrLoc.on('value', function(newLocation) {
-        self.udpateCurrLoc(newLocation.val());
+   
+    console.log('friends length', friends)
+    for(var i = 0; i < friends.length; i++) {
+      self.setListener(friends[i]);
+    }
+  }
+
+  setListener(friend) {
+    let self = this;
+    console.log('friend', friend)
+    currLoc.child(friend.id).on("value", function(snap) {
+      self.state.friendLocs[friend.id] = snap.val();
+      console.log('snapval', snap.val());
+      console.log('state',self.state.friendLocs);
     });
-
-    // for(var i = 0; i < friends.length; i++) {
-    //   self.setListener(friends[i]);
-    // }
   }
 
-  udpateCurrLoc(newLocation) {
-    this.setState({ coordinate: newLocation });
-  }
+  renderFriends() {
+    // console.log('rendering friends', this.state.friendLocs)
+    let copy = this.state.friendLocs
+    console.log(copy,'afaergae')
+    return _.map(copy, (coords, id) => {
+        return (
+        <MapView.Marker
+          coordinate={coords}
+          key={id}
+          // image={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
+          image={redPin}
+          style={styles.icon}
+        />
 
-  // setListener(friend) {
-  //   currLoc.child(friend.id).on("value",)
-  // }
+        )
+      });
+  }
 
   render() {
     return (
-      // <View style={{borderRadius:13}}>
-      <MapView.Marker
-        coordinate={this.state.coordinate}
-        image={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
-        // centerOffset={{ x: -42, y: -60 }}
-        style={styles.icon}
-      >
-        <MapView.Callout tooltip>
-          <PinCallout>
-            <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>ME</Text>
-          </PinCallout>
-        </MapView.Callout>
-      </MapView.Marker>
-      // </View>
-
+      <View>
+      { Object.keys(this.state.friendLocs).length !== 0 ? this.renderFriends.call(this) : void 0 }
+      </View>
     );
   }
 }

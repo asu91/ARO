@@ -48,9 +48,7 @@ export default class Map extends Component {
   renderMarkers() {
     const { pins } = this.props;
     return _.map(pins, (pinObject, key) => {
-      // console.log(pinObject,'this is pinObject')
       return (
-        // console.log(pinObject,'this is pinObject')
         <MapView.Marker
           image={redPin}
           key={key}
