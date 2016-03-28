@@ -33,7 +33,7 @@ export default class PinEditButton extends Component{
               onPress: this.editTitle.bind(this)
             },
             {
-              text: 'Set Pin As Target',
+              text: 'Set Target',
               onPress: () => {
                 setTarget(pin)
               },

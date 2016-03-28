@@ -1,4 +1,4 @@
-import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 'react-native';
+import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image  } from 'react-native';
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
@@ -48,20 +48,18 @@ export default class Map extends Component {
     const { pins, targetPin } = this.props;
 
     return _.map(pins, (pinObject, key) => {
-      let image;
+      let image = baseImg;
       if ( key === targetPin.id ) {
         image = targetImg;
-      } else {
-        image = baseImg;
       }
       return (
         <MapView.Marker
-          image={image}
           key={key}
           coordinate={{latitude: pinObject.latitude, longitude: pinObject.longitude}}
           onSelect={() => this.setState({ selectedPin: pinObject })}
           onDeselect={() => this.setState({ selectedPin: undefined })}
         >
+          <Image source={image} />
           <MapView.Callout tooltip>
             <PinCallout>
               <Text style={{ color: 'black', alignSelf:'center', fontSize:16 }}>{pinObject.title}</Text>
@@ -89,6 +87,7 @@ export default class Map extends Component {
       </View>
     )
   }
+
 
   moveMapToUser(location) {
     const {currLoc} = this.props;
