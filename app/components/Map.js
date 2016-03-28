@@ -49,14 +49,12 @@ export default class Map extends Component {
 
     return _.map(pins, (pinObject, key) => {
       let image;
-      // console.log(pinObject,'this is pinObject')
       if ( key === targetPin.id ) {
         image = targetImg;
       } else {
         image = baseImg;
       }
       return (
-        // console.log(pinObject,'this is pinObject')
         <MapView.Marker
           image={image}
           key={key}
