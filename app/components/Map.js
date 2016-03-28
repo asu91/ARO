@@ -6,7 +6,7 @@ import redPin from '../assets/redPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 import { myCurrLoc, currLoc } from '../lib/db/db';
-import FriendLocations from './FriendLocations';
+
 
 export default class Map extends Component {
   constructor(props) {
@@ -23,13 +23,11 @@ export default class Map extends Component {
   componentWillMount() {
     const { friends } = this.props;
     let self = this;
-   
-    console.log('friends length', friends)
-    for(var i = 0; i < friends.length; i++) {
-      self.setListener(friends[i]);
-      console.log(i, friends.length-1)
-      if(i === friends.length - 1) {
-        console.log('set to true')
+    let counter = 0;  
+     for(var friendId in friends) {
+      self.setListener(friends[friendId]);
+      counter++;
+      if(counter === Object.keys(friends).length) {
         this.setState({loaded: true});
       }
     }
@@ -37,25 +35,22 @@ export default class Map extends Component {
 
   setListener(friend) {
     let self = this;
-    console.log('friend', friend)
     currLoc.child(friend.id).on("value", function(snap) {
+      console.log('jake is moving')
       self.state.friendLocs[friend.id] = snap.val();
-      console.log('snapval', snap.val());
-      console.log('state',self.state.friendLocs);
     });
   }
 
   renderFriends() {
-    console.log('rendienrafgaf')
+    // renders friends current locations
+    const { friends } = this.props;
     let copy = this.state.friendLocs;
     return _.map(copy, (coords, id) => {
-        // console.log(coords,'coords?')
         return (
         <MapView.Marker
           coordinate={coords}
           key={id}
-          image={{uri: "https://scontent.xx.fbcdn.net/hprofile-prn2/v/t1.0-1/c0.7.50.50/p50x50/993777_10151526626173598_615258953_n.jpg?oh=a23e645024f54a13baa412d052bd5a7c&oe=578DD21D"}}
-          // image={redPin}
+          image={{uri: friends[id].picture}}
           style={styles.icon}
         />
 
@@ -112,12 +107,6 @@ export default class Map extends Component {
     });
   }
 
-  // componentDidMount () {
-  //   myCurrLoc.on('value', function() {
-  //     console.log('walking')
-  //   })
-  // }
-
   renderEditButton() {
     const { updatePins, updateRecent, deletePin } = this.props;
     return (
@@ -147,8 +136,8 @@ export default class Map extends Component {
 
 
   render() {
+    // TODO: Map is re-rendering continually. Fix bug
     const { pins, getLocationToSave, currLoc, recent, friends, fullLoc } = this.props;
-    // console.log('render Map')
     return (
       <View style={styles.container}>
         <MapView

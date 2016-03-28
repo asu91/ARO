@@ -20,7 +20,7 @@ export const updateFriends = (payload) => {
 //we have array of all friends but fb does not give photo on initial call, so we have another
 //helper function that gets each users friends photo
 const generateFriends = (friends, token, callback) =>{
-  let friendsArray = [];
+  let friendsObj = {};
   _.each(friends, function(friend, index) {
     let photoquery =  "https://graph.facebook.com/v2.3/"+friend.id+"?fields=picture,name&access_token="+token;
     fetch(photoquery)
@@ -29,11 +29,11 @@ const generateFriends = (friends, token, callback) =>{
       const {id, name} = responseData;
       let friendInfo = { id, name };
       friendInfo.picture = responseData.picture.data.url;
-      friendsArray.push(friendInfo);
+      friendsObj[id] = friendInfo;
 
       //when index length is same as friends length
       if(index === friends.length-1){
-        callback(friendsArray);
+        callback(friendsObj);
       }
     });
   });
@@ -43,7 +43,7 @@ export const firebase_check = (userCredentials) => {
   let {userId, token} = userCredentials;
   let api = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,email,friends,picture&access_token="+token;
   let friendcall = "https://graph.facebook.com/v2.3/"+userId+"?fields=name,friends&access_token="+token;
-  let friendsArray = [];
+  let friendsObj = [];
 
  const checkIfUserExists = (userId, callback) => {
     ref.once('value', function(snapshot) {
