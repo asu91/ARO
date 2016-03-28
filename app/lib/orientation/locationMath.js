@@ -40,9 +40,10 @@ let Location = {};
 
   Location.relativeLocsInFeet = function ( start, end ) {
     const title = end.title || undefined;
+    const id = end.id || undefined;
     const z = -1 * this.locDegreesToFeet( end.latitude - start.latitude ).toFixed(1);
     const x = this.locDegreesToFeet( end.longitude - start.longitude ).toFixed(1);
-    return { title, x, z };
+    return { id, title, x, z };
   }
 
 export default Location;
