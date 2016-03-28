@@ -78,8 +78,9 @@ export default class PinListItem extends Component {
   }
 
   render() {
-    const { pin } = this.props;
+    const { pin, targetPin } = this.props;
     let name = '';
+    let isTarget = pin.id === targetPin.id;
     if( pin.friend ) {
      name = pin.friend.name;
     }
@@ -89,7 +90,7 @@ export default class PinListItem extends Component {
           this.touchOptions()
         }}
       >
-        <View style={[style.container, pin.friend && style.friend]}>
+        <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
           <Text style={[style.text, pin.friend && style.friendText]}>
             {pin.title}
           </Text>
@@ -125,4 +126,7 @@ const style = StyleSheet.create({
     color: 'black',
     alignSelf: 'center',
   },
+  target: {
+    backgroundColor: 'red',
+  }
 });

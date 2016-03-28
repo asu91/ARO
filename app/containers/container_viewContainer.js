@@ -15,6 +15,7 @@ function mapStateToProps(state) {
     recent: state.recent,
     friends: state.friends,
     user: state.user,
+    targetPin: state.targetPin,
   };
 }
 

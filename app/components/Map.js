@@ -2,7 +2,8 @@ import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text  } from 
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
-import image from '../assets/redPin.png';
+import baseImg from '../assets/redPin.png';
+import targetImg from '../assets/blackPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 
@@ -45,8 +46,15 @@ export default class Map extends Component {
   
   renderMarkers() {
     const { pins, targetPin } = this.props;
+
+    let image;
     return _.map(pins, (pinObject, key) => {
       // console.log(pinObject,'this is pinObject')
+      if ( key === targetPin.id ) {
+        image = targetImg;
+      } else {
+        image = baseImg;
+      }
       return (
         // console.log(pinObject,'this is pinObject')
         <MapView.Marker

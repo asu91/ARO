@@ -1,6 +1,6 @@
 import { SET_TARGET } from '../constants/constants.js';
 
-var initialState = '';
+var initialState = {id:0};
 
 export default function(state = initialState, action) {
   switch(action.type){
