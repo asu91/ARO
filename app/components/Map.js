@@ -25,7 +25,6 @@ export default class Map extends Component {
     const { friends } = this.props;
     let self = this;
     let counter = 0;
-    console.log('what is friends', friends)  
     for(var friendId in friends) {
       self.setListener(friends[friendId]);
       counter++;
@@ -46,12 +45,12 @@ export default class Map extends Component {
     // renders friends current locations
     const { friends } = this.props;
     let copy = this.state.friendLocs;
-    console.log(copy)
     return _.map(copy, (coords, id) => {
         return (
           <MapView.Marker
             coordinate={coords}
             key={id}
+            title={friends[id].name}
           >
             <Image
               source={{uri: friends[id].picture}}
