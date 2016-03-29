@@ -1,5 +1,7 @@
-import { DROP_NEW_PIN, UPDATE_RECENT, SET_RECENT} from '../constants/constants.js';
-import { userData, userRecent } from '../lib/db/db.js';
+import { DROP_NEW_PIN, UPDATE_RECENT, SET_RECENT} from '../constants/constants';
+import { userData, userRecent } from '../lib/db/db';
+import setTarget from './action_setTarget';
+
 function dropNewPin(payload, id) {
   return {
     type: DROP_NEW_PIN,
@@ -40,6 +42,8 @@ export default function getLocationToSave(location, current, pinTitle) {
      // this adds the 'key' as a key-value pair in the pin object
      pushedObj.update({"id": pushedObj.key()});
      dispatch(dropNewPin(coords, pushedObj.key()));
+     // set the target to the most recently dropped pin
+     dispatch(setTarget(coords));
      // this updates the recent pins state
      recent = checkRecent(current, coords.id);
      dispatch(setRecent(recent));
