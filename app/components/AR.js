@@ -121,7 +121,7 @@ const BRIDGE_INJECT_SCRIPT = `
           textmodels[i].visible = true;
           scene.add( textmodels[i] );
         }
-        textmodels[i].position.y = -25;
+        textmodels[i].position.y = -8;
         textmodels[i].lookAt( new THREE.Vector3( 0, 0, 0 ) );
         textmodels[i].position.x = loc.x;
         textmodels[i].position.z = loc.z;
