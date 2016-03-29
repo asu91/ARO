@@ -78,6 +78,7 @@ export default class ViewContainer extends Component {
           updatePins={updatePins}
           updateRecent={updateRecent}
           pins={pins}
+          currLoc={this.state.currLoc}
           friends={friends}
           user={user}
           targetPin={targetPin}

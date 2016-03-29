@@ -31,7 +31,14 @@ let Location = {};
   }
 
   Location.haversineFeet = function ( start, end ) {
-    return haversine( start, end, this.EARTH_RADIUS_IN_FEET );
+    return this.haversine( start, end, this.EARTH_RADIUS_IN_FEET );
+  }
+
+  Location.pythag = function( start, end ) {
+    var a = end.longitude - start.longitude;
+    var b = end.latitude - start.latitude;
+    var c = Math.sqrt( Math.pow( a, 2 ) + Math.pow( b, 2 ) );
+    return this.locDegreesToFeet( c );
   }
 
   Location.bearing = function( x, z ) {
