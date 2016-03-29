@@ -39,7 +39,7 @@ const findAR = () => (
 const scenes = Actions.create(
   <Scene key="root" hideNavBar>
       <Scene initial key="login" component={Signin} />
-      <Scene key="view" component={ViewContainer} />
+      <Scene key="view" component={ViewContainer} type="replace" />
       <Scene key="friends" component={FriendList} />
   </Scene>
 );
