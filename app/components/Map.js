@@ -23,6 +23,7 @@ export default class Map extends Component {
   }
 
   setListener() {
+    console.log('setting listener')
     const { friends } = this.props;
     let self = this;
     let counter = 0;  
@@ -34,15 +35,18 @@ export default class Map extends Component {
       counter++;
     }
     if(counter === Object.keys(friends).length) {
+      console.log('loaded is true')
       this.setState({loaded: true});
     }
   }
 
   renderFriends() {
     // renders friends current locations
+    console.log('render friends')
     const { friends } = this.props;
     let copy = this.state.friendLocs;
     return _.map(copy, (coords, id) => {
+      console.log('coords', coords)
         return (
         <MapView.Marker
           coordinate={coords}
@@ -84,7 +88,7 @@ export default class Map extends Component {
   
   renderMarkers() {
     const { pins, targetPin } = this.props;
-
+    console.log('render markers')
     return _.map(pins, (pinObject, key) => {
 
       let image = baseImg;
@@ -163,7 +167,7 @@ export default class Map extends Component {
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
-        { this.state.loaded === true && this.state.RTC === true ? this.renderFriends.call(this) : void 0 }
+        { this.state.loaded === true && this.state.realtime === true ? this.renderFriends.call(this) : void 0 }
 
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
@@ -175,7 +179,10 @@ export default class Map extends Component {
           </Button>
           <Button
             style={[styles.bubble, styles.button]}
-            onPress={() => this.setState({realtime: true})}>
+            onPress={() => {
+              this.setListener.call(this);
+              this.setState({realtime: true})
+            }}>
             RTC
             </Button>
         </View>
