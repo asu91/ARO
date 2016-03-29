@@ -18,28 +18,24 @@ export default class Map extends Component {
       dropPinLocation: undefined,
       loaded: false,
       friendLocs: {},
+      realtime: false,
     };
   }
-// Friend
-  componentWillMount() {
+
+  setListener() {
     const { friends } = this.props;
     let self = this;
     let counter = 0;  
-     for(var friendId in friends) {
-      self.setListener(friends[friendId]);
+    for(var friend in friends) {
+      currLoc.child(friends[friend].id).on("value", (snap) => {
+        self.state.friendLocs[friends[friend].id] = snap.val();
+      });
+      
       counter++;
-      if(counter === Object.keys(friends).length) {
-        this.setState({loaded: true});
-      }
     }
-  }
-
-  setListener(friend) {
-    let self = this;
-    currLoc.child(friend.id).on("value", function(snap) {
-      console.log('jake is moving')
-      self.state.friendLocs[friend.id] = snap.val();
-    });
+    if(counter === Object.keys(friends).length) {
+      this.setState({loaded: true});
+    }
   }
 
   renderFriends() {
@@ -167,7 +163,7 @@ export default class Map extends Component {
         >
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
-        { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
+        { this.state.loaded === true && this.state.RTC === true ? this.renderFriends.call(this) : void 0 }
 
         </MapView>
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
@@ -177,6 +173,11 @@ export default class Map extends Component {
             onPress={this.moveMapToUser.bind(this)}>
             CENTER ON ME
           </Button>
+          <Button
+            style={[styles.bubble, styles.button]}
+            onPress={() => this.setState({realtime: true})}>
+            RTC
+            </Button>
         </View>
       </View>
     )
