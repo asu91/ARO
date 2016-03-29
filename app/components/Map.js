@@ -20,7 +20,7 @@ export default class Map extends Component {
       friendLocs: {},
     };
   }
-// Friend
+
   componentWillMount() {
     const { friends } = this.props;
     let self = this;
@@ -36,7 +36,9 @@ export default class Map extends Component {
 
   setListener(friend) {
     let self = this;
+    // sets a firebase listener on each friend
     currLoc.child(friend.id).on("value", function(snap) {
+      // updates friend's location in state as they move
       self.state.friendLocs[friend.id] = snap.val();
     });
   }
@@ -57,7 +59,7 @@ export default class Map extends Component {
               style={styles.icon}
             />
           </MapView.Marker>
-        )
+        );
       });
   }
 
@@ -138,7 +140,7 @@ export default class Map extends Component {
       latitudeDelta: 0.005,
       longitudeDelta: 0.005
     };
-    this.refs.map.animateToRegion(currRegion, 250)
+    this.refs.map.animateToRegion(currRegion, 250);
   }
 
 
@@ -157,7 +159,7 @@ export default class Map extends Component {
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
-              let coords = e.nativeEvent.coordinate
+              let coords = e.nativeEvent.coordinate;
               this.dropPin(coords);
             }
           }
