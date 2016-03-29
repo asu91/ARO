@@ -2,6 +2,7 @@ import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} 
 import { Actions } from 'react-native-router-flux';
 import FriendList from './FriendList';
 import { ref } from '../lib/db/db';
+import Location from '../lib/orientation/locationMath';
 
 export default class PinListItem extends Component {
 
@@ -79,9 +80,18 @@ export default class PinListItem extends Component {
   }
 
   render() {
-    const { pin, targetPin } = this.props;
+    const { pin, targetPin, currLoc } = this.props;
     let name = '';
     let isTarget = pin.id === targetPin.id;
+    let relative = Location.relativeLocsInFeet( currLoc, pin );
+    let distance = Math.sqrt( Math.pow( relative.x, 2 ) + Math.pow( relative.z, 2 ) ).toFixed(0);
+    if ( distance > 5280 ) {
+      distance /= 5280;
+      distance = Math.floor( distance );
+      distance += ' mi.'
+    } else {
+      distance += ' ft.';
+    }
     if( pin.friend ) {
      name = pin.friend.name;
     }
@@ -92,12 +102,17 @@ export default class PinListItem extends Component {
         }}
       >
         <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
-          <Text style={[style.text, pin.friend && style.friendText]}>
+          <Text style={[style.text, pin.friend && style.friendText, isTarget && style.targetText]}>
             {pin.title}
           </Text>
-          <Text style={style.friendName}>
-            {name}
-          </Text>
+          <View style={style.undertext}>
+            <Text style={[style.friendName, isTarget && style.targetText]}>
+              {name}
+            </Text>
+            <Text style={[isTarget && style.targetText]}>
+              {distance}
+            </Text>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -120,14 +135,17 @@ const style = StyleSheet.create({
   friend: {
     backgroundColor: 'lightblue',
   },
-  friendText: {
-    color: 'black',
-  },
   friendName: {
-    color: 'black',
-    alignSelf: 'center',
+    marginRight: 10,
   },
   target: {
-    backgroundColor: 'red',
+    backgroundColor: 'black',
+  },
+  targetText: {
+    color: 'white',
+  },
+  undertext: {
+    flexDirection: 'row',
+    alignSelf: 'center',
   }
 });
