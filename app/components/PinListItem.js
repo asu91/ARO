@@ -106,7 +106,7 @@ export default class PinListItem extends Component {
             {pin.title}
           </Text>
           <View style={style.undertext}>
-            <Text style={[isTarget && style.targetText]}>
+            <Text style={[style.friendName, isTarget && style.targetText]}>
               {name}
             </Text>
             <Text style={[isTarget && style.targetText]}>
@@ -136,7 +136,6 @@ const style = StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   friendName: {
-    color: 'black',
     marginRight: 10,
   },
   target: {
