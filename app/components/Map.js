@@ -1,4 +1,4 @@
-import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image  } from 'react-native';
+import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image } from 'react-native';
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
@@ -24,8 +24,9 @@ export default class Map extends Component {
   componentWillMount() {
     const { friends } = this.props;
     let self = this;
-    let counter = 0;  
-     for(var friendId in friends) {
+    let counter = 0;
+    console.log('what is friends', friends)  
+    for(var friendId in friends) {
       self.setListener(friends[friendId]);
       counter++;
       if(counter === Object.keys(friends).length) {
@@ -37,7 +38,6 @@ export default class Map extends Component {
   setListener(friend) {
     let self = this;
     currLoc.child(friend.id).on("value", function(snap) {
-      console.log('jake is moving')
       self.state.friendLocs[friend.id] = snap.val();
     });
   }
@@ -46,21 +46,20 @@ export default class Map extends Component {
     // renders friends current locations
     const { friends } = this.props;
     let copy = this.state.friendLocs;
+    console.log(copy)
     return _.map(copy, (coords, id) => {
         return (
-        <MapView.Marker
-          coordinate={coords}
-          key={id}
-          image={{uri: friends[id].picture}}
-          style={styles.icon}
-        />
-
+          <MapView.Marker
+            coordinate={coords}
+            key={id}
+          >
+            <Image
+              source={{uri: friends[id].picture}}
+              style={styles.icon}
+            />
+          </MapView.Marker>
         )
       });
-  }
-
-  onRegionChange(region) {
-    this.setState({ position: region });
   }
 
   setPinTitle(title) {
@@ -156,7 +155,6 @@ export default class Map extends Component {
           //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
           initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
-          onRegionChange={this.onRegionChange.bind(this)}
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
@@ -226,7 +224,9 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    borderRadius: 13,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: 'transparent',
   },
 });

@@ -15,9 +15,6 @@ import { changeUser } from '../lib/db/db';
 
 import FBLogin from 'react-native-facebook-login';
 
-//sets fb photo width
-const FB_PHOTO_WIDTH = 200;
-
 //this is data.credentials
 // { tokenExpirationDate: '2016-05-22T17:41:07-07:00',
 //   permissions: [ 'email', 'contact_email', 'user_friends', 'public_profile' ],
