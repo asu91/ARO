@@ -102,14 +102,14 @@ export default class PinListItem extends Component {
         }}
       >
         <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
-          <Text style={[style.text, pin.friend && style.friendText]}>
+          <Text style={[style.text, pin.friend && style.friendText, isTarget && style.targetText]}>
             {pin.title}
           </Text>
           <View style={style.undertext}>
-            <Text style={style.friendName}>
+            <Text style={[isTarget && style.targetText]}>
               {name}
             </Text>
-            <Text style={style.distance}>
+            <Text style={[isTarget && style.targetText]}>
               {distance}
             </Text>
           </View>
@@ -135,18 +135,15 @@ const style = StyleSheet.create({
   friend: {
     backgroundColor: 'lightblue',
   },
-  friendText: {
-    color: 'black',
-  },
   friendName: {
     color: 'black',
     marginRight: 10,
   },
   target: {
-    backgroundColor: 'red',
+    backgroundColor: 'black',
   },
-  distance: {
-    color: 'black',
+  targetText: {
+    color: 'white',
   },
   undertext: {
     flexDirection: 'row',
