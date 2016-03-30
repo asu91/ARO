@@ -171,8 +171,6 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
-          //TODO: initial region is optional, which one do you guys think is smoother?
           initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
           style={styles.map}
