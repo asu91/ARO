@@ -18,6 +18,12 @@ export default class Map extends Component {
       dropPinLocation: undefined,
       loaded: false,
       friendLocs: {},
+      stateLocation: {
+        longitude: null,
+        latitude: null,
+        longitudeDelta: 0.005,
+        latitudeDelta: 0.005
+      }
     };
   }
 
@@ -25,6 +31,7 @@ export default class Map extends Component {
     const { friends } = this.props;
     let self = this;
     let counter = 0;
+
     for(var friendId in friends) {
       self.setListener(friends[friendId]);
       counter++;
@@ -44,9 +51,10 @@ export default class Map extends Component {
   }
 
   renderFriends() {
-    // renders friends current locations
     const { friends } = this.props;
     let copy = this.state.friendLocs;
+    
+    // renders friends current locations
     return _.map(copy, (coords, id) => {
         return (
           <MapView.Marker
@@ -63,8 +71,28 @@ export default class Map extends Component {
       });
   }
 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        var coords = {};
+        coords.longitude = position.coords.longitude;
+        coords.latitude = position.coords.latitude;
+        coords.longitudeDelta = 0.005;
+        coords.latitudeDelta = 0.005;
+        this.setState({
+          stateLocation: coords
+        });
+      },
+      (error) => {
+        alert(error.message);
+      },
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
   setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
+
     getLocationToSave(this.state.dropPinLocation, recent, title);
     this.setState({dropPinLocation: undefined});
   }
@@ -85,12 +113,11 @@ export default class Map extends Component {
         'plain-text'
       );
   }
-  
+
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
     return _.map(pins, (pinObject, key) => {
-
       let image = baseImg;
       if ( key === targetPin.id ) {
         image = targetImg;
@@ -116,9 +143,10 @@ export default class Map extends Component {
 
   renderEditButton() {
     const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
+
     return (
       <View style={styles.editButton}>
-        <PinEditButton 
+        <PinEditButton
           pin={this.state.selectedPin}
           updatePins={updatePins}
           updateRecent={updateRecent}
@@ -131,29 +159,28 @@ export default class Map extends Component {
     )
   }
 
-
-  moveMapToUser(location) {
-    const {currLoc} = this.props;
-    let currRegion = {
-      latitude: currLoc.latitude,
-      longitude: currLoc.longitude,
-      latitudeDelta: 0.005,
-      longitudeDelta: 0.005
-    };
-    this.refs.map.animateToRegion(currRegion, 250);
+  moveMapToUser() {
+    const {stateLocation} = this.state;
+    this.refs.map.animateToRegion(stateLocation, 2500)
   }
 
-
+  goToTarget(pinObj){
+    const {targetPin, clearTarget} = this.props
+    this.refs.map.animateToRegion(targetPin, 250);
+  }
 
   render() {
-    // TODO: Map is re-rendering continually. Fix bug
-    const { pins, getLocationToSave, currLoc, recent, friends } = this.props;
+    const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
+    const { stateLocation } = this.state;
+
+    if(targetPin.longitude) {
+      this.goToTarget.call(this, targetPin);
+    }
     return (
       <View style={styles.container}>
         <MapView
           ref="map"
           showsUserLocation={true}
-          //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
           initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
           style={styles.map}
@@ -164,17 +191,20 @@ export default class Map extends Component {
             }
           }
         >
+        
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
 
         </MapView>
+
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
+
         <View style={styles.centerButton}>
           <Button
             style={[styles.bubble, styles.button]}
             onPress={this.moveMapToUser.bind(this)}>
-            CENTER ON ME
+            Center on me!
           </Button>
         </View>
       </View>

@@ -10,16 +10,8 @@ import { bindActionCreators } from 'redux';
 import * as userActions from '../actions/action_user';
 import { Actions } from 'react-native-router-flux';
 import { changeUser } from '../lib/db/db';
-
-
-
 import FBLogin from 'react-native-facebook-login';
 
-//this is data.credentials
-// { tokenExpirationDate: '2016-05-22T17:41:07-07:00',
-//   permissions: [ 'email', 'contact_email', 'user_friends', 'public_profile' ],
-//   userId: '10153780375328598',
-//   token: 'CAAYZANvux7B...etc..gBAOCT0knZg' }
 
 class LogIn extends Component {
   constructor(props){
