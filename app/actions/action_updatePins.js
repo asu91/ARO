@@ -1,12 +1,13 @@
 import { UPDATE_PINS, SET_TARGET } from '../constants/constants.js';
 import { userData } from '../lib/db/db.js';
 import { Alert } from 'react-native';
-const updatePins = (payload) => {
+
+function updatePins (payload) {
   return {
     type: UPDATE_PINS,
     payload
   };
-};
+}
 
 function setTarget(payload) {
   return {
@@ -30,7 +31,6 @@ export default function(pin, newTitle) {
           targetRecentlyShared.id = sharedPin.id;
           targetRecentlyShared.longitude = sharedPin.longitude;
           targetRecentlyShared.latitude = sharedPin.latitude;
-          console.log('this is showShared', targetRecentlyShared);
           Alert.alert(message, null,
           [
             {text: 'Show me shared pin!', onPress: () => dispatch(setTarget(targetRecentlyShared))},
