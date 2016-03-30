@@ -18,8 +18,8 @@ export default class Map extends Component {
       loaded: false,
       friendLocs: {},
       stateLocation: {
-        longitude: 37.783913,
-        latitude: -122.409031,
+        longitude: 38.783913,
+        latitude: -121.409031,
         longitudeDelta: 0.005,
         latitudeDelta: 0.005
       }
