@@ -155,7 +155,6 @@ const style = StyleSheet.create({
     flex: 2,
     alignSelf: 'center',
     justifyContent: 'flex-end',
-    fontSize: 20,
   },
   text: {
     alignSelf: 'flex-start',
@@ -176,7 +175,8 @@ const style = StyleSheet.create({
     color: 'black',
   },
   distance: {
-    fontSize: 20,
+    fontSize: 19,
+    fontStyle: 'italic',
   },
   pin: {
     flex: 1,
