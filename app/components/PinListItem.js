@@ -4,7 +4,8 @@ import React, {
   TouchableHighlight,
   View,
   StyleSheet,
-  AlertIOS
+  AlertIOS,
+  Image
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
@@ -112,6 +113,10 @@ export default class PinListItem extends Component {
         }}
       >
         <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
+          <Image
+            source={require('../assets/listviewPin.png')}
+            style={style.pin}
+          />
           <View style={style.left}>
             <Text style={[style.text, pin.friend && style.friendText, isTarget && style.targetText]}>
               {pin.title}
@@ -121,7 +126,7 @@ export default class PinListItem extends Component {
             </Text>
           </View>
           <View style={style.right}>
-            <Text style={[style.distance,style.text,isTarget && style.targetText]}>
+            <Text style={[style.distance,isTarget && style.targetText]}>
               {distance}
             </Text>
           </View>
@@ -142,13 +147,15 @@ const style = StyleSheet.create({
     padding: 6
   },
   left: {
-    flex:2,
+    flex: 5,
+    marginLeft: 10,
     alignSelf: 'flex-start',
   },
   right: {
-    flex:1,
+    flex: 2,
     alignSelf: 'center',
     justifyContent: 'flex-end',
+    fontSize: 20,
   },
   text: {
     alignSelf: 'flex-start',
@@ -168,11 +175,12 @@ const style = StyleSheet.create({
   targetText: {
     color: 'black',
   },
-  // undertext: {
-  //   flexDirection: 'row',
-  //   // alignSelf: 'center',
-  // },
   distance: {
-
+    fontSize: 22,
+  },
+  pin: {
+    flex: 1,
+    alignSelf: 'center',
+    height: 45,
   }
 });
