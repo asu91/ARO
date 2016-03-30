@@ -17,8 +17,6 @@ export default class FriendListItem extends Component {
 
   render() {
     const { friend } = this.props;
-    // const pic = friend.picture; TODO: Add picture and email
-    console.log(friend.picture,'asdfasd')
     return (
       <TouchableHighlight 
         onPress={() => {
@@ -53,16 +51,13 @@ const style = StyleSheet.create({
   text: {
     alignSelf: 'center',
     fontSize: 24,
-  },
-  icon: {
-    alignSelf: 'flex-start',
-    margin: 4,
-    borderWidth: 1,
-    borderColor: '#000000',
+    left: 15,
   },
   picture: {
     height: 50,
     width: 50,
+    left: 5,
+    borderRadius: 5,
     alignSelf: 'flex-start',
   }
 });
