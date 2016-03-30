@@ -199,7 +199,9 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
+          //TODO: find a better way to show map initially, added below line so it would stop zooming in from world view
+          //TODO: initial region is optional, which one do you guys think is smoother?
+          // initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
           style={styles.map}
           showsCompass={true}
@@ -233,16 +235,10 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-    height: Dimensions.get('window').height,
   },
 
   map: {
-    height: Dimensions.get('window').height/1.15,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    flex: 1,
   },
 
   editButton: {
@@ -279,4 +275,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
