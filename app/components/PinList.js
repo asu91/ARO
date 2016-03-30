@@ -99,7 +99,9 @@ export default class PinList extends Component {
     return (
       <View style={style.container}>
         <View style={style.status}>
-          <Text style={style.title}>Status Bar</Text>
+          <View style={style.title}>
+            <Text style={style.text}>My Pins</Text>
+          </View>
         </View>
         <ListView
           style={style.list}
@@ -118,10 +120,18 @@ const style = StyleSheet.create({
   },
   status: {
     flex: 1,
-    flexDirection: 'row',
-    alignSelf: 'center',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    flexDirection: 'column',
   },
   title: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  text: {
     fontSize: 26,
     alignSelf: 'center',
   },
