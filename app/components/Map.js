@@ -16,7 +16,7 @@ import targetImg from '../assets/blackPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 import { myCurrLoc, currLoc } from '../lib/db/db';
-import * as geoAction from './utils';
+import * as geoAction from '../lib/utils';
 
 
 export default class Map extends Component {
@@ -75,6 +75,7 @@ export default class Map extends Component {
     });
   }
 
+<<<<<<< 66a5dc2fe163ade72d4dbcabd131ed63c7c8b210
   getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -91,6 +92,8 @@ export default class Map extends Component {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
+=======
+>>>>>>> refactor map with util function
 
   setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
@@ -117,8 +120,9 @@ export default class Map extends Component {
   }
 
   moveMapToUser() {
-    this.getCurrentLocation( (coords) => {
-      this.refs.map.animateToRegion(coords, 100);
+    var self = this;
+    geoAction.getCurrent((loc) =>{
+      self.refs.map.animateToRegion(loc, 100);
     });
   }
 
