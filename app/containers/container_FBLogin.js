@@ -12,6 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import { changeUser } from '../lib/db/db';
 import FBLogin from 'react-native-facebook-login';
 
+
 class LogIn extends Component {
   constructor(props){
     super(props);
