@@ -13,14 +13,13 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: null,
       selectedPin: undefined,
       dropPinLocation: undefined,
       loaded: false,
       friendLocs: {},
       stateLocation: {
-        longitude: null,
-        latitude: null,
+        longitude: 37.783913,
+        latitude: -122.409031,
         longitudeDelta: 0.005,
         latitudeDelta: 0.005
       }
@@ -53,7 +52,7 @@ export default class Map extends Component {
   renderFriends() {
     const { friends } = this.props;
     let copy = this.state.friendLocs;
-    
+
     // renders friends current locations
     return _.map(copy, (coords, id) => {
         return (
@@ -181,8 +180,8 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
-          region={this.state.position}
+          initialRegion={stateLocation}
+          region={stateLocation}
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
@@ -191,7 +190,7 @@ export default class Map extends Component {
             }
           }
         >
-        
+
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
