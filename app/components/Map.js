@@ -1,4 +1,13 @@
-import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image  } from 'react-native';
+import React, {
+  Component,
+  StyleSheet,
+  View,
+  Dimensions,
+  AlertIOS,
+  Text,
+  Image
+} from 'react-native';
+
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
@@ -26,12 +35,13 @@ export default class Map extends Component {
       }
     };
   }
-// Friend
+
   componentWillMount() {
     const { friends } = this.props;
     let self = this;
     let counter = 0;
-     for(var friendId in friends) {
+
+    for(var friendId in friends) {
       self.setListener(friends[friendId]);
       counter++;
       if(counter === Object.keys(friends).length) {
@@ -40,21 +50,23 @@ export default class Map extends Component {
     }
   }
 
-  setListener(friend) {
-    let self = this;
-    currLoc.child(friend.id).on("value", function(snap) {
-      self.state.friendLocs[friend.id] = snap.val();
-    });
-  }
-
   componentDidMount() {
     this.getCurrentLocation( (coords) => {
       this.setState({
         stateLocation: coords
       });
-    }) ;
+    });
   }
 
+  setListener(friend) {
+    let self = this;
+    // sets a firebase listener on each friend
+    currLoc.child(friend.id).on("value", function(snap) {
+      // updates friend's location in state as they move
+      self.state.friendLocs[friend.id] = snap.val();
+    });
+  }
+        
   getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -73,26 +85,9 @@ export default class Map extends Component {
     
   }
 
-  renderFriends() {
-    // renders friends current locations
-    const { friends } = this.props;
-    let copy = this.state.friendLocs;
-    return _.map(copy, (coords, id) => {
-        return (
-        <MapView.Marker
-          coordinate={coords}
-          key={id}
-          image={{uri: friends[id].picture}}
-          style={styles.icon}
-        />
-
-        )
-      });
-  }
-
-
   setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
+
     getLocationToSave(this.state.dropPinLocation, recent, title);
     this.setState({dropPinLocation: undefined});
   }
@@ -113,6 +108,18 @@ export default class Map extends Component {
         'plain-text'
       );
   }
+
+  moveMapToUser() {
+    this.getCurrentLocation( (coords) => {
+      this.refs.map.animateToRegion(coords, 300);
+    });
+  }
+
+  goToTarget(pinObj){
+    const {targetPin, clearTarget} = this.props
+    this.refs.map.animateToRegion(targetPin, 250);
+  }
+  
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
@@ -140,8 +147,30 @@ export default class Map extends Component {
     });
   }
 
+  renderFriends() {
+    const { friends } = this.props;
+    let copy = this.state.friendLocs;
+    
+    // renders friends current locations
+    return _.map(copy, (coords, id) => {
+        return (
+          <MapView.Marker
+            coordinate={coords}
+            key={id}
+            title={friends[id].name}
+          >
+            <Image
+              source={{uri: friends[id].picture}}
+              style={styles.icon}
+            />
+          </MapView.Marker>
+        );
+    }) ;
+  }
+
   renderEditButton() {
     const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
+
     return (
       <View style={styles.editButton}>
         <PinEditButton
@@ -157,16 +186,6 @@ export default class Map extends Component {
     )
   }
 
-  moveMapToUser() {
-    this.getCurrentLocation( (coords) => {
-      this.refs.map.animateToRegion(coords, 300);
-    });
-  }
-
-  goToTarget(pinObj){
-    const {targetPin, clearTarget} = this.props
-    this.refs.map.animateToRegion(targetPin, 250);
-  }
 
   render() {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
@@ -185,17 +204,20 @@ export default class Map extends Component {
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
-              let coords = e.nativeEvent.coordinate
+              let coords = e.nativeEvent.coordinate;
               this.dropPin(coords);
             }
           }
         >
+        
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
 
         </MapView>
+
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
+
         <View style={styles.centerButton}>
           <Button
             style={[styles.bubble, styles.button]}
@@ -251,7 +273,9 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    borderRadius: 13,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     backgroundColor: 'transparent',
   },
 });
