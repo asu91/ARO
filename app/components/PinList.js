@@ -124,6 +124,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'column',
+    borderRadius: 5,
   },
   title: {
     flex: 1,

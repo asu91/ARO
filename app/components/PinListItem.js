@@ -144,7 +144,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 4,
     margin: 4,
-    padding: 6
+    padding: 6,
   },
   left: {
     flex: 5,
@@ -159,7 +159,7 @@ const style = StyleSheet.create({
   },
   text: {
     alignSelf: 'flex-start',
-    fontSize: 24,
+    fontSize: 22,
   },
   friend: {
     backgroundColor: 'lightblue',
@@ -169,12 +169,14 @@ const style = StyleSheet.create({
   },
   target: {
     backgroundColor: 'pink',
+    borderWidth: 2,
+    borderColor: 'black',
   },
   targetText: {
     color: 'black',
   },
   distance: {
-    fontSize: 22,
+    fontSize: 20,
   },
   pin: {
     flex: 1,
