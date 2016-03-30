@@ -182,7 +182,7 @@ export default class Map extends Component {
           hideButton={() => this.setState({selectedPin: undefined})}
         />
       </View>
-    )
+    );
   }
 
   render() {
