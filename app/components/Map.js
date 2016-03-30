@@ -66,7 +66,7 @@ export default class Map extends Component {
       self.state.friendLocs[friend.id] = snap.val();
     });
   }
-        
+
   getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -82,7 +82,6 @@ export default class Map extends Component {
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-    
   }
 
   setPinTitle(title) {
@@ -119,7 +118,7 @@ export default class Map extends Component {
     const {targetPin, clearTarget} = this.props
     this.refs.map.animateToRegion(targetPin, 100);
   }
-  
+
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
@@ -185,7 +184,6 @@ export default class Map extends Component {
       </View>
     )
   }
-
 
   render() {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
