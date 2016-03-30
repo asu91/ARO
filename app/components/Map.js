@@ -111,13 +111,13 @@ export default class Map extends Component {
 
   moveMapToUser() {
     this.getCurrentLocation( (coords) => {
-      this.refs.map.animateToRegion(coords, 300);
+      this.refs.map.animateToRegion(coords, 100);
     });
   }
 
   goToTarget(pinObj){
     const {targetPin, clearTarget} = this.props
-    this.refs.map.animateToRegion(targetPin, 250);
+    this.refs.map.animateToRegion(targetPin, 100);
   }
   
   renderMarkers() {
