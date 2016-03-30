@@ -165,9 +165,7 @@ const style = StyleSheet.create({
     backgroundColor: 'lightblue',
   },
   friendName: {
-    // alignSelf: 'flex-start',
     justifyContent: 'flex-start',
-    // marginRight: 10,
   },
   target: {
     backgroundColor: 'pink',

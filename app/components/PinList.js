@@ -1,4 +1,11 @@
-import React, {Component, View, ListView} from 'react-native';
+import React, {
+  Component,
+  View,
+  Text,
+  ListView,
+  StyleSheet
+} from 'react-native';
+
 import PinListItem from './PinListItem.js';
 
 export default class PinList extends Component {
@@ -90,11 +97,36 @@ export default class PinList extends Component {
 
   render() {
     return (
-      <ListView
-        style={{ marginTop: 15 }}
-        dataSource={this.state.dataSource}
-        renderRow={this.renderItem.bind(this)}
-      />
+      <View style={style.container}>
+        <View style={style.status}>
+          <Text style={style.title}>Status Bar</Text>
+        </View>
+        <ListView
+          style={style.list}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderItem.bind(this)}
+        />
+      </View>
     );
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  status: {
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  title: {
+    fontSize: 26,
+    alignSelf: 'center',
+  },
+  list: {
+    flex: 9,
+  }
+})
+
