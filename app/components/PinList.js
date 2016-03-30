@@ -7,7 +7,7 @@ import React, {
 } from 'react-native';
 
 import PinListItem from './PinListItem.js';
-import * as geoAction from '../lib/utils';
+import * as geoAction from '../lib/orientation/utils';
 
 export default class PinList extends Component {
 
