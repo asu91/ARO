@@ -22,14 +22,13 @@ export default class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: null,
       selectedPin: undefined,
       dropPinLocation: undefined,
       loaded: false,
       friendLocs: {},
       stateLocation: {
-        longitude: null,
-        latitude: null,
+        longitude: 37.783913,
+        latitude: -122.409031,
         longitudeDelta: 0.005,
         latitudeDelta: 0.005
       }
@@ -197,7 +196,8 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          region={this.state.position}
+          initialRegion={stateLocation}
+          region={stateLocation}
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
