@@ -44,8 +44,8 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
-    this.getCurrentLocation((coords) => {
-      this.refs.map.animateToRegion(coords, 100);
+    geoAction.getCurrent((loc)=>{
+      this.refs.map.animateToRegion(loc, 100);
     });
   }
 
@@ -72,29 +72,7 @@ export default class Map extends Component {
     });
   }
 
-<<<<<<< 94b4318dea75fd31f9aed80e3addd200ce73ab9d
-<<<<<<< 66a5dc2fe163ade72d4dbcabd131ed63c7c8b210
-  getCurrentLocation(callback) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var coords = {};
-        coords.longitude = position.coords.longitude;
-        coords.latitude = position.coords.latitude;
-        coords.longitudeDelta = 0.005;
-        coords.latitudeDelta = 0.005;
-        callback(coords);
-      },
-      (error) => {
-        alert(error.message);
-      },
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-  }
-=======
->>>>>>> refactor map with util function
 
-=======
->>>>>>> fix dropNewPin argument and debug map error by moving to componentwillupdate
   setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
 
@@ -205,7 +183,6 @@ export default class Map extends Component {
   render() {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
     const { stateLocation } = this.state;
-    console.log("rendering")
     return (
       <View style={styles.container}>
         <MapView
