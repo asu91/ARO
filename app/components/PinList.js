@@ -77,10 +77,11 @@ export default class PinList extends Component {
 
 
   renderItem(pin) {
-    const { updatePins, updateRecent, deletePin, setTarget, targetPin, friends, user } = this.props;
+    const { updatePins, updateRecent, deletePin, setTarget, targetPin, shareWithFriend, friends, user } = this.props;
     return (
         // pass down pin info to PinListItem
         <PinListItem
+          shareWithFriend={shareWithFriend}
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}
