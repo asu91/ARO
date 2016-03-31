@@ -135,6 +135,8 @@ const style = StyleSheet.create({
   text: {
     fontSize: 26,
     alignSelf: 'center',
+    color: '#2e8b7d',
+    fontWeight: 'bold',
   },
   list: {
     flex: 9,
