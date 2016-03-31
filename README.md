@@ -127,7 +127,7 @@ InterruptedLobster: {
       $n: STRING,                      # Key is array index, value is $pid referring to recently placed pin
     },
   },
-  currLoc: {
+  currLoc: {                           # Denormalized to allow quick access to broadcasted friends' locations
     $id: {                             # Facebook user ID of users broadcasting their current location
       longitude: NUMBER,
       latitude: NUMBER,
