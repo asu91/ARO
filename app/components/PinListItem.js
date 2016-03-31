@@ -181,6 +181,6 @@ const style = StyleSheet.create({
   pin: {
     flex: 1,
     alignSelf: 'center',
-    height: 45,
+    height: 50,
   }
 });
