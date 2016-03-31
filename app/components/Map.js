@@ -50,11 +50,18 @@ export default class Map extends Component {
   }
 
   componentDidMount() {
-    this.getCurrentLocation( (coords) => {
+    this.getCurrentLocation((coords) => {
       this.setState({
         stateLocation: coords
       });
     });
+  }
+
+  componentWillUpdate(nextProps) {
+    const {targetPin} = nextProps;
+    if(targetPin.longitude) {
+      this.goToTarget.call(this, targetPin);
+    }
   }
 
   setListener(friend) {
@@ -188,9 +195,6 @@ export default class Map extends Component {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
     const { stateLocation } = this.state;
 
-    if(targetPin.longitude) {
-      this.goToTarget.call(this, targetPin);
-    }
     return (
       <View style={styles.container}>
         <MapView
