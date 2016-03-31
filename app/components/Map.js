@@ -15,7 +15,6 @@ import baseImg from '../assets/redPin.png';
 import targetImg from '../assets/blackPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
-import { myCurrLoc, currLoc } from '../lib/db/db';
 import * as geoAction from '../lib/orientation/utils';
 
 
@@ -52,8 +51,6 @@ export default class Map extends Component {
 
   componentWillUpdate(nextProps) {
     const {targetPin} = nextProps;
-    console.log(this.props.targetPin, "<-- this.props.targetPin")
-    console.log(targetPin, "<-- targetPin next props")
     if(this.props.targetPin.id !== targetPin.id) {
       if(targetPin.longitude) {
         this.goToTarget.call(this, targetPin);
@@ -75,6 +72,7 @@ export default class Map extends Component {
     });
   }
 
+<<<<<<< 94b4318dea75fd31f9aed80e3addd200ce73ab9d
 <<<<<<< 66a5dc2fe163ade72d4dbcabd131ed63c7c8b210
   getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
@@ -95,6 +93,8 @@ export default class Map extends Component {
 =======
 >>>>>>> refactor map with util function
 
+=======
+>>>>>>> fix dropNewPin argument and debug map error by moving to componentwillupdate
   setPinTitle(title) {
     const { getLocationToSave, recent } = this.props;
 
@@ -224,10 +224,10 @@ export default class Map extends Component {
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
-
         </MapView>
 
         { this.state.selectedPin ? this.renderEditButton.call(this) : void 0 }
+
 
         <View style={styles.centerButton}>
           <Button
