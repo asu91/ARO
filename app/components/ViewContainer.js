@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
   ViewButton: {
     paddingVertical: 10,
     paddingHorizontal: 12,
+    marginRight: 1,
     color: '#fff',
     fontWeight: 'bold',
     backgroundColor: '#2e8b7d',
