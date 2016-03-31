@@ -96,3 +96,89 @@ findAR/                                # Root Directory
     </Router>
   </Provider>
 ```
+
+## Firebase Schema
+
+Variables starting with $ are not the actual variables used in the application, but refer
+to keys that may differ from object to object.
+```
+InterruptedLobster: {
+  $id: {                               # The facebook user ID of a given account.
+    email: STRING,
+    id: STRING                         # Matches $id
+    name: STRING,
+    picture: STRING,
+    pins: {                            # The locations this person has saved.
+      $pid: {                          # The ID of a given location
+        alertedYet: BOOL,              # Not set unless pin is shared. False until user is notified.
+        friend: {                      # Not set unless pin is shared
+          email: STRING,
+          name: STRING,
+          id: STRING,                  # Facebook user ID of friend who shared the pin
+          picture: STRING,             # URL path to profile picture
+        },
+        id: STRING,                    # Matches $pid
+        latitude: NUMBER,
+        longitude: NUMBER,
+        title: STRING,
+      }
+    },
+    recent: {
+      $n: STRING,                      # Key is array index, value is $pid referring to recently placed pin
+    },
+  },
+  currLoc: {
+    $id: {                             # Facebook user ID of users broadcasting their current location
+      longitude: NUMBER,
+      latitude: NUMBER,
+    }
+  },
+
+}
+```
+
+## Redux Store
+
+Variables starting with $ are not the actual variables used in the application, but refer
+to keys that may differ from object to object.
+```
+Store: {
+  pins: {                              # A hash table of pins
+    $pid: {                            # String representing a pin's ID.
+      alertedYet: BOOL,                # Not set unless pin is shared. False until user is notified.
+      friend: {                        # Not set unless pin is shared
+        email: STRING,
+        name: STRING,
+        id: STRING,                    # Facebook user ID of friend who shared the pin
+        picture: STRING,               # URL path to profile picture
+      },
+      id: STRING,                      # Matches $pid
+      latitude: NUMBER,
+      longitude: NUMBER,
+      title: STRING,
+    }
+  },
+  recent: [                            # Array of IDs of recently placed pins
+    $pid                               # A pin's ID
+  ],
+  user: {
+    name: STRING,
+    email: STRING,
+    id: STRING,                        # Facebook ID
+    picture: STRING,                   # URL path to profile picture
+  },
+  friends: {
+    $uid: {                            # String representing a friend's Facebook ID.
+      name: STRING,
+      id: STRING,                      # Matches $uid 
+      picture: STRING,                 # URL path to friend's profile picture
+    }
+  },
+  targetPin: {                         # Defaults as { id: 0 } to resolve some edge cases.
+    id: STRING,                        # Matches a $pid
+    latitude: NUMBER,
+    longitude: NUMBER,
+    title: STRING,
+  }
+}
+```
