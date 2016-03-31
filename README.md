@@ -1,4 +1,4 @@
-# ARO
+# [ARO](http://interruptedlobster.github.io/)
 Augmented Reality Objects
 
 [![Current Sprint](https://badge.waffle.io/InterruptedLobster/findAR.png?label=ready&title=Current%20Sprint)](https://waffle.io/InterruptedLobster/findAR)
@@ -87,10 +87,10 @@ findAR/                                # Root Directory
             <DropNewPinButton />       # container_dropNewPin.js
           </ViewContainer>
         </Scene>
+        <Scene key="friends">
           <FriendList>                 # FriendList.js -- takes onPress as prop
             <FriendListItem />         # FriendListItem.js  -- handles onPress, routes back to previous scene
           </FriendList>
-        <Scene key="friends">
         </Scene>
       </Scene>
     </Router>
