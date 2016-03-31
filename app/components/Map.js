@@ -16,7 +16,7 @@ import targetImg from '../assets/blackPin.png';
 import { PinCallout } from './PinCallout';
 import PinEditButton from './PinEditButton';
 import * as geoAction from '../lib/orientation/utils';
-
+import { myCurrLoc, currLoc } from '../lib/db/db';
 
 export default class Map extends Component {
   constructor(props) {
