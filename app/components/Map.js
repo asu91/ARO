@@ -66,7 +66,7 @@ export default class Map extends Component {
       self.state.friendLocs[friend.id] = snap.val();
     });
   }
-        
+
   getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -82,7 +82,6 @@ export default class Map extends Component {
       },
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-    
   }
 
   setPinTitle(title) {
@@ -119,7 +118,7 @@ export default class Map extends Component {
     const {targetPin, clearTarget} = this.props
     this.refs.map.animateToRegion(targetPin, 100);
   }
-  
+
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
@@ -150,7 +149,7 @@ export default class Map extends Component {
   renderFriends() {
     const { friends } = this.props;
     let copy = this.state.friendLocs;
-    
+
     // renders friends current locations
     return _.map(copy, (coords, id) => {
         return (
@@ -183,9 +182,8 @@ export default class Map extends Component {
           hideButton={() => this.setState({selectedPin: undefined})}
         />
       </View>
-    )
+    );
   }
-
 
   render() {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
@@ -199,7 +197,6 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
           style={styles.map}
           showsCompass={true}
@@ -209,7 +206,7 @@ export default class Map extends Component {
             }
           }
         >
-        
+
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
@@ -233,30 +230,24 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-    height: Dimensions.get('window').height,
   },
 
   map: {
-    height: Dimensions.get('window').height/1.15,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    flex: 1,
   },
 
   editButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 75,
-    bottom: 90,
+    bottom: 100,
   },
 
   centerButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 100,
-    bottom: 40,
+    bottom: 50,
     borderRadius: 10,
   },
 
@@ -279,4 +270,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
