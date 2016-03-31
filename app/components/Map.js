@@ -205,7 +205,7 @@ export default class Map extends Component {
   render() {
     const { pins, getLocationToSave, recent, targetPin, friends } = this.props;
     const { stateLocation } = this.state;
-
+    console.log("rendering")
     return (
       <View style={styles.container}>
         <MapView
