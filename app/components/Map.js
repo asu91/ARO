@@ -205,7 +205,6 @@ export default class Map extends Component {
           ref="map"
           showsUserLocation={true}
           initialRegion={stateLocation}
-          // region={stateLocation}
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
