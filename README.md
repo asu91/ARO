@@ -1,7 +1,8 @@
 # ARO
 Augmented Reality Objects
 
-[![Stories in Ready](https://badge.waffle.io/InterruptedLobster/findAR.png?label=ready&title=Current%20Sprint)](https://waffle.io/InterruptedLobster/findAR)
+[![Current Sprint](https://badge.waffle.io/InterruptedLobster/findAR.png?label=ready&title=Current%20Sprint)](https://waffle.io/InterruptedLobster/findAR)
+[![Ready For Review](https://badge.waffle.io/InterruptedLobster/findAR.png?label=review%20me&title=Review%20Ready)](https://waffle.io/InterruptedLobster/findAR)
 [![Dependency Status](https://david-dm.org/kkragenbrink/jasmine.svg)](https://david-dm.org/InterruptedLobster/findAR)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kkragenbrink/jasmine/blob/master/LICENSE.txt)
 
