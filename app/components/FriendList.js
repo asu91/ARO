@@ -1,4 +1,11 @@
-import React, {Component, View, ListView} from 'react-native';
+import React, {
+  Component,
+  View,
+  ListView,
+  StyleSheet,
+  Text
+} from 'react-native';
+
 import Button from 'react-native-button';
 import { Actions } from 'react-native-router-flux';
 import FriendListItem from './FriendListItem';
@@ -40,9 +47,20 @@ export default class FriendList extends Component {
 
   render() {
     return (
-      <View style={{ marginTop: 15 }}>
-        <Button onPress={ () => { Actions.pop() }}>Back</Button>
+      <View style={style.container}>
+        <View style={style.status}>
+          <Button
+            style={style.button}
+            onPress={ () => { Actions.pop() }}
+            >Back
+          </Button>
+          <View style={style.title}>
+            <Text style={style.text}>Friends</Text>
+          </View>
+          <View style={{flex:1}}></View>
+        </View>
         <ListView
+          style={style.list}
           dataSource={this.state.dataSource}
           renderRow={this.renderItem.bind(this)}
         />
@@ -50,3 +68,34 @@ export default class FriendList extends Component {
     );
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  list: {
+    flex: 9,
+  },
+  status: {
+    flex: 1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 5,
+  },
+  title: {
+    flex: 4,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  text: {
+    fontSize: 26,
+  },
+  button: {
+    flex: 1,
+    marginTop: 28,
+    marginLeft: 15,
+    alignItems: 'center',
+  }
+})

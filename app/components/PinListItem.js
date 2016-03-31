@@ -1,8 +1,18 @@
-import React, {Component, Text, TouchableHighlight, View, StyleSheet, AlertIOS} from 'react-native';
+import React, {
+  Component,
+  Text,
+  TouchableHighlight,
+  View,
+  StyleSheet,
+  AlertIOS,
+  Image
+} from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
 import FriendList from './FriendList';
 import { ref } from '../lib/db/db';
 import Location from '../lib/orientation/locationMath';
+
 
 export default class PinListItem extends Component {
 
@@ -82,7 +92,7 @@ export default class PinListItem extends Component {
 
   render() {
     const { pin, targetPin, currLoc } = this.props;
-    let name = '';
+    let name = 'Your Pin';
     let isTarget = pin.id === targetPin.id;
     let relative = Location.relativeLocsInFeet( currLoc, pin );
     let distance = Math.sqrt( Math.pow( relative.x, 2 ) + Math.pow( relative.z, 2 ) ).toFixed(0);
@@ -103,14 +113,20 @@ export default class PinListItem extends Component {
         }}
       >
         <View style={[style.container, pin.friend && style.friend, isTarget && style.target]}>
-          <Text style={[style.text, pin.friend && style.friendText, isTarget && style.targetText]}>
-            {pin.title}
-          </Text>
-          <View style={style.undertext}>
+          <Image
+            source={require('../assets/listviewPin.png')}
+            style={style.pin}
+          />
+          <View style={style.left}>
+            <Text style={[style.text, pin.friend && style.friendText, isTarget && style.targetText]}>
+              {pin.title}
+            </Text>
             <Text style={[style.friendName, isTarget && style.targetText]}>
               {name}
             </Text>
-            <Text style={[isTarget && style.targetText]}>
+          </View>
+          <View style={style.right}>
+            <Text style={[style.distance,isTarget && style.targetText]}>
               {distance}
             </Text>
           </View>
@@ -124,29 +140,47 @@ export default class PinListItem extends Component {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 4,
     margin: 4,
-    padding: 6
+    padding: 6,
+  },
+  left: {
+    flex: 5,
+    marginLeft: 10,
+    alignSelf: 'flex-start',
+  },
+  right: {
+    flex: 2,
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
   },
   text: {
-    alignSelf: 'center',
-    fontSize: 24,
+    alignSelf: 'flex-start',
+    fontSize: 22,
   },
   friend: {
     backgroundColor: 'lightblue',
   },
   friendName: {
-    marginRight: 10,
+    justifyContent: 'flex-start',
   },
   target: {
-    backgroundColor: 'black',
+    backgroundColor: 'pink',
+    borderWidth: 2,
+    borderColor: 'black',
   },
   targetText: {
-    color: 'white',
+    color: 'black',
   },
-  undertext: {
-    flexDirection: 'row',
+  distance: {
+    fontSize: 19,
+    fontStyle: 'italic',
+  },
+  pin: {
+    flex: 1,
     alignSelf: 'center',
+    height: 50,
   }
 });
