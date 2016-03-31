@@ -1,4 +1,13 @@
-import React, { Component, StyleSheet, View, Dimensions, AlertIOS, Text, Image } from 'react-native';
+import React, {
+  Component,
+  StyleSheet,
+  View,
+  Dimensions,
+  AlertIOS,
+  Text,
+  Image
+} from 'react-native';
+
 import Button from 'react-native-button';
 import MapView from 'react-native-maps';
 import _ from 'underscore';
@@ -41,6 +50,14 @@ export default class Map extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getCurrentLocation( (coords) => {
+      this.setState({
+        stateLocation: coords
+      });
+    });
+  }
+
   setListener(friend) {
     let self = this;
     // sets a firebase listener on each friend
@@ -50,28 +67,7 @@ export default class Map extends Component {
     });
   }
 
-  renderFriends() {
-    const { friends } = this.props;
-    let copy = this.state.friendLocs;
-    
-    // renders friends current locations
-    return _.map(copy, (coords, id) => {
-        return (
-          <MapView.Marker
-            coordinate={coords}
-            key={id}
-            title={friends[id].name}
-          >
-            <Image
-              source={{uri: friends[id].picture}}
-              style={styles.icon}
-            />
-          </MapView.Marker>
-        );
-      });
-  }
-
-  componentDidMount() {
+  getCurrentLocation(callback) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var coords = {};
@@ -79,9 +75,7 @@ export default class Map extends Component {
         coords.latitude = position.coords.latitude;
         coords.longitudeDelta = 0.005;
         coords.latitudeDelta = 0.005;
-        this.setState({
-          stateLocation: coords
-        });
+        callback(coords);
       },
       (error) => {
         alert(error.message);
@@ -114,6 +108,17 @@ export default class Map extends Component {
       );
   }
 
+  moveMapToUser() {
+    this.getCurrentLocation( (coords) => {
+      this.refs.map.animateToRegion(coords, 100);
+    });
+  }
+
+  goToTarget(pinObj){
+    const {targetPin, clearTarget} = this.props
+    this.refs.map.animateToRegion(targetPin, 100);
+  }
+
   renderMarkers() {
     const { pins, targetPin } = this.props;
 
@@ -141,6 +146,27 @@ export default class Map extends Component {
     });
   }
 
+  renderFriends() {
+    const { friends } = this.props;
+    let copy = this.state.friendLocs;
+
+    // renders friends current locations
+    return _.map(copy, (coords, id) => {
+        return (
+          <MapView.Marker
+            coordinate={coords}
+            key={id}
+            title={friends[id].name}
+          >
+            <Image
+              source={{uri: friends[id].picture}}
+              style={styles.icon}
+            />
+          </MapView.Marker>
+        );
+    }) ;
+  }
+
   renderEditButton() {
     const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
 
@@ -156,17 +182,7 @@ export default class Map extends Component {
           hideButton={() => this.setState({selectedPin: undefined})}
         />
       </View>
-    )
-  }
-
-  moveMapToUser() {
-    const {stateLocation} = this.state;
-    this.refs.map.animateToRegion(stateLocation, 2500)
-  }
-
-  goToTarget(pinObj){
-    const {targetPin, clearTarget} = this.props
-    this.refs.map.animateToRegion(targetPin, 250);
+    );
   }
 
   render() {
@@ -181,7 +197,6 @@ export default class Map extends Component {
         <MapView
           ref="map"
           showsUserLocation={true}
-          initialRegion={{ longitudeDelta: 0.005, latitude: currLoc.latitude,longitude: currLoc.longitude, latitudeDelta: 0.005 }}
           region={this.state.position}
           style={styles.map}
           showsCompass={true}
@@ -191,7 +206,7 @@ export default class Map extends Component {
             }
           }
         >
-        
+
         { Object.keys(pins).length !== 0 ? this.renderMarkers.call(this) : void 0 }
 
         { this.state.loaded === true ? this.renderFriends.call(this) : void 0 }
@@ -215,30 +230,24 @@ export default class Map extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#F5FCFF',
-    height: Dimensions.get('window').height,
   },
 
   map: {
-    height: Dimensions.get('window').height/1.15,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: '#000000',
+    flex: 1,
   },
 
   editButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 75,
-    bottom: 90,
+    bottom: 100,
   },
 
   centerButton: {
     position: 'absolute',
     backgroundColor: 'transparent',
     left: Dimensions.get('window').width/2 - 100,
-    bottom: 40,
+    bottom: 50,
     borderRadius: 10,
   },
 
@@ -261,4 +270,3 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
-
