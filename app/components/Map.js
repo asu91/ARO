@@ -26,12 +26,6 @@ export default class Map extends Component {
       dropPinLocation: undefined,
       loaded: false,
       friendLocs: {},
-      stateLocation: {
-        longitude: 38.783913,
-        latitude: -121.409031,
-        longitudeDelta: 0.005,
-        latitudeDelta: 0.005
-      }
     };
   }
 
@@ -51,16 +45,18 @@ export default class Map extends Component {
 
   componentDidMount() {
     this.getCurrentLocation((coords) => {
-      this.setState({
-        stateLocation: coords
-      });
+      this.refs.map.animateToRegion(coords, 100);
     });
   }
 
   componentWillUpdate(nextProps) {
     const {targetPin} = nextProps;
-    if(targetPin.longitude) {
-      this.goToTarget.call(this, targetPin);
+    console.log(this.props.targetPin, "<-- this.props.targetPin")
+    console.log(targetPin, "<-- targetPin next props")
+    if(this.props.targetPin.id !== targetPin.id) {
+      if(targetPin.longitude) {
+        this.goToTarget.call(this, targetPin);
+      }
     }
   }
 
@@ -69,7 +65,12 @@ export default class Map extends Component {
     // sets a firebase listener on each friend
     currLoc.child(friend.id).on("value", function(snap) {
       // updates friend's location in state as they move
-      self.state.friendLocs[friend.id] = snap.val();
+      let friendObj ={};
+      friendObj[friend.id] = snap.val();
+      friendObj = Object.assign({}, self.state.friendLocs, friendObj);
+      self.setState({
+        friendLocs: friendObj
+      });
     });
   }
 
@@ -120,9 +121,12 @@ export default class Map extends Component {
     });
   }
 
-  goToTarget(pinObj){
-    const {targetPin, clearTarget} = this.props
-    this.refs.map.animateToRegion(targetPin, 100);
+  goToTarget(targetPin){
+    let goTo= Object.assign({}, targetPin, {
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005
+    });
+    this.refs.map.animateToRegion(goTo, 100);
   }
 
   renderMarkers() {
@@ -201,7 +205,6 @@ export default class Map extends Component {
           ref="map"
           showsUserLocation={true}
           initialRegion={stateLocation}
-          region={stateLocation}
           style={styles.map}
           showsCompass={true}
           onLongPress={ (e) => {
