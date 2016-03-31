@@ -45,12 +45,11 @@ class LogIn extends Component {
             action.logOut();
           }}
           onError={function(data){
-            console.log("*******ERROR");
             console.log(data);
           }}
           onCancel={function(){
             //when user hits cancel on fb sigin
-            console.log("******User cancelled.");
+            console.log("User cancelled.");
           }}
           onPermissionsMissing={function(data){
             console.log(data);
