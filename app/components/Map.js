@@ -174,12 +174,14 @@ export default class Map extends Component {
   }
 
   renderEditButton() {
-    const { updatePins, updateRecent, deletePin, setTarget, targetPin } = this.props;
+    const { friends, updatePins, updateRecent, deletePin, setTarget, targetPin, shareWithFriend } = this.props;
 
     return (
       <View style={styles.editButton}>
         <PinEditButton
           pin={this.state.selectedPin}
+          friends={friends}
+          shareWithFriend={shareWithFriend}
           updatePins={updatePins}
           updateRecent={updateRecent}
           deletePin={deletePin}

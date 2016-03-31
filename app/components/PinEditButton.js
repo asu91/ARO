@@ -1,5 +1,6 @@
 import React, { Component, AlertIOS , View, StyleSheet} from 'react-native';
 import Button from 'react-native-button';
+import { Actions } from 'react-native-router-flux';
 
 export default class PinEditButton extends Component{
   constructor(props) {
@@ -14,7 +15,7 @@ export default class PinEditButton extends Component{
   }
 
   render() {
-    const { pin, deletePin, hideButton, setTarget } = this.props;
+    const { pin, deletePin, friends, hideButton, setTarget, shareWithFriend } = this.props;
     return(
       <Button
         style={[styles.bubble, styles.button]}
@@ -31,6 +32,10 @@ export default class PinEditButton extends Component{
             {
               text: 'Edit Title',
               onPress: this.editTitle.bind(this)
+            },
+            {
+              text: 'Share',
+              onPress: () => { Actions.friends({ onPress: shareWithFriend.bind( null, pin ), friends: friends }) },
             },
             {
               text: 'Set Target',
