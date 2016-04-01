@@ -116,7 +116,7 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'column',
     borderRadius: 5,
-    borderBottomWidth: 1.5,
+    borderBottomWidth: 1,
     borderColor: '#2e8b7d',
   },
   title: {

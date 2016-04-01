@@ -89,7 +89,7 @@ export default class ViewContainer extends Component {
           /> : void 0 }
         <View style={styles.ViewMenu}>
         { this.state.view != 'ar' ? <Button
-            style={styles.ViewButton}m
+            style={styles.ViewButton}
             onPress={this.toggleView.bind(this, 'ar')}
           >
             AR
