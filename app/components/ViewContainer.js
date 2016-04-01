@@ -12,7 +12,7 @@ export default class ViewContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'map'
+      view: 'ar'
     };
   }
 
@@ -89,7 +89,7 @@ export default class ViewContainer extends Component {
           /> : void 0 }
         <View style={styles.ViewMenu}>
         { this.state.view != 'ar' ? <Button
-            style={styles.ViewButton}
+            style={styles.ViewButton}m
             onPress={this.toggleView.bind(this, 'ar')}
           >
             AR
@@ -116,7 +116,7 @@ export default class ViewContainer extends Component {
 const styles = StyleSheet.create({
   ViewMenu: {
     position: 'absolute',
-    top: 25,
+    top: 28,
     right: 10,
     flexDirection: 'row',
   },
