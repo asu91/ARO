@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   ViewMenu: {
     position: 'absolute',
     top: 25,
-    right: 25,
+    right: 10,
     flexDirection: 'row',
   },
   ViewButton: {
